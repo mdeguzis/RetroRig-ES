@@ -1,0 +1,9 @@
+[RetroRig_ROMs]
+    comment = Public ROMs share
+    path = path_temp
+    public = yes
+    read only = no
+    writeable = yes
+    browseable = yes
+    guest ok = yes
+

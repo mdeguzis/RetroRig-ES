@@ -1,0 +1,43 @@
+########################################################
+# Ignore OS generated files 
+########################################################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+######################################################## 
+# Ignore logs so they are not uploaded during commits  
+# ignore any testing files
+########################################################
+logs/*
+debug.log
+/.project
+testing-beta/*
+######################################################## 
+# Ignore some more files created during installation  
+########################################################
+Artwork/Atari Lynx/
+Artwork/GBA/
+Artwork/GBC/
+Artwork/Gamecube/
+Artwork/MAME/
+Artwork/NES/
+Artwork/Nintendo 64/
+Artwork/PS1/
+Artwork/PS2/
+Artwork/PSP/
+Artwork/SNES/
+Artwork/Sega Genesis/
+Artwork/Sega Master System/
+Artwork/Wii/
+BIOS/
+ROMs/
+Saves/
+emulators/PPSSPP/Karen_angelXwind/
+emulators/PPSSPP/PPSSPPSDL
+emulators/PPSSPP/assets/
