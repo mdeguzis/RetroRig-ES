@@ -23,7 +23,7 @@ Thank you for your patience.
 
 ## Demo Video
 
-[![ScreenShot](http://i.imgur.com/CTrQIKI.png)](https://www.youtube.com/watch?v=G49MMQi2zHE)
+Coming in the future. Stay tuned
 
 ## Warning
 
