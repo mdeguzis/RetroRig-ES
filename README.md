@@ -6,7 +6,7 @@ RetroRig-ES Project
 #### Warning!!!
 This project is very much in VERY early stages and should not be used. Please keep a close eye on commits. When this message is removed, a stable working version will likely be in place.
 
-RetroRig-ES is shell script to setup a Linux x86_64 system with several emulators, and EmulationStation as the graphical front end.  I wanted to take as much out of the equation as possible for users to configure themselves. The inspiration for doing this lies almost completely with the RetroPie Project. I wanted to provide something similar, but with EmulationStation, and x86_64. The "ES" fork of RetroRig was meant to give a hard look at using EmulationStation as the front end, rather than XBMC. This project is intended to be run on Ubuntu (currently 14.04 LTS), and a gamepad / controller. At some point in the future, I want to try and branch this to other distributions if possible. Please see the features page on the wiki for ideas and future plans.
+RetroRig-ES is preconfigured setup of scripts, configurations, and emulators for x86_64 Linux systems. It consists of a shell script to setup a Linux x86_64 system with several emulators, the controls for gamepad, and EmulationStation as the graphical front end.  I wanted to take as much out of the equation as possible for users to configure themselves. The inspiration for doing this lies almost completely with the RetroPie Project. I wanted to provide something similar, but with EmulationStation, and x86_64. The "ES" fork of RetroRig was meant to give a hard look at using EmulationStation as the front end, rather than XBMC. This project is intended to be run on Ubuntu (currently 14.04 LTS), and a gamepad / controller. At some point in the future, I want to try and branch this to other distributions if possible. Please see the features page on the wiki for ideas and future plans.
 
 I invite you to challenge the configs and scripts to help improve my ultimate goal to provide
 an easy way to get up and running with RetroGaming on x86_64 Linux systems. Pull requests or
@@ -17,7 +17,7 @@ You can follow RetroRig-ES's development by staring the github.com page, or with
 located under the irc.freenode.net network. The main op is me "ProfessorKaos64". You can also follow me on twitter with the username "@N3RD42". There is also a [forum](http://libregeek.org/forum/index.php) for any and all discussion.
 
 **Please be advised:**      
-RetroRig requires sudo access to inject the xboxdrv 
+RetroRig-ES requires sudo access to inject the xboxdrv 
 init sripts, install softwate via apt-get, and other 
 various items. All script code and config files are 
 available for review.
@@ -29,8 +29,6 @@ Thank you for your patience.
 Coming in the future. Stay tuned
 
 ## Warning
-
-RetroRig was originally meant to be a standalone setup for EmulationStation on Ubuntu from bootup to shutdown. If you wish to launch RetroRig-ES on your own, simply remove the autostart entry. RetorRig-ES uses it's own dotfile so you can continue to use your own EmulationStation implementation. RetroRig-ES makes use of a custom-patched scripts to allow hotplugging for support controllers when possible, as well as proper dual monitor support. It is mainly targeted at folks wishing to repurpose an old physical PC. I do hope to corrrect some of that in due time, but right now, it is more of an "extra" or a "test bed."
 
 This is mainly targeted at folks wishing to repurpose a spare physical PC. VirtualBox support exists, 
 (to an extent), but can behave erratcially with emulator speed/framerates and is not advised. I do
