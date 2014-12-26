@@ -3,7 +3,7 @@ RetroRig-ES Project
 ![alt text](http://i.imgur.com/Irgv0Fx.png "RetroRig")
 ###### [Version 0.0.1]
 
-RetroRig-ES is shell script to setup a Linux x86_64 system with several emulators, and EmulationStation as the graphicalfront end.The inspiration for doing this lies almost completely with the RetroPie Project. I wanted to provide something similar, but with EmulationStation, and x86_64. The "ES" fork of RetroRig was meant to give a hard look at using EmulationStation as the front end, rather than XBMC. This project is intended to be run on Ubuntu (currently 14.04 LTS), and a gamepad / controller. At some point in the future, I want to try and branch this to other distributions if possible. Please see the features page on the wiki for ideas and future plans.
+RetroRig-ES is shell script to setup a Linux x86_64 system with several emulators, and EmulationStation as the graphical front end.The inspiration for doing this lies almost completely with the RetroPie Project. I wanted to provide something similar, but with EmulationStation, and x86_64. The "ES" fork of RetroRig was meant to give a hard look at using EmulationStation as the front end, rather than XBMC. This project is intended to be run on Ubuntu (currently 14.04 LTS), and a gamepad / controller. At some point in the future, I want to try and branch this to other distributions if possible. Please see the features page on the wiki for ideas and future plans.
 
 I invite you to challenge the configs and scripts to help improve my ultimate goal to provide
 an easy way to get up and running with RetroGaming on x86_64 Linux systems. Pull requests or
@@ -50,7 +50,7 @@ For all other features and future plans, please see the [wiki](https://github.co
 * Preset Controller mappings for supported gamepads
 * Resolution presets/custom selection for emulators that support it
 * Save state, load state, exit emulators with gamepad
-* A cobbled together "first run" state of RCB with a blank games database and pre-set configs
+* A cobbled together "first run" state of EmulationStation with a blank games database and pre-set configs
 * Functions to update git repo, emulator binaries, upgrade system and more
 * Automatically start RetroRig-ES
 * ROM pre-loader
