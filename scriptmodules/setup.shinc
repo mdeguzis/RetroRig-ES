@@ -116,8 +116,8 @@ function rrs_prepareFolders()
 	pathlist+=("$config_home/.mednafen")
 	pathlist+=("$config_home/.local/share/Steam/config")
 
-	# xbmc folders
-	pathlist+=("$xbmc_home/userdata/keymaps")
+	# emulationstation folders
+	pathlist+=("$config_home/.emulationstation")
 
 	#BIOS folder(s)
 	pathlist+=("$rootdir/BIOS/MESS")
