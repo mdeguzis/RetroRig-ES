@@ -1,9 +1,9 @@
 #!/bin/bash
 ############################################################################
-# RetroRig Main Setup Script
+# RetroRig-ES Main Setup Script
 # This is a small script to copy over configuration files for emulators
 # append a "-x" on the end above for debugging if need be
-# Version 0.9.7
+# Version 0.0.1
 #
 # Note: Syscalls are now abstracted!
 # Please see syscalls-<pkg_mgr>.shinc for more.
@@ -167,7 +167,7 @@ if [ "$script_invoke_path" == "/usr/bin/retrorig-setup" ]; then
 
 	#install method via system folder
 	
-	scriptdir=/usr/share/RetroRig
+	scriptdir=/usr/share/RetroRig-ES
 	
 else
 
@@ -243,17 +243,17 @@ if [[ $# -lt 1 ]]; then
     then
         user=$(whoami)
     fi
-    rootdir=/home/$user/RetroRig
+    rootdir=/home/$user/RetroRig-ES
 elif [[ $# -lt 2 ]]; then
     user=$1
-    rootdir=/home/$user/RetroRig
+    rootdir=/home/$user/RetroRig-ES
 elif [[ $# -lt 3 ]]; then
     user=$1
     rootdir=$2
 fi
 
 if [[ $user == "root" ]]; then
-echo "Please start the RetroRig Setup Script not as user 'root', but, e.g., as user 'pi'."
+echo "Please start the RetroRig-ES Setup Script not as user 'root', but, e.g., as user 'pi'."
     exit
 fi
 
@@ -336,12 +336,12 @@ title2="www.libregeek.org"
 printf "%*s\n" $(((${#title2}+$COLUMNS)/2)) "$title2"
 sleep 2s
 
-# set the directory '$home/.retrorig' as a variable for easy reading
-xbmc_home="$home/.retrorig/.xbmc"
+# set the directory '$home/.retrorig-es' as a variable for easy reading
+es_home="$home/.retrorig-es-es/.emulationstation"
 
 # set config_home for all the dotfiles that need copied down for emulators
 # and other utilities
-config_home="$home/.retrorig"
+config_home="$home/.retrorig-es"
 
 #set RetroRig configuration file
 configFile=$config_home/retrorig.cfg
@@ -351,14 +351,14 @@ cd "$rootdir"
 #################################################################
 
 while true; do
-    cmd=(dialog --backtitle "LibreGeek.org RetroRig 
-Installer" --menu "| Main Menu (v.0.9.8) | \
+    cmd=(dialog --backtitle "LibreGeek.org RetroRig-ES 
+Installer" --menu "| Main Menu (v.0.0.1) | \
  			 BIOS files are NOT provided!" 17 62 16)
     options=(1 "Install RetroRig" 
-	     2 "Retro Rig Settings" 
+	     2 "RetroRig Settings" 
 	     3 "Pull latest files from git" 
 	     4 "Update emulator binaries"
-	     5 "Update XBMC" 
+	     5 "Update EmulationStation" 
 	     6 "Update System"
 	     7 "Upgrade System (Use with caution)"  
 	     8 "Reboot PC"

@@ -118,6 +118,7 @@ function rrs_prepareFolders()
 
 	# emulationstation folders
 	pathlist+=("$config_home/.emulationstation")
+	pathlist+=("$config_home/.emulationstation/themes")
 
 	#BIOS folder(s)
 	pathlist+=("$rootdir/BIOS/MESS")
@@ -263,7 +264,7 @@ function rrs_gamepad ()
 # some residual chown/chmod text shows up at times, clear
 clear
 
-cmd=(dialog --backtitle "LibreGeek.org RetroRig Installer" --menu "| Gamepad Select | \
+cmd=(dialog --backtitle "LibreGeek.org RetroRig-ES Installer" --menu "| Gamepad Select | \
 			 Request any new Gamepads via github!" 16 62 16)
 options=(1 "Xbox 360 Controller (wireless)"
 	 2 "Xbox 360 Controller (USB)"
@@ -685,15 +686,22 @@ function rrs_software()
 	pkg-config software-properties-common dconf-tools jstest-gtk \
 	sixad libusb-0.1-4 antimicro bluez getpos unclutter \
 	joydetect sudo ttf-dejavu-core ttf-dejavu-core ttf-liberation \
-	wmctrl
+	wmctrl gdebi
 
+	# install emulationstation and its dependencies
+	# gdebi -n emulationstation.deb could be used instead to gather these automatically
+	$cmd_install_pkg libasound2 libboost-filesystem1.54.0 libboost-system1.54.0 libc6 libfreeimage3 libfreetype6 libgcc1 libgl1-mesa-glx libgl1 libsdl2-2.0-0 libstdc++6
+	wget --tries=50 -P /tmp "http://www.emulationstation.org/downloads/releases/emulationstation_amd64_latest.deb"
+	cd /tmp
+	$cmd_manual_pkg_install /tmp/emulationstation_amd64_latest.deb
+	
 	#wii motion support
 	$cmd_install_pkg libcwiid1 lswm wmgui wminput
 
 	# call RetroRig's custom deb install for ps3 hotplugging. 
 	# Thankfully our package still works with the Xbox 360 implementation,
 	# so it is now part of the standard install set
-	rrs_xbmc_patched
+	rrs_es_extras
 
 	# Disable apport, as bug apport-gtk does nothing but interrupt
 	# User can always enable this again
@@ -710,7 +718,7 @@ function rrs_software()
 	__postMSGs="$__postMSGs For VirtualBox users, please see the wiki under 'Installation' for notes on running RetroRig under a virtual machine! At the minimum, you will need to add a filter for your controller "
 
 	if [[ ! -z $__postMSGs ]]; then
-		dialog --backtitle "LibreGeek.org - RetroRig Setup. Installation folder: $rootdir" --msgbox "$__postMSGs\n\nSoftware install complete. See debug.log for more details. Continuing on to emulator installs..." 18 60
+		dialog --backtitle "LibreGeek.org - RetroRig-ES Setup. Installation folder: $rootdir" --msgbox "$__postMSGs\n\nSoftware install complete. See debug.log for more details. Continuing on to emulator installs..." 18 60
 	fi
 
 }
@@ -725,18 +733,9 @@ function rrs_debug()
 	echo "Path(s): '$xbmc_home/userdata'" >> "$rootdir/logs/debug.log"
 	h_filechecker "$xbmc_home/userdata" "$rootdir/logs/debug.log"
 
-	# RCB
-	echo "Essential files: ROM Collection Browser:" >> "$rootdir/logs/debug.log"
-	echo "Path: '$xbmc_home/addons/script.games.rom.collection.browser'" >> "$rootdir/logs/debug.log"
-	h_filechecker "$xbmc_home/addons/script.games.rom.collection.browser"	
-	echo "Path: '$xbmc_home/userdata/addon_data/script.games.rom.collection.browser'" >> "$rootdir/logs/debug.log"
-	h_filechecker "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser" "$rootdir/logs/debug.log"
-
 	# applications
-	h_filechecker "/usr/lib/xbmc/xbmc.bin"
-	h_filechecker "/usr/bin/xbmc-retrorig"
 	h_filechecker "/usr/share/applications/RetroRig.desktop"
-	h_filechecker "/usr/share/applications/startXBMC.sh"
+	h_filechecker "/usr/share/applications/startRetroES.sh"
 	h_filechecker "/usr/share/applications/gp_autodetect_xbmc.sh"
 	h_filechecker "$xdg_desktop_dir/RetroRig.desktop"
 	h_filechecker "$xdg_pictures_dir/retro-icon.png"
@@ -785,13 +784,13 @@ function rrs_debug()
 
 	echo -e "\nEnd of log file" >> "$rootdir/logs/debug.log" >> "$rootdir/logs/debug.log"
 
-	dialog --backtitle "LibreGeek.org - RetroRig Setup. Installation folder: $rootdir" --msgbox "Debug log was generated in $rootdir/logs/debug.log. Additional logs can be found in the folder $rootdir/logs/." 10 60 
+	dialog --backtitle "LibreGeek.org - RetroRig-ES Setup. Installation folder: $rootdir" --msgbox "Debug log was generated in $rootdir/logs/debug.log. Additional logs can be found in the folder $rootdir/logs/." 10 60 
 
 	#corect permissions
 	h_correct_perms
 }
 
-function rrs_xbmc_patched()
+function rrs_es_extras()
 {
 
 	clear
@@ -800,95 +799,54 @@ function rrs_xbmc_patched()
 
 	# Custom script for reboots/hotplugging
 	if [ -f "$scriptdir/XBMC-cfgs/extra/gp_autodetect_xbmc.sh" ]; then
-		cp -v "$scriptdir/XBMC-cfgs/extra/gp_autodetect_xbmc.sh" "/usr/share/applications/"
+		cp -v "$scriptdir/es-cfgs/extra/gp_autodetect_xbmc.sh" "/usr/share/applications/"
 	fi
 
 	if [ -f "$scriptdir/XBMC-cfgs/extra/RetroRig.desktop" ]; then
-		cp -v "$scriptdir/XBMC-cfgs/extra/RetroRig.desktop" "/usr/share/applications/"
+		cp -v "$scriptdir/es-cfgs/extra/RetroRig.desktop" "/usr/share/applications/"
 	fi
 
 	if [ -f "$scriptdir/XBMC-cfgs/extra/RetroRig.desktop" ]; then
-		cp -v "$scriptdir/XBMC-cfgs/extra/RetroRig.desktop" "$xdg_desktop_dir"
+		cp -v "$scriptdir/es-cfgs/extra/RetroRig.desktop" "$xdg_desktop_dir"
 	fi
 
 	if [ -f "$scriptdir/XBMC-cfgs/extra/retro-icon.png" ]; then
-		cp -v "$scriptdir/XBMC-cfgs/extra/retro-icon.png" "/usr/share/icons/"
+		cp -v "$scriptdir/es-cfgs/extra/retro-icon.png" "/usr/share/icons/"
 	fi
 
-	if [ -f "$scriptdir/XBMC-cfgs/extra/startXBMC.sh" ]; then
-		cp -v "$scriptdir/XBMC-cfgs/extra/startXBMC.sh" "/usr/share/applications/"
+	if [ -f "$scriptdir/es-cfgs/extra/startRetroES.sh" ]; then
+		cp -v "$scriptdir/es-cfgs/extra/startRetroES.sh" "/usr/share/applications/"
 	fi
 
 	# insert restarting xboxdrv specifically into /etc/sudoers
-	cat "$scriptdir/XBMC-cfgs/extra/sudoers.txt" >> "/etc/sudoers"
+	cat "$scriptdir/es-cfgs/extra/sudoers.txt" >> "/etc/sudoers"
 
 	# fix their permissions
 	chmod 755 "/usr/share/applications/gp_autodetect_xbmc.sh" 
 	chmod 755 "/usr/share/applications/RetroRig.desktop"
-	chmod 755 "/usr/share/applications/startXBMC.sh" 
-
-	# remove old xbmc-bin, install our patched version
-	$cmd_remove_pkg xbmc xbmc-bin
-
-	# remove old /tmp files if they exist
-	rm -f "/tmp/xbmc_gotham-patched-for-retrorig-patchlevel-*-0trusty.deb"
-	rm -f "/tmp/xbmc-bin_gotham-patched-for-retrorig-patchlevel-*-0trusty.deb"
-
-	#xbmc works fine w/o these librarys, but generates error messages in its log file
-	$cmd_install_pkg libcec2 libcrystalhd3
-
-	# release aptitude hold for upgrade/install
-	$cmd_unhold_pkg xbmc
-
-	echo "Installing xbmc"
-	$cmd_install_pkg xbmc
-
-	# hold package after install against upgrades
-	$cmd_hold_pkg xbmc
-
-	# get SHA1 tag from patched XBMC version
-	sha1=$(file /usr/lib/xbmc/xbmc.bin | cut -f 19 -d ' '| cut -f 2 -d '='|cut -f 1 -d ',')
+	chmod 755 "/usr/share/applications/startRetroES.sh" 
 
 	# insert SHA1 tag to rescan by replacing the placeholder
-	if [ -f "$scriptdir/XBMC-cfgs/extra/rescan" ]; then
-		cp -v "$scriptdir/XBMC-cfgs/extra/rescan" "/etc/init.d/rescan"
+	#
+	# THIS WILL NEED ADJUSTED FOR RETRORIG-ES Hotplugging!
+	#
+	if [ -f "$scriptdir/es-cfgs/extra/rescan" ]; then
+		cp -v "$scriptdir/es-cfgs/extra/rescan" "/etc/init.d/rescan"
 	fi
 
 	sed -i "s/placeholderSHA1/$sha1/" "/etc/init.d/rescan"
 
-	# Create our on start file so we have use our own dotfile, rather than make the user
-	# use their existing .xbmc dotfile
-	if [ -f "$scriptdir/XBMC-cfgs/extra/xbmc-retrorig" ]; then
-		cp -v "$scriptdir/XBMC-cfgs/extra/xbmc-retrorig" "/usr/bin"
-	fi
-
+	# Correct permissions on rescan service
 	chmod 755 "/etc/init.d/rescan"  
 
 	# Link the startXBMC.sh startup script to /usr/bin, so users can call "retrorig" at will
-	ln -sf "/usr/share/applications/startXBMC.sh" "/usr/bin/retrorig"
+	ln -sf "/usr/share/applications/startRetroES.sh" "/usr/bin/retrorig-es"
 
 	# update init scripts
 	$update_init_rescan
 
 	# start service
 	$cmd_rescan_start
-
-	# Tell aptitude to hold our packages to avoid unwanted upgrades
-	# Please refer to the top of this script, where the hold is released for upgrade purposes
-	$cmd_hold_pkg xbmc xbmc-bin 
-
-	echo "*****"
-	echo "*****"
-	echo "***** please fix me! Background for xbmc *****"
-	echo "*****"
-	echo "*****"
-	# somewhere must be a command to set these files
-	# in guisetting.xml
-	# The settings should point directly to 
-	# $scriptdir/Artwork/XBMC/XBMC-logo-Ace-Skin.png and gears.png
-	ln -sf $scriptdir/Artwork/XBMC/* "$rootdir/Artwork/XBMC/"
-	chown $user $rootdir/Artwork/XBMC/*
-	chgrp $user $rootdir/Artwork/XBMC/*
 
 	#corect permissions
 	h_correct_perms
@@ -904,54 +862,12 @@ function rrs_retrorig_cfgs()
 	chgrp "$user" "$config_home/scripts"
 }
 
-function rrs_xbmc_cfgs()
+function rrs_es_cfgs()
 {
 	clear
-
-	# set local vars for this function
-	local gamedb_org="$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/MyGames.db"
-	local gamedb_tmp="/tmp/MyGames.db"
-
-	# back the current MyGames.db file if it exists	
-	if [[ -d "$gamedb_org" ]]; then
-		cp -v "$gamedb_org" "/tmp"
-	fi
-
-	# xbmc does not (at least for Ubuntu's repo pkg) load the
-	# dot files without loading XBMC at least once, so let's copy ours in first
-
-	# Copy in default folder base from first run:	
-	cp -Rv "$scriptdir/XBMC-cfgs/addons" "$xbmc_home"
-	cp -Rv "$scriptdir/XBMC-cfgs/userdata" "$xbmc_home"
-
-	# Restore MyGames.db if it exists
-	if [[ -d "$gamedb_tmp" ]]; then
-		# copy file over
-		cp -v "$gamedb_tmp" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/"
-		# remove /tmp file
-		# rm -f "$gamedb_tmp"
-	fi
-
-	# set the system user to an absolute value.
-	# RCB and some config files don't like using $config_home, rather /home/test/
-	# Let's change the config files to reflect the current username
-	sed -i "s|/home/test/|/home/$user/|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-
-	# Change hardcoded paths in "$xbmc_home/userdata/guisettings.xml" (Ace XBMC skin adds these)
-	#
-	# Side note: For the Ace XBMC theme, backgrounds are loaded into "$xbmc_home/userdata/Database/Textures13.db"
-	# Therefore, it is VERY important to do a fresh install of the Ace theme, and configure from scatch to avoid
-	# corruption, segfaults, or other oddities.
-	sed -i "s|installdir_temp|$rootdir|g" "$xbmc_home/userdata/guisettings.xml"
-
-	# XBMC custom settings launchers (Advanced Launcher)
-	sed -i "s|config_temp|$config_home|g" "$xbmc_home/userdata/addon_data/plugin.program.advanced.launcher/launchers.xml"
-
-	# echo user change
-	echo "The user applied to configuration files was: $user"
-
-	# correct permissions
-	h_correct_perms
+	
+	# ES configs will go here. Include sed operations for temp replacements
+	
 }
 
 function rrs_done()
@@ -963,7 +879,7 @@ function rrs_done()
 	# Please see commit efeb2bd for legacy code. This message will be 
 	# Removed in due time.
 
-       	dialog --backtitle "LibreGeek.org - RetroRig Setup. Installation folder: $rootdir" --msgbox "Finished main install tasks.\n\nYou now have to copy roms to the roms folders. \nThis can be done via SSH, Samba, or via your graphic folder manager (please see settings menu for more)\n\nAll current config folders used were appended with .old for restoration purposes.\n\nSteam Users: If you had Steam installed ahead of time, your controller should work. Otherwise, you will need to setup the controller in the Steam settings menu in Big Picture Mode or optionally run the gamepad setup again." 18 60
+       	dialog --backtitle "LibreGeek.org - RetroRig-ES Setup. Installation folder: $rootdir" --msgbox "Finished main install tasks.\n\nYou now have to copy roms to the roms folders. \nThis can be done via SSH, Samba, or via your graphic folder manager (please see settings menu for more)\n\nAll current config folders used were appended with .old for restoration purposes.\n" 18 60
 
 	# correct permissions
 	h_correct_perms
@@ -980,23 +896,20 @@ function rrs_showHelp()
     clear
     echo ""
     echo -e "\e[0"$BARCOLOR$"============================================================\e[0m"
-    echo -e "\e[0"$TITLECOLOR$"RetroRig Help File\e[0m"
+    echo -e "\e[0"$TITLECOLOR$"RetroRig-ES Help File\e[0m"
     echo -e "\e[0"$BARCOLOR$"============================================================\e[0m"
     echo ""
-    echo "This script installs XBMC as a backend, many emulators, 
-and ROM Collection Browser as the graphical front end. 
-Because it needs to install some APT packages it has to be 
-run with root priviliges."
+    echo "This script installs several tools and emulators as backends, and EmulationStation as the graphical front end. Because it needs to install some APT packages it has to be run with root priviliges."
 
     echo ""
     echo "When using..."
-    echo "sudo ./retrorig_setup.sh
+    echo "sudo ./retrorig-es-setup.sh
 The installation directory is:"
 echo -e "\e[0$PATHCOLOR$xbmc_home/RetroRig for the current user\e[0m"
 
     echo ""
     echo "When using..."
-    echo "sudo ./retrorig_setup.sh USERNAME
+    echo "sudo ./retrorig-es-setup.sh USERNAME
 The installation directory is:"
 echo -e "\e[0$PATHCOLOR/$xbmc_home/USERNAME/RetroRig for user USERNAME\e[0m"
 
@@ -1066,7 +979,7 @@ function rrs_reboot()
 
 	#confirm reboot is the intended action
 	dialog --title "Confirm yes/no" \
-	--backtitle "LibreGeek.org RetroRig Installer" \
+	--backtitle "LibreGeek.org RetroRig-ES Installer" \
 	--yesno "Are you sure you want to reboot?"  6 0
 
 	# Get exit status

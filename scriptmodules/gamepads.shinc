@@ -106,7 +106,7 @@ function gp_ps3_blu()
 	###########################################################
 
 	# copy in fresh copy of RCB's config.xml to make replacements
-	cp -v "$scriptdir/XBMC-cfgs/userdata/addon_data/script.games.rom.collection.browser/config.xml" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/"
+	cp -v "$scriptdir/XBMC-cfgs/es_systems.cfg" "$es_home/userdata/addon_data/script.games.rom.collection.browser/"
 
 	# blacklist xpad
 	cp -v "$scriptdir/init-scripts/ps3_blu_controller/blacklist.conf" "/etc/modprobe.d/"
@@ -136,12 +136,12 @@ function gp_ps3_blu()
 
 	old_pre="ps2_pre"
 	old_post="ps2_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_pcsx2_ps3_blu.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_pcsx2_ps3_blu.joystick.xml"
 	# The line below is only for good measure
 	new_post="killall pcsx2 antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
  
 
 	#####################
@@ -150,12 +150,12 @@ function gp_ps3_blu()
 
 	old_pre="psp_pre"
 	old_post="psp_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_ppsspp_ps3_blu.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_ppsspp_ps3_blu.joystick.xml"
 	# The line below is only for good measure
 	new_post="killall antimicro"	
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
 
 	#####################
 	# Mednafen (PSX/PS1)
@@ -163,12 +163,12 @@ function gp_ps3_blu()
 
 	old_pre="ps1_pre"
 	old_post="ps1_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_ps1_ps3_blu.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_ps1_ps3_blu.joystick.xml"
 	# The line below is only for good measure
 	new_post="killall antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
 
 	#####################
 	# Mednafen (general)
@@ -176,12 +176,12 @@ function gp_ps3_blu()
 
 	old_pre="med_gen_pre"
 	old_post="med_gen_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_gen_ps3_blu.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_gen_ps3_blu.joystick.xml"
 	# The line below is only for good measure
 	new_post="killall antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
 
 	#########################
 	# Dolphin (Gamecube/Wii)
@@ -189,12 +189,12 @@ function gp_ps3_blu()
 
 	old_pre="dolphin_pre"
 	old_post="dolphin_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_dolphin_ps3_blu.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_dolphin_ps3_blu.joystick.xml"
 	# The line below is only for good measure
 	new_post="killall antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
 
 
 	################################
@@ -203,12 +203,12 @@ function gp_ps3_blu()
 
 	old_pre="gens_pre"
 	old_post="gens_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_gensgs_ps3_blu.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_gensgs_ps3_blu.joystick.xml"
 	# The line below is only for good measure
 	new_post="killall antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
 
 	# The PS3 pairing process should be handled interactively in a seperate function:
 	gp_ps3_blu_main
@@ -425,7 +425,7 @@ function ps3_set_ctrl_assignments()
 	echo -e "\nController ID/MAC Address applied to XBMC controls was:\n$PS3_MAC_BLU \n"
 
 	# copy over default keyboard file:
-	cp "$scriptdir/gamepad-cfgs/ps3_blu_controller/keyboard.xml" "$xbmc_home/userdata/keymaps/"
+	cp "$scriptdir/gamepad-cfgs/ps3_blu_controller/keyboard.xml" "$es_home/userdata/keymaps/"
 
 	# Copy our keymap to the regular .xbmc dotfile directory if keyboard.xml exists:
 	if [[ -f "$home/.xbmc/userdata/keymaps/keyboard.xml" ]]; then
@@ -442,7 +442,7 @@ function ps3_set_ctrl_assignments()
 	PS3_MAC_OLD="00:00:00:00:00:00"
 
 	# Replace MAC Address for ***CONTROLLER 1 ONLY!*** This will be used to control XBMC		
-	sed -i "s|$PS3_MAC_OLD|$PS3_MAC_BLU|g" "$xbmc_home/userdata/keymaps/keyboard.xml"
+	sed -i "s|$PS3_MAC_OLD|$PS3_MAC_BLU|g" "$es_home/userdata/keymaps/keyboard.xml"
 	sleep 2s
 
 }
@@ -831,7 +831,7 @@ function gp_ps3_usb()
 	cp -v "$scriptdir/init-scripts/ps3_usb_controller/blacklist.conf" "/etc/modprobe.d/"
 
 	# copy over default keyboard file:
-	cp -v "$scriptdir/gamepad-cfgs/ps3_usb_controller/keyboard.xml" "$xbmc_home/userdata/keymaps/keyboard.xml"
+	cp -v "$scriptdir/gamepad-cfgs/ps3_usb_controller/keyboard.xml" "$es_home/userdata/keymaps/keyboard.xml"
 
 	##############################################################
 	# Set number of controllers for /etc/default/xboxdrv
@@ -889,7 +889,7 @@ RetorRig loads to use the gamepad" 14 60
 	###########################################################
 
 	# copy in fresh copy of RCB's config.xml to make replacements
-	cp -v "$scriptdir/XBMC-cfgs/userdata/addon_data/script.games.rom.collection.browser/config.xml" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/"
+	cp -v "$scriptdir/XBMC-cfgs/es_systems.cfg" "$es_home/userdata/addon_data/script.games.rom.collection.browser/"
 
 	# blacklist xpad
 	cp -v "$scriptdir/init-scripts/ps3_blu_controller/blacklist.conf" "/etc/modprobe.d/"
@@ -919,12 +919,12 @@ RetorRig loads to use the gamepad" 14 60
 
 	old_pre="ps2_pre"
 	old_post="ps2_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_pcsx2_ps3_usb.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_pcsx2_ps3_usb.joystick.xml"
 	# The line below is only for good measure
 	new_post="killall pcsx2 antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
  
 
 	#####################
@@ -933,12 +933,12 @@ RetorRig loads to use the gamepad" 14 60
 
 	old_pre="psp_pre"
 	old_post="psp_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_ppsspp_ps3_usb.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_ppsspp_ps3_usb.joystick.xml"
 	# The line below is only for good measure
 	new_post="killall antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
 
 	#####################
 	# Mednafen (PSX/PS1)
@@ -946,12 +946,12 @@ RetorRig loads to use the gamepad" 14 60
 
 	old_pre="ps1_pre"
 	old_post="ps1_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_ps1_ps3_usb.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_ps1_ps3_usb.joystick.xml"
 	# The line below is only for good measure
 	new_post="killall antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
 
 	#####################
 	# Mednafen (general)
@@ -959,12 +959,12 @@ RetorRig loads to use the gamepad" 14 60
 
 	old_pre="med_gen_pre"
 	old_post="med_gen_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_gen_ps3_usb.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_gen_ps3_usb.joystick.xml"
 	# The line below is only for good measure
 	new_post="killall antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
 
 	#########################
 	# Dolphin (GameCube/Wii)
@@ -972,12 +972,12 @@ RetorRig loads to use the gamepad" 14 60
 
 	old_pre="dolphin_pre"
 	old_post="dolphin_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_dolphin_ps3_usb.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_dolphin_ps3_usb.joystick.xml"
 	# The line below is only for good measure
 	new_post="killall antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
 
 	################################
 	# Gens GS (Sega CD/32X/Genesis)
@@ -985,12 +985,12 @@ RetorRig loads to use the gamepad" 14 60
 
 	old_pre="gens_pre"
 	old_post="gens_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_gensgs_ps3_usb.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_gensgs_ps3_usb.joystick.xml"
 	# The line below is only for good measure
 	new_post="killall antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
 
 	#update init scripts for xboxdrv
 	$update_init_xboxdrv
@@ -1101,7 +1101,7 @@ function gp_x360_wireless()
 
 	# copy keyboard.xml file for XBMC. Button id numbers are totally diffferent, due to the use of 
 	# the use-dpad-as-button, and use-trigger-as-button options used.
-	cp -v "$scriptdir/gamepad-cfgs/x360_wireless_controller/keyboard.xml" "$xbmc_home/userdata/keymaps"
+	cp -v "$scriptdir/gamepad-cfgs/x360_wireless_controller/keyboard.xml" "$es_home/userdata/keymaps"
 
 	# Copy our keymap to the regular .xbmc dotfile directory if keyboard.xml exists:
 	if [[ -f "$home/.xbmc/userdata/keymaps/keyboard.xml" ]]; then
@@ -1167,7 +1167,7 @@ RetorRig loads to use the gamepad." 14 62
 	###########################################################
 
 	# copy in fresh copy of RCB's config.xml to make replacements
-	cp -v "$scriptdir/XBMC-cfgs/userdata/addon_data/script.games.rom.collection.browser/config.xml" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/"
+	cp -v "$scriptdir/XBMC-cfgs/es_systems.cfg" "$es_home/userdata/addon_data/script.games.rom.collection.browser/"
 
 	# blacklist xpad
 	cp -v "$scriptdir/init-scripts/x360_wireless_controller/blacklist.conf" "/etc/modprobe.d/"
@@ -1194,12 +1194,12 @@ RetorRig loads to use the gamepad." 14 62
 
 	old_pre="ps2_pre"
 	old_post="ps2_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_pcsx2_x360_wireless.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_pcsx2_x360_wireless.joystick.xml"
 	# The line below is only for good measure
 	new_post="killall pcsx2 antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
 
 	#####################
 	# Mednafen (general)
@@ -1207,12 +1207,12 @@ RetorRig loads to use the gamepad." 14 62
 
 	old_pre="med_gen_pre"
 	old_post="med_gen_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_gen_x360_wireless.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_gen_x360_wireless.joystick.xml"
 	# The line below is only for good measure
 	new_post="killall pcsx2 antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
 
 	#####################
 	# Mednafen (PS1/PSX)
@@ -1220,12 +1220,12 @@ RetorRig loads to use the gamepad." 14 62
 
 	old_pre="ps1_pre"
 	old_post="ps1_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_ps1_x360_wireless.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_ps1_x360_wireless.joystick.xml"
 	# The line below is only for good measure
 	new_post="killall pcsx2 antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
 
 	#####################
 	# PPSSPP
@@ -1233,12 +1233,12 @@ RetorRig loads to use the gamepad." 14 62
 
 	old_pre="psp_pre"
 	old_post="psp_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_ppsspp_x360_wireless.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_ppsspp_x360_wireless.joystick.xml"
 	# The line below is only for good measure
 	new_post="killall pcsx2 antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
 
 	###########################
 	# Dolphin  (GameCube/Wii)
@@ -1246,12 +1246,12 @@ RetorRig loads to use the gamepad." 14 62
 
 	old_pre="dolphin_pre"
 	old_post="dolphin_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_ppsspp_x360_wireless.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_ppsspp_x360_wireless.joystick.xml"
 	# The line below is only for good measure
 	new_post="killall pcsx2 antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
 
 	################################
 	# Gens GS (Sega CD/32X/Genesis)
@@ -1259,12 +1259,12 @@ RetorRig loads to use the gamepad." 14 62
 
 	old_pre="gens_pre"
 	old_post="gens_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_gensgs_x360_wireless.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_gensgs_x360_wireless.joystick.xml"
 	# The line below is only for good measure
 	new_post="killall antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
 
 
 	#update init scripts for xboxdrv
@@ -1389,7 +1389,7 @@ function gp_x360_usb()
 
 	# copy keyboard.xml file for XBMC. Button id numbers are totally diffferent, due to the use of 
 	# the use-dpad-as-button, and use-trigger-as-button options used.
-	cp -v "$scriptdir/gamepad-cfgs/x360_usb_controller/keyboard.xml" "$xbmc_home/userdata/keymaps"
+	cp -v "$scriptdir/gamepad-cfgs/x360_usb_controller/keyboard.xml" "$es_home/userdata/keymaps"
 
 	# Copy our keymap to the regular .xbmc dotfile directory if keyboard.xml exists:
 	if [[ -f "$home/.xbmc/userdata/keymaps/keyboard.xml" ]]; then
@@ -1455,7 +1455,7 @@ RetorRig loads to use the gamepad" 14 62
 	###########################################################
 
 	# copy in fresh copy of RCB's config.xml to make replacements
-	cp -v "$scriptdir/XBMC-cfgs/userdata/addon_data/script.games.rom.collection.browser/config.xml" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/"
+	cp -v "$scriptdir/XBMC-cfgs/es_systems.cfg" "$es_home/userdata/addon_data/script.games.rom.collection.browser/"
 
 	# blacklist xpad
 	cp -v "$scriptdir/init-scripts/x360_usb_controller/blacklist.conf" "/etc/modprobe.d/"
@@ -1482,12 +1482,12 @@ RetorRig loads to use the gamepad" 14 62
 
 	old_pre="ps2_pre"
 	old_post="ps2_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_pcsx2_x360_usb.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_pcsx2_x360_usb.joystick.xml & "
 	# The line below is only for good measure
-	new_post="killall pcsx2 antimicro"
+	new_post=" && killall pcsx2 antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
 
 	#####################
 	# Mednafen (general)
@@ -1495,12 +1495,12 @@ RetorRig loads to use the gamepad" 14 62
 
 	old_pre="med_gen_pre"
 	old_post="med_gen_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_gen_x360_usb.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_gen_x360_usb.joystick.xml & "
 	# The line below is only for good measure
-	new_post="killall pcsx2 antimicro"
+	new_post=" && killall antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
 
 	#####################
 	# Mednafen (PS1/PSX)
@@ -1508,12 +1508,12 @@ RetorRig loads to use the gamepad" 14 62
 
 	old_pre="ps1_pre"
 	old_post="ps1_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_ps1_x360_usb.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_ps1_x360_usb.joystick.xml & "
 	# The line below is only for good measure
-	new_post="killall pcsx2 antimicro"
+	new_post=" && killall pcsx2 antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
 
 	#####################
 	# PPSSPP
@@ -1521,12 +1521,12 @@ RetorRig loads to use the gamepad" 14 62
 
 	old_pre="psp_pre"
 	old_post="psp_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_ppsspp_x360_usb.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_ppsspp_x360_usb.joystick.xml & "
 	# The line below is only for good measure
-	new_post="killall pcsx2 antimicro"
+	new_post=" && killall antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
 
 	##########################
 	# Dolphin (GameCube/Wii)
@@ -1534,12 +1534,12 @@ RetorRig loads to use the gamepad" 14 62
 
 	old_pre="dolphin_pre"
 	old_post="dolphin_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_dolphin_x360_usb.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_dolphin_x360_usb.joystick.xml & "
 	# The line below is only for good measure
-	new_post="killall pcsx2 antimicro"
+	new_post=" && killall antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
 
 	################################
 	# Gens GS (Sega CD/32X/Genesis)
@@ -1547,12 +1547,12 @@ RetorRig loads to use the gamepad" 14 62
 
 	old_pre="gens_pre"
 	old_post="gens_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_gensgs_x360_usb.joystick.xml \&amp;"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_gensgs_x360_usb.joystick.xml & "
 	# The line below is only for good measure
-	new_post="killall antimicro"
+	new_post=" && killall antimicro"
 	# perform actual changes
-	sed -i "s|$old_pre|$new_pre|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|$old_post|$new_post|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
+	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
+	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
 
 	# update init scripts for xboxdrv
 	$update_init_xboxdrv
