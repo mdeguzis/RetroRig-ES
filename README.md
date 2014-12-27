@@ -36,7 +36,7 @@ hope to corrrect some of that in due time, but right now, it is more of an "extr
 RetroRig-ES will overwrite some folders for supported emulators and a few system files. Please see the 
 wiki entries under "Installation," and "Advanced Configuration," or checkout the source code.
 
-## Some current features include (
+## Some current features include
 
 For all other features and future plans, please see the [wiki](https://github.com/ProfessorKaos64/RetroRig/wiki/Development-and-Features)
 
