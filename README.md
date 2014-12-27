@@ -36,28 +36,11 @@ hope to corrrect some of that in due time, but right now, it is more of an "extr
 RetroRig-ES will overwrite some folders for supported emulators and a few system files. Please see the 
 wiki entries under "Installation," and "Advanced Configuration," or checkout the source code.
 
-## Some current features include
+## Some current features include (
 
 For all other features and future plans, please see the [wiki](https://github.com/ProfessorKaos64/RetroRig/wiki/Development-and-Features)
 
-* Concentration on a console-like experience from bootup to shutdown
-* No need to install an entire separate distro on your Mint/Debian machine
-* Seperate dot file (.retrorig, not .emulationstation) so you can have your cake and eat it too!
-* Hotplugging support for supported wireles game controllers
-* Auto-install software, emulator configs, and required components
-* Many supported consoles (more added frequently)
-* Gamepad select menu
-* SSH and samba share support
-* Preset Controller mappings for supported gamepads
-* Resolution presets/custom selection for emulators that support it
-* Save state, load state, exit emulators with gamepad
-* A cobbled together "first run" state of EmulationStation with a blank games database and pre-set configs
-* Functions to update git repo, emulator binaries, upgrade system and more
-* Automatically start RetroRig-ES
-* ROM pre-loader
-* BIOS pre-loader
-* Modular design for expandability
-* Unity configuration set during config-setup to lengthen screen timeout + remove screen lock
+* Coming soon!
 
 ## Wiki
 
