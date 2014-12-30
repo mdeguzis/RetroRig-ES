@@ -1,7 +1,7 @@
 RetroRig-ES Project
 ===================================================
 ![alt text](http://i.imgur.com/Irgv0Fx.png "RetroRig")
-###### [Version 0.0.1]
+###### [Version 0.0.3]
 
 #### Warning!!!
 This project is very much in VERY early stages and should not be used. Please keep a close eye on commits. When this message is removed, a stable working version will likely be in place.
