@@ -9,8 +9,10 @@
 # for the first game controller being switched on.
 #
 # Author: Jens-Christian, aka  beaumanvienna/JC
+# Author: Michael DeGuzis, aka  PK
 #
-# Revision: 2014/10/30, support for PS3 / USB and auto start XBMC function
+# Revision: 20141030, JC, support for PS3 / USB and auto start XBMC function
+# Revision: 20141229, PK, this will need overhauled for EmulationStation if need be
 
 autostartXBMC_PS3_USB=enabled
 autostartXBMC_PS3_BT=enabled
@@ -70,22 +72,22 @@ do
             autostarted=true
             
           else
-            echo "RetroRig *not* started automatically: XBMC already running, xbmc_running="$xbmc_running
+            echo "RetroRig-ES *not* started automatically: EmulationStation already running, xbmc_running="$xbmc_running
           fi
         else
-          echo "RetroRig *not* started automatically: first controller not switched on, oldPS3_USB_controllerAvailable="$oldPS3_USB_controllerAvailable
+          echo "RetroRig-ES *not* started automatically: first controller not switched on, oldPS3_USB_controllerAvailable="$oldPS3_USB_controllerAvailable
         fi
       else
-        echo "RetroRig *not* started automatically: setup_running="$setup_running
+        echo "RetroRig-ES *not* started automatically: setup_running="$setup_running
       fi
     
       #diagnostic message
       sleep 2
       if [ "$autostarted" == "true" ]; then
-        if [ -n "$(ps ax|grep xbmc.bin|grep -v grep)" ]; then
-          echo "RetroRig sucessfully started"
+        if [ -n "$(ps ax|grep emulationstation | grep -v grep)" ]; then
+          echo "RetroRig-ES sucessfully started"
         else
-          echo "attempt to start RetroRig failed"
+          echo "attempt to start RetroRig-ES failed"
         fi
       fi
       
