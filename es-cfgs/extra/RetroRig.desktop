@@ -1,9 +1,9 @@
 [Desktop Entry]
 Version=1.0
 Name=RetroRig
-GenericName=RetroRig Project
+GenericName=RetroRig-ES Project
 Comment=RetroRig Project Desktop launcher
-Exec=/usr/share/applications/startXBMC.sh
+Exec=/usr/share/applications/startRetroES.sh
 Icon=/usr/share/icons/retro-icon.png
 Terminal=false
 Type=Application
