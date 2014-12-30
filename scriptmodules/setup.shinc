@@ -787,7 +787,7 @@ function rrs_debug()
 	h_correct_perms
 }
 
-function rrs_es_extras()
+function rrs_es_setup()
 {
 
 	clear
@@ -817,6 +817,15 @@ function rrs_es_extras()
 
 	# insert restarting xboxdrv specifically into /etc/sudoers
 	cat "$scriptdir/es-cfgs/extra/sudoers.txt" >> "/etc/sudoers"
+
+	# copy in default files
+	# es_input.cfg will be handled in the gamepads.shinc module
+	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
+	cp -v "$scriptdir/es-cfgs/es_settings.cfg" "$es_home"
+	
+	# correct paths to RetroRig-ES root dir
+	sed -i "s|rootdir_temp|$rootdir|g" "$es_home/es_systems.cfg"
+	sed -i "s|rootdir_temp|$rootdir|g" "$es_home/es_settings.cfg"
 
 	# fix their permissions
 	chmod 755 "/usr/share/applications/gp_autodetect.sh" 
