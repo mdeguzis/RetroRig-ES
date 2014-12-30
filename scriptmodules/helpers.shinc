@@ -34,10 +34,6 @@ h_clean_gamepad()
 
 	# system objects that may interfere with switching gamepads
 	# The rescan service should be able to coexist with xboxdrv
-
-	# We need to remove config.xml from RCB when changing gamepads, since we do active 
-	# swaps of qjoypad profiles now 
-	rm -f "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
 	
 	# qjoypad 
 	rm -f "$home/.config/autostart/qjoypad.desktop"
@@ -980,10 +976,6 @@ function h_emu_user_fixes()
 
 	sed -i "s|installdir_temp|$rootdir|g" "$config_home/.mess/neocdz.ini" | tee >> "$rootdir/logs/debug.log"
 	sed -i "s|config_temp|$config_home|g" "$config_home/.mess/neocdz.ini" | tee >> "$rootdir/logs/debug.log"
-	
-	# XBMC
-	sed -i "s|installdir_temp|$rootdir|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
-	sed -i "s|config_temp|$config_home|g" "$xbmc_home/userdata/addon_data/script.games.rom.collection.browser/config.xml"
 	
 	# PPSSPP	
 	sed -i "s|installdir_temp|$rootdir|g" "$config_home/.config/ppsspp/PSP/SYSTEM/ppsspp.ini"

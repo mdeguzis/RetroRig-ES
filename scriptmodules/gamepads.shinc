@@ -105,9 +105,6 @@ function gp_ps3_blu()
 	# !!! Removed in favor of anitmicro since 0.9.5b !!!
 	###########################################################
 
-	# copy in fresh copy of RCB's config.xml to make replacements
-	cp -v "$scriptdir/XBMC-cfgs/es_systems.cfg" "$es_home/userdata/addon_data/script.games.rom.collection.browser/"
-
 	# blacklist xpad
 	cp -v "$scriptdir/init-scripts/ps3_blu_controller/blacklist.conf" "/etc/modprobe.d/"
 
@@ -888,9 +885,6 @@ RetorRig loads to use the gamepad" 14 60
 	# !!! Removed in favor of anitmicro since 0.9.5b !!!
 	###########################################################
 
-	# copy in fresh copy of RCB's config.xml to make replacements
-	cp -v "$scriptdir/XBMC-cfgs/es_systems.cfg" "$es_home/userdata/addon_data/script.games.rom.collection.browser/"
-
 	# blacklist xpad
 	cp -v "$scriptdir/init-scripts/ps3_blu_controller/blacklist.conf" "/etc/modprobe.d/"
 
@@ -1165,9 +1159,6 @@ RetorRig loads to use the gamepad." 14 62
 	###########################################################
 	# !!! Removed in favor of anitmicro since 0.9.5b !!!
 	###########################################################
-
-	# copy in fresh copy of RCB's config.xml to make replacements
-	cp -v "$scriptdir/XBMC-cfgs/es_systems.cfg" "$es_home/userdata/addon_data/script.games.rom.collection.browser/"
 
 	# blacklist xpad
 	cp -v "$scriptdir/init-scripts/x360_wireless_controller/blacklist.conf" "/etc/modprobe.d/"
@@ -1453,9 +1444,6 @@ RetorRig loads to use the gamepad" 14 62
 	###########################################################
 	# !!! Removed in favor of anitmicro since 0.9.5b !!!
 	###########################################################
-
-	# copy in fresh copy of RCB's config.xml to make replacements
-	cp -v "$scriptdir/XBMC-cfgs/es_systems.cfg" "$es_home/userdata/addon_data/script.games.rom.collection.browser/"
 
 	# blacklist xpad
 	cp -v "$scriptdir/init-scripts/x360_usb_controller/blacklist.conf" "/etc/modprobe.d/"
