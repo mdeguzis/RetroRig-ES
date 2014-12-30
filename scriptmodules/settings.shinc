@@ -22,9 +22,7 @@ while true; do
 	     8 "BIOS checker"
 	     9 "Backup existing configs"
 	     10 "Restore first run configs"
-	     11 "Update XBMC configs"
-	     12 "Enable XBMC Session (Experimental Beta!)"
- 	     13 "Back to main menu")
+ 	     11 "Back to main menu")
 
 	#make menu choice
 	choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
@@ -74,14 +72,6 @@ while true; do
 		;;
 
 		11)
-		rrs_xbmc_cfgs
-		;;
-
-		12)
-		set_xbmc_session
-		;;
-
-		13)
 		return
 		;;
 
@@ -159,44 +149,6 @@ function set_enable_ssh()
 	$cmd_ssh_restart
 	#remove temp file
 	rm -f /tmp/set_ssh
-}
-
-function set_xbmc_session()
-{
-	# Allow user to choose whether or not they want to boot directly to an
-	# XBMC session, rather than boot Unity and load XBMC.
-	
-	# confirm with user first
-	cfg_confirm
-
-	echo "####################################################"
-	echo "Configuring xbmc session"
-	echo "####################################################"
-	echo ""
-
-	clear
-	# copy config files
-	cp -v "$rootdir/XBMC-cfgs/XBMC-session/xbmc.desktop" "/usr/share/xsessions"
-	cp -v "$rootdir/XBMC-cfgs/XBMC-session/xbmc-session" "/usr/bin"
-	# make executable
-	chmod +x "/usr/bin/xbmc-session"
-	chmod +x "/usr/share/xsessions/xbmc.desktop"
-	# change default xsession
-	session_org=$(grep "session" /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf)
-	session_new="user-session=XBMC"
-
-	# change the session
-	# NOTE! As of Ubuntu Trusy 14.04, lightdm-set-defaults is no longer available. This is because 
-	# lightdm now using a configuration directory /etc/lightdm/lightdm.conf.d/ rather than a 
-	# single configuration file. The files in this directory can be edited by hand, new files 
-	# can be added, or files can be removed. There is no longer any need for a command that 
-	# edits the single configuration file.
-
-	sed -i "s|$session_org|$session_new|g" "/usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf"
-	sleep 2s
-
-	# correct permissions
-	h_correct_perms
 }
 
 function set_resolution() {
