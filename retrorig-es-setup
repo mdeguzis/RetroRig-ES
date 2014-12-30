@@ -337,7 +337,7 @@ printf "%*s\n" $(((${#title2}+$COLUMNS)/2)) "$title2"
 sleep 2s
 
 # set the directory '$home/.retrorig-es' as a variable for easy reading
-es_home="$home/.retrorig-es-es/.emulationstation"
+es_home="$home/.retrorig-es/.emulationstation"
 
 # set config_home for all the dotfiles that need copied down for emulators
 # and other utilities

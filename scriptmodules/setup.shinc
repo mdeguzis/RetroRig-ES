@@ -21,8 +21,7 @@ function rrs_prepareFolders()
 	#emulator base directory
 	#pathlist+=("$rootdir/emulators")
 
-	#setup skelton folders for XBMC Rom Collection Browser
-	#ROMs
+	#setup skelton folders for ROMs
 	pathlist+=("$rootdir/ROMs/Atari 2600")
 	pathlist+=("$rootdir/ROMs/Atari Lynx")
 	pathlist+=("$rootdir/ROMs/Gamecube")
@@ -68,7 +67,6 @@ function rrs_prepareFolders()
 	pathlist+=("$rootdir/Artwork/PS1")
 	pathlist+=("$rootdir/Artwork/PS2")
 	pathlist+=("$rootdir/Artwork/Wii")
-	pathlist+=("$rootdir/Artwork/XBMC")
 
 	#Artwork - MAME offline scraper
 	pathlist+=("$rootdir/Artwork/MAME")
@@ -343,7 +341,7 @@ function rrs_post_install()
 	case $rrDE in
 		Unity)
 
-			# Disable screensaver, XBMC will manage this
+			# Disable screensaver, EmulationStation will manage this
 			# Export display to allow gsettings running in terminal window
 			export DISPLAY=:0.0
 			gsettings set org.gnome.desktop.screensaver lock-enabled false
@@ -525,7 +523,7 @@ function rrs_add_standard_repos()
 			###############################################################
 			# Add our standport Debian repositories for various pkgs
 			###############################################################
-			# add respository for RetroRig backends (xbmc, mednafen,...)
+			# add respository for RetroRig backends (dolphin, mednafen,...)
 			$cmd_add_repo ppa:beauman/retrorig
 			# Add repository for additional pkgs (retrorig-setup, joydetect)
 			$cmd_add_repo ppa:mdeguzis/retrorig
@@ -580,7 +578,7 @@ function rrs_add_standard_repos()
 			###############################################################
 			# Add our standport Debian repositories for various pkgs
 			###############################################################
-			# add respository for RetroRig backends (xbmc, mednafen,...)
+			# add respository for RetroRig backends (dolphin, mednafen,...)
 			$cmd_add_repo ppa:beauman/retrorig
 			# Add repository for additional pkgs (retrorig-setup, joydetect)
 			$cmd_add_repo ppa:mdeguzis/retrorig
@@ -602,7 +600,7 @@ function rrs_add_standard_repos()
 			###############################################################
 			# Add our standport Debian repositories for various pkgs
 			###############################################################
-			# add respository for RetroRig backends (xbmc, mednafen,...)
+			# add respository for RetroRig backends (dolphin, mednafen,...)
 			$cmd_add_repo ppa:beauman/retrorig
 			# Add repository for additional pkgs (retrorig-setup, joydetect)
 			$cmd_add_repo ppa:mdeguzis/retrorig
@@ -705,7 +703,6 @@ function rrs_software()
 
 	# Disable apport, as bug apport-gtk does nothing but interrupt
 	# User can always enable this again
-	# XBMC and emulators
 	sed -i "s|enabled=1|enabled=0|g" "/etc/default/apport"
 
 	#fix permissions since we are running as sudo
@@ -729,14 +726,14 @@ function rrs_debug()
 	echo "Generating debug log"
 
 	# Check for existance of essential files
-	echo "Essential files: XBMC:" > "$rootdir/logs/debug.log"
-	echo "Path(s): '$xbmc_home/userdata'" >> "$rootdir/logs/debug.log"
-	h_filechecker "$xbmc_home/userdata" "$rootdir/logs/debug.log"
+	echo "Essential files: EmulationStation:" > "$rootdir/logs/debug.log"
+	echo "Path(s): '$es_home'" >> "$rootdir/logs/debug.log"
+	h_filechecker "$es_home" "$rootdir/logs/debug.log"
 
 	# applications
 	h_filechecker "/usr/share/applications/RetroRig-ES.desktop"
 	h_filechecker "/usr/share/applications/startRetroES.sh"
-	h_filechecker "/usr/share/applications/gp_autodetect_xbmc.sh"
+	h_filechecker "/usr/share/applications/gp_autodetect.sh"
 	h_filechecker "$xdg_desktop_dir/RetroRig-ES.desktop"
 	h_filechecker "$xdg_pictures_dir/retro-icon.png"
 
@@ -794,23 +791,23 @@ function rrs_es_extras()
 {
 
 	clear
-	# release the aptitdue hold to install/upgrade RetroRig's XBMC version
-	$cmd_unhold_pkg xbmc xbmc-bin
+	# release the aptitdue hold to install/upgrade RetroRig's ES version
+	#$cmd_unhold_pkg emulationstation
 
 	# Custom script for reboots/hotplugging
-	if [ -f "$scriptdir/XBMC-cfgs/extra/gp_autodetect_xbmc.sh" ]; then
-		cp -v "$scriptdir/es-cfgs/extra/gp_autodetect_xbmc.sh" "/usr/share/applications/"
+	if [ -f "$scriptdir/es-cfgs/extra/gp_autodetect.sh" ]; then
+		cp -v "$scriptdir/es-cfgs/extra/gp_autodetect.sh" "/usr/share/applications/"
 	fi
 
-	if [ -f "$scriptdir/XBMC-cfgs/extra/RetroRig-ES.desktop" ]; then
+	if [ -f "$scriptdir/es-cfgs/extra/RetroRig-ES.desktop" ]; then
 		cp -v "$scriptdir/es-cfgs/extra/RetroRig-ES.desktop" "/usr/share/applications/"
 	fi
 
-	if [ -f "$scriptdir/XBMC-cfgs/extra/RetroRig-ES.desktop" ]; then
+	if [ -f "$scriptdir/es-cfgs/extra/RetroRig-ES.desktop" ]; then
 		cp -v "$scriptdir/es-cfgs/extra/RetroRig-ES.desktop" "$xdg_desktop_dir"
 	fi
 
-	if [ -f "$scriptdir/XBMC-cfgs/extra/retro-icon.png" ]; then
+	if [ -f "$scriptdir/es-cfgs/extra/retro-icon.png" ]; then
 		cp -v "$scriptdir/es-cfgs/extra/retro-icon.png" "/usr/share/icons/"
 	fi
 
@@ -822,7 +819,7 @@ function rrs_es_extras()
 	cat "$scriptdir/es-cfgs/extra/sudoers.txt" >> "/etc/sudoers"
 
 	# fix their permissions
-	chmod 755 "/usr/share/applications/gp_autodetect_xbmc.sh" 
+	chmod 755 "/usr/share/applications/gp_autodetect.sh" 
 	chmod 755 "/usr/share/applications/RetroRig-ES.desktop"
 	chmod 755 "/usr/share/applications/startRetroES.sh" 
 
@@ -839,7 +836,7 @@ function rrs_es_extras()
 	# Correct permissions on rescan service
 	chmod 755 "/etc/init.d/rescan"  
 
-	# Link the startXBMC.sh startup script to /usr/bin, so users can call "retrorig" at will
+	# Link the startRetroES.sh startup script to /usr/bin, so users can call "retrorig" at will
 	ln -sf "/usr/share/applications/startRetroES.sh" "/usr/bin/retrorig-es"
 
 	# update init scripts
@@ -905,13 +902,13 @@ function rrs_showHelp()
     echo "When using..."
     echo "sudo ./retrorig-es-setup.sh
 The installation directory is:"
-echo -e "\e[0$PATHCOLOR$xbmc_home/RetroRig-ES for the current user\e[0m"
+echo -e "\e[0$PATHCOLOR$es_home/RetroRig-ES for the current user\e[0m"
 
     echo ""
     echo "When using..."
     echo "sudo ./retrorig-es-setup.sh USERNAME
 The installation directory is:"
-echo -e "\e[0$PATHCOLOR/$xbmc_home/USERNAME/RetroRig-ES for user USERNAME\e[0m"
+echo -e "\e[0$PATHCOLOR/$es_home/USERNAME/RetroRig-ES for user USERNAME\e[0m"
 
     echo ""
     echo "When using..."
