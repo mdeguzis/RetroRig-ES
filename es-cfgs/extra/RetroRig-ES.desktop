@@ -1,6 +1,6 @@
 [Desktop Entry]
 Version=1.0
-Name=RetroRig
+Name=RetroRig-ES
 GenericName=RetroRig-ES Project
 Comment=RetroRig Project Desktop launcher
 Exec=/usr/share/applications/startRetroES.sh
