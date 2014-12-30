@@ -99,7 +99,7 @@ function rrs_prepareFolders()
 	pathlist+=("$rootdir/Saves/pcsx2")
 
 	# create dotfiles
-	pathlist+=("$home/.retrorig")
+	pathlist+=("$config_home")
 	pathlist+=("$config_home/.qjoypad3")
 	pathlist+=("$config_home/.config/antimicro")
 	pathlist+=("$config_home/.dolphin-emu/GC/Config")
@@ -150,107 +150,107 @@ function rrs_prepareFolders()
 	h_correct_perms
 
 	#backup existing state saves, if a backup folder does not exist, and the save state folder a real directory is
-	if [ ! -d "$home/.retrorig/.dolphin-emu/StateSaves.old" ]; then
-		if [ ! -L "$home/.retrorig/.dolphin-emu/StateSaves" ]; then
-			if [ -d "$home/.retrorig/.dolphin-emu/GC/StateSaves" ] || [ -d "$home/.retrorig/.dolphin-emu/Wii/StateSaves" ]; then
-				mv -f "$home/.retrorig/.dolphin-emu/GC/StateSaves" "$home/.retrorig/.dolphin-emu/GC/StateSaves.old"
-				mv -f "$home/.retrorig/.dolphin-emu/Wii/StateSaves" "$home/.retrorig/.dolphin-emu/Wii/StateSaves.old"
+	if [ ! -d "$config_home/.dolphin-emu/StateSaves.old" ]; then
+		if [ ! -L "$config_home/.dolphin-emu/StateSaves" ]; then
+			if [ -d "$config_home/.dolphin-emu/GC/StateSaves" ] || [ -d "$config_home/.dolphin-emu/Wii/StateSaves" ]; then
+				mv -f "$config_home/.dolphin-emu/GC/StateSaves" "$config_home/.dolphin-emu/GC/StateSaves.old"
+				mv -f "$config_home/.dolphin-emu/Wii/StateSaves" "$config_home/.dolphin-emu/Wii/StateSaves.old"
 				dolphin_backup=true
 			fi
 		fi
 	fi
 
-	if [ ! -d "$home/.retrorig/.config/mupen64plus/save.old" ]; then
-		if [ ! -L "$home/.retrorig/.config/mupen64plus/save" ]; then
-			if [ -d "$home/.retrorig/.config/mupen64plus/save" ]; then
-				mv -f "$home/.retrorig/.config/mupen64plus/save" "$home/.retrorig/.config/mupen64plus/save.old"
+	if [ ! -d "$config_home/.config/mupen64plus/save.old" ]; then
+		if [ ! -L "$config_home/.config/mupen64plus/save" ]; then
+			if [ -d "$config_home/.config/mupen64plus/save" ]; then
+				mv -f "$config_home/.config/mupen64plus/save" "$config_home/.config/mupen64plus/save.old"
 				mupen64plus_backup=true
 			fi
 		fi
 	fi
 
-	if [ ! -d "$home/.retrorig/.mednafen/sav.old" ]; then
-		if [ ! -L "$home/.retrorig/.mednafen/sav" ]; then
-			if [ -d "$home/.retrorig/.mednafen/sav" ]; then
-				mv -f "$home/.retrorig/.mednafen/sav" "$home/.retrorig/.mednafen/sav.old"
+	if [ ! -d "$config_home/.mednafen/sav.old" ]; then
+		if [ ! -L "$config_home/.mednafen/sav" ]; then
+			if [ -d "$config_home/.mednafen/sav" ]; then
+				mv -f "$config_home/.mednafen/sav" "$config_home/.mednafen/sav.old"
 				mednafen_backup=true
 			fi
 		fi
 	fi
 
-	if [ ! -d "$home/.retrorig/.gens/StateSaves.old" ]; then
-		if [ ! -L "$home/.retrorig/.gens/StateSaves" ]; then
-			if [ -d "$home/.retrorig/.gens/StateSaves" ]; then
-				mv -f "$home/.retrorig/.gens/StateSaves" "$home/.retrorig/.gens/StateSaves.old"
+	if [ ! -d "$config_home/.gens/StateSaves.old" ]; then
+		if [ ! -L "$config_home/.gens/StateSaves" ]; then
+			if [ -d "$config_home/.gens/StateSaves" ]; then
+				mv -f "$config_home/.gens/StateSaves" "$config_home/.gens/StateSaves.old"
 				gens_backup=true
 			fi
 		fi
 	fi
 
-	if [ ! -d "$home/.retrorig/.config/ppsspp/PSP/SAVEDATA.old" ]; then
-		if [ ! -L "$home/.retrorig/.config/ppsspp/PSP/SAVEDATA" ]; then
-			if [ -d "$home/.retrorig/.config/ppsspp/PSP/SAVEDATA" ]; then
-				mv -f "$home/.retrorig/.config/ppsspp/PSP/SAVEDATA" "$home/.retrorig/.config/ppsspp/PSP/SAVEDATA.old"
+	if [ ! -d "$config_home/.config/ppsspp/PSP/SAVEDATA.old" ]; then
+		if [ ! -L "$config_home/.config/ppsspp/PSP/SAVEDATA" ]; then
+			if [ -d "$config_home/.config/ppsspp/PSP/SAVEDATA" ]; then
+				mv -f "$config_home/.config/ppsspp/PSP/SAVEDATA" "$config_home/.config/ppsspp/PSP/SAVEDATA.old"
 				ppsspp_backup=true
 			fi
 		fi
 	fi
 
-	if [ ! -d "$home/.retrorig/.config/pcsx2/sstates.old" ]; then
-		if [ ! -L "$home/.retrorig/.config/pcsx2/sstates" ]; then
-			if [ -d "$home/.retrorig/.config/pcsx2/sstates" ]; then
-				mv -f "$home/.retrorig/.config/pcsx2/sstates" "$home/.retrorig/.config/pcsx2/sstates.old"
+	if [ ! -d "$config_home/.config/pcsx2/sstates.old" ]; then
+		if [ ! -L "$config_home/.config/pcsx2/sstates" ]; then
+			if [ -d "$config_home/.config/pcsx2/sstates" ]; then
+				mv -f "$config_home/.config/pcsx2/sstates" "$config_home/.config/pcsx2/sstates.old"
 				pcsx2_backup=true
 			fi
 		fi
 	fi
 
 	#remove old links
-	rm -f "$home/.retrorig/.dolphin-emu/StateSaves"
-	rm -f "$home/.retrorig/.dolphin-emu/GC/StateSaves"
-	rm -f "$home/.retrorig/.dolphin-emu/Wii/StateSaves"
-	rm -f "$home/.retrorig/.config/mupen64plus/save"
-	rm -f "$home/.retrorig/.mednafen/sav"
-	rm -f "$home/.retrorig/.gens/StateSaves"
-	rm -f "$home/.retrorig/.config/ppsspp/PSP/SAVEDATA"
-	rm -f "$home/.retrorig/.config/pcsx2/sstates"
+	rm -f "$config_home/.dolphin-emu/StateSaves"
+	rm -f "$config_home/.dolphin-emu/GC/StateSaves"
+	rm -f "$config_home/.dolphin-emu/Wii/StateSaves"
+	rm -f "$config_home/.config/mupen64plus/save"
+	rm -f "$config_home/.mednafen/sav"
+	rm -f "$config_home/.gens/StateSaves"
+	rm -f "$config_home/.config/ppsspp/PSP/SAVEDATA"
+	rm -f "$config_home/.config/pcsx2/sstates"
 
 	#create links 
-	ln -sf "$rootdir/Saves/dolphin-emu/GC" "$home/.retrorig/.dolphin-emu/GC/StateSaves"
-	ln -sf "$rootdir/Saves/dolphin-emu/Wii" "$home/.retrorig/.dolphin-emu/Wii/StateSaves"
-	ln -sf "$rootdir/Saves/mupen64plus" "$home/.retrorig/.config/mupen64plus/save"
-	ln -sf "$rootdir/Saves/mednafen" "$home/.retrorig/.mednafen/sav"
-	ln -sf "$rootdir/Saves/GensGS" "$home/.retrorig/.gens/StateSaves"
-	ln -sf "$rootdir/Saves/ppsspp" "$home/.retrorig/.config/ppsspp/PSP/SAVEDATA"
-	ln -sf "$rootdir/Saves/pcsx2" "$home/.retrorig/.config/pcsx2/sstates"
+	ln -sf "$rootdir/Saves/dolphin-emu/GC" "$config_home/.dolphin-emu/GC/StateSaves"
+	ln -sf "$rootdir/Saves/dolphin-emu/Wii" "$config_home/.dolphin-emu/Wii/StateSaves"
+	ln -sf "$rootdir/Saves/mupen64plus" "$config_home/.config/mupen64plus/save"
+	ln -sf "$rootdir/Saves/mednafen" "$config_home/.mednafen/sav"
+	ln -sf "$rootdir/Saves/GensGS" "$config_home/.gens/StateSaves"
+	ln -sf "$rootdir/Saves/ppsspp" "$config_home/.config/ppsspp/PSP/SAVEDATA"
+	ln -sf "$rootdir/Saves/pcsx2" "$config_home/.config/pcsx2/sstates"
 
 	#restore backup
 	if [ "$dolphin_backup" == "true" ]; then
 		# Place legacy save folder in its own area, as to not confuse the new directory split
-		cp -rf "$home/.retrorig/.dolphin-emu/StateSaves.old/*" "$home/.retrorig/.dolphin-emu/legacy/StateSaves"
+		cp -rf "$config_home/.dolphin-emu/StateSaves.old/*" "$config_home/.dolphin-emu/legacy/StateSaves"
 		# Restore split directory save files
-		cp -rf "$home/.retrorig/.dolphin-emu/GC/StateSaves.old/*" "$home/.retrorig/.dolphin-emu/GC/StateSaves"
-		cp -rf "$home/.retrorig/.dolphin-emu/Wii/StateSaves.old/*" "$home/.retrorig/.dolphin-emu/Wii/StateSaves"
+		cp -rf "$config_home/.dolphin-emu/GC/StateSaves.old/*" "$config_home/.dolphin-emu/GC/StateSaves"
+		cp -rf "$config_home/.dolphin-emu/Wii/StateSaves.old/*" "$config_home/.dolphin-emu/Wii/StateSaves"
 	fi
 
 	if [ "$mupen64plus_backup" == "true" ]; then
-		cp -rf "$home/.retrorig/.config/mupen64plus/StateSaves.old/*" "$home/.retrorig/.config/mupen64plus/StateSaves"
+		cp -rf "$config_home/.config/mupen64plus/StateSaves.old/*" "$config_home/.config/mupen64plus/StateSaves"
 	fi
 
 	if [ "$mednafen_backup" == "true" ]; then
-		cp -rf "$home/.retrorig/.mednafen/sav.old/*" "$home/.retrorig/.mednafen/sav"
+		cp -rf "$config_home/.mednafen/sav.old/*" "$config_home/.mednafen/sav"
 	fi
 
 	if [ "$gens_backup" == "true" ]; then
-		cp -rf "$home/.retrorig/.gens/StateSaves.old/*" "$home/.retrorig/.gens/StateSaves"
+		cp -rf "$config_home/.gens/StateSaves.old/*" "$config_home/.gens/StateSaves"
 	fi
 
 	if [ "$ppsspp_backup" == "true" ]; then
-		cp -rf "$home/.retrorig/.config/ppsspp/PSP/SAVEDATA.old/*" "$home/.retrorig/.config/ppsspp/PSP/SAVEDATA"
+		cp -rf "$config_home/.config/ppsspp/PSP/SAVEDATA.old/*" "$config_home/.config/ppsspp/PSP/SAVEDATA"
 	fi
 
 	if [ "$pcsx2_backup" == "true" ]; then
-		cp -rf "$home/.retrorig/.config/pcsx2/sstates.old/*" "$home/.retrorig/.config/pcsx2/sstates"
+		cp -rf "$config_home/.config/pcsx2/sstates.old/*" "$config_home/.config/pcsx2/sstates"
 	fi
 
 	# correct permissions
@@ -350,9 +350,9 @@ function rrs_post_install()
 			gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend false
 			gsettings set org.gnome.desktop.session idle-delay 3600
 
-			# Create Unity launcher icon from existing /usr/share/applications/RetroRig.desktop
+			# Create Unity launcher icon from existing /usr/share/applications/RetroRig-ES.desktop
 			# This only applies to Unity desktop users.
-			gsettings set com.canonical.Unity.Launcher favorites "$(gsettings get com.canonical.Unity.Launcher favorites | sed "s/, *'RetroRig.desktop' *//g" | sed "s/'RetroRig.desktop' *, *//g" | sed -e "s/]$/, 'RetroRig.desktop'")"
+			gsettings set com.canonical.Unity.Launcher favorites "$(gsettings get com.canonical.Unity.Launcher favorites | sed "s/, *'RetroRig-ES.desktop' *//g" | sed "s/'RetroRig-ES.desktop' *, *//g" | sed -e "s/]$/, 'RetroRig-ES.desktop'")"
 			;;
 
 		Gnome)
@@ -686,7 +686,7 @@ function rrs_software()
 	pkg-config software-properties-common dconf-tools jstest-gtk \
 	sixad libusb-0.1-4 antimicro bluez getpos unclutter \
 	joydetect sudo ttf-dejavu-core ttf-dejavu-core ttf-liberation \
-	wmctrl gdebi
+	wmctrl gdebi dos2unix
 
 	# install emulationstation and its dependencies
 	# gdebi -n emulationstation.deb could be used instead to gather these automatically
@@ -734,14 +734,14 @@ function rrs_debug()
 	h_filechecker "$xbmc_home/userdata" "$rootdir/logs/debug.log"
 
 	# applications
-	h_filechecker "/usr/share/applications/RetroRig.desktop"
+	h_filechecker "/usr/share/applications/RetroRig-ES.desktop"
 	h_filechecker "/usr/share/applications/startRetroES.sh"
 	h_filechecker "/usr/share/applications/gp_autodetect_xbmc.sh"
-	h_filechecker "$xdg_desktop_dir/RetroRig.desktop"
+	h_filechecker "$xdg_desktop_dir/RetroRig-ES.desktop"
 	h_filechecker "$xdg_pictures_dir/retro-icon.png"
 
 	# autostart entries
-	h_filechecker "$home/.config/autostart/RetroRig.desktop"
+	h_filechecker "$home/.config/autostart/RetroRig-ES.desktop"
 	#h_filechecker "$home/.config/autostart/qjoypad.desktop"
 
 	# init file checks	
@@ -769,7 +769,7 @@ function rrs_debug()
 	h_pkgcheck "gens"
 	
 	h_pkgcheck "python-software-properties"
-	h_pkgcheck "xbmc"
+	h_pkgcheck "emulationstation"
 	h_pkgcheck "dconf-tools"
 	h_pkgcheck "xboxdrv"
 	h_pkgcheck "curl"
@@ -802,12 +802,12 @@ function rrs_es_extras()
 		cp -v "$scriptdir/es-cfgs/extra/gp_autodetect_xbmc.sh" "/usr/share/applications/"
 	fi
 
-	if [ -f "$scriptdir/XBMC-cfgs/extra/RetroRig.desktop" ]; then
-		cp -v "$scriptdir/es-cfgs/extra/RetroRig.desktop" "/usr/share/applications/"
+	if [ -f "$scriptdir/XBMC-cfgs/extra/RetroRig-ES.desktop" ]; then
+		cp -v "$scriptdir/es-cfgs/extra/RetroRig-ES.desktop" "/usr/share/applications/"
 	fi
 
-	if [ -f "$scriptdir/XBMC-cfgs/extra/RetroRig.desktop" ]; then
-		cp -v "$scriptdir/es-cfgs/extra/RetroRig.desktop" "$xdg_desktop_dir"
+	if [ -f "$scriptdir/XBMC-cfgs/extra/RetroRig-ES.desktop" ]; then
+		cp -v "$scriptdir/es-cfgs/extra/RetroRig-ES.desktop" "$xdg_desktop_dir"
 	fi
 
 	if [ -f "$scriptdir/XBMC-cfgs/extra/retro-icon.png" ]; then
@@ -823,7 +823,7 @@ function rrs_es_extras()
 
 	# fix their permissions
 	chmod 755 "/usr/share/applications/gp_autodetect_xbmc.sh" 
-	chmod 755 "/usr/share/applications/RetroRig.desktop"
+	chmod 755 "/usr/share/applications/RetroRig-ES.desktop"
 	chmod 755 "/usr/share/applications/startRetroES.sh" 
 
 	# insert SHA1 tag to rescan by replacing the placeholder
@@ -905,13 +905,13 @@ function rrs_showHelp()
     echo "When using..."
     echo "sudo ./retrorig-es-setup.sh
 The installation directory is:"
-echo -e "\e[0$PATHCOLOR$xbmc_home/RetroRig for the current user\e[0m"
+echo -e "\e[0$PATHCOLOR$xbmc_home/RetroRig-ES for the current user\e[0m"
 
     echo ""
     echo "When using..."
     echo "sudo ./retrorig-es-setup.sh USERNAME
 The installation directory is:"
-echo -e "\e[0$PATHCOLOR/$xbmc_home/USERNAME/RetroRig for user USERNAME\e[0m"
+echo -e "\e[0$PATHCOLOR/$xbmc_home/USERNAME/RetroRig-ES for user USERNAME\e[0m"
 
     echo ""
     echo "When using..."
