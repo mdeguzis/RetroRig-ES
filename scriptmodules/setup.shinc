@@ -284,7 +284,7 @@ options=(1 "Xbox 360 Controller (wireless)"
 		h_restore_bios_cfg
 		# set type for steam setup and set controls
 		STEAM_GP_TYPE="x360wireless"
-		gp_steam_control	
+		#gp_steam_control	
 		;;
 
 		2)
@@ -293,7 +293,7 @@ options=(1 "Xbox 360 Controller (wireless)"
 		h_restore_bios_cfg
 		# set type for steam setup and set controls
 		STEAM_GP_TYPE="x360usb"
-		gp_steam_control
+		#gp_steam_control
 		;;
 
 		3)
@@ -302,7 +302,7 @@ options=(1 "Xbox 360 Controller (wireless)"
 		h_restore_bios_cfg
 		# set type for steam setup and set controls
 		STEAM_GP_TYPE="ps3blu"
-		gp_steam_control
+		#gp_steam_control
 		;;
 
 		4)
@@ -311,7 +311,7 @@ options=(1 "Xbox 360 Controller (wireless)"
 		h_restore_bios_cfg
 		# set type for steam setup and set controls
 		STEAM_GP_TYPE="ps3usb"
-		gp_steam_control
+		#gp_steam_control
 		;;
 
 		5)
