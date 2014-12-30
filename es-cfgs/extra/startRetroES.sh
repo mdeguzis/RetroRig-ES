@@ -6,10 +6,12 @@
 # The fullscreening part will only work, if XBMC is configured to run in windowed mode.
 # You have to do this one time: Start XBMC, in XBMC go to System > Settings > Video output and configure it for windowed mode
  
-# Author: Jens-Christian, aka beaumanvienna/JC
-# Revision: 2014/06/21, initial version
+# Authors: Jens-Christian, aka beaumanvienna/JC
+#	   Michael DeGuzis, aka PK, ProfessorKaos
+# Revision: 20140621, initial version
+# Revision: 20141229, RetroRig-ES alteration
 
-export HOME=$HOME/.retrorig
+export HOME=$HOME/.retrorig-es
 echo starting RetroRig-ES
 emulationstation  &
  
