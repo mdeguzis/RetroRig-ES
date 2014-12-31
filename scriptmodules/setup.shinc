@@ -268,7 +268,8 @@ options=(1 "Xbox 360 Controller (wireless)"
 	 2 "Xbox 360 Controller (USB)"
 	 3 "Sony PS3 Sixaxis (Bluetooth)"
 	 4 "Sony PS3 Sixaxis (USB)"
-	 5 "Exit gamepad selection")
+	 5 "Generic 16 button (USB)"
+	 6 "Exit gamepad selection")
 
 	#make menu choice
 	selection=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
@@ -315,6 +316,15 @@ options=(1 "Xbox 360 Controller (wireless)"
 		;;
 
 		5)
+		gp_common
+		gp_generic_usb
+		h_restore_bios_cfg
+		# set type for steam setup and set controls
+		STEAM_GP_TYPE="ps3usb"
+		#gp_steam_control
+		;;
+
+		6)
 		return
 		;;
 
