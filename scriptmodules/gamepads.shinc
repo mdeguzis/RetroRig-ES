@@ -136,9 +136,9 @@ function gp_ps3_blu()
 
 	old_pre="ps2_pre"
 	old_post="ps2_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_pcsx2_ps3_blu.joystick.xml"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_pcsx2_ps3_blu.joystick.xml &"
 	# The line below is only for good measure
-	new_post="killall pcsx2 antimicro"
+	new_post="&& killall pcsx2 antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -150,9 +150,9 @@ function gp_ps3_blu()
 
 	old_pre="psp_pre"
 	old_post="psp_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_ppsspp_ps3_blu.joystick.xml"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_ppsspp_ps3_blu.joystick.xml &"
 	# The line below is only for good measure
-	new_post="killall antimicro"	
+	new_post="&& killall antimicro"	
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -163,9 +163,9 @@ function gp_ps3_blu()
 
 	old_pre="ps1_pre"
 	old_post="ps1_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_ps1_ps3_blu.joystick.xml"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_ps1_ps3_blu.joystick.xml &"
 	# The line below is only for good measure
-	new_post="killall antimicro"
+	new_post="&& killall antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -176,9 +176,9 @@ function gp_ps3_blu()
 
 	old_pre="med_gen_pre"
 	old_post="med_gen_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_gen_ps3_blu.joystick.xml"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_gen_ps3_blu.joystick.xml &"
 	# The line below is only for good measure
-	new_post="killall antimicro"
+	new_post="&& killall antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -189,9 +189,9 @@ function gp_ps3_blu()
 
 	old_pre="dolphin_pre"
 	old_post="dolphin_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_dolphin_ps3_blu.joystick.xml"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_dolphin_ps3_blu.joystick.xml &"
 	# The line below is only for good measure
-	new_post="killall antimicro"
+	new_post="&& killall antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -203,9 +203,9 @@ function gp_ps3_blu()
 
 	old_pre="gens_pre"
 	old_post="gens_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_gensgs_ps3_blu.joystick.xml"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_gensgs_ps3_blu.joystick.xml &"
 	# The line below is only for good measure
-	new_post="killall antimicro"
+	new_post="&& killall antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -923,9 +923,9 @@ RetorRig loads to use the gamepad" 14 60
 
 	old_pre="ps2_pre"
 	old_post="ps2_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_pcsx2_ps3_usb.joystick.xml"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_pcsx2_ps3_usb.joystick.xml &"
 	# The line below is only for good measure
-	new_post="killall pcsx2 antimicro"
+	new_post="&& killall pcsx2 antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -937,9 +937,9 @@ RetorRig loads to use the gamepad" 14 60
 
 	old_pre="psp_pre"
 	old_post="psp_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_ppsspp_ps3_usb.joystick.xml"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_ppsspp_ps3_usb.joystick.xml &"
 	# The line below is only for good measure
-	new_post="killall antimicro"
+	new_post="&& killall antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -950,9 +950,9 @@ RetorRig loads to use the gamepad" 14 60
 
 	old_pre="ps1_pre"
 	old_post="ps1_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_ps1_ps3_usb.joystick.xml"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_ps1_ps3_usb.joystick.xml &"
 	# The line below is only for good measure
-	new_post="killall antimicro"
+	new_post="&& killall antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -963,9 +963,9 @@ RetorRig loads to use the gamepad" 14 60
 
 	old_pre="med_gen_pre"
 	old_post="med_gen_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_gen_ps3_usb.joystick.xml"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_gen_ps3_usb.joystick.xml &"
 	# The line below is only for good measure
-	new_post="killall antimicro"
+	new_post="&& killall antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -976,9 +976,9 @@ RetorRig loads to use the gamepad" 14 60
 
 	old_pre="dolphin_pre"
 	old_post="dolphin_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_dolphin_ps3_usb.joystick.xml"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_dolphin_ps3_usb.joystick.xml &&"
 	# The line below is only for good measure
-	new_post="killall antimicro"
+	new_post="& killall antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -989,9 +989,9 @@ RetorRig loads to use the gamepad" 14 60
 
 	old_pre="gens_pre"
 	old_post="gens_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_gensgs_ps3_usb.joystick.xml"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_gensgs_ps3_usb.joystick.xml &"
 	# The line below is only for good measure
-	new_post="killall antimicro"
+	new_post="&& killall antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -1198,9 +1198,9 @@ RetorRig loads to use the gamepad." 14 62
 
 	old_pre="ps2_pre"
 	old_post="ps2_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_pcsx2_x360_wireless.joystick.xml"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_pcsx2_x360_wireless.joystick.xml &"
 	# The line below is only for good measure
-	new_post="killall pcsx2 antimicro"
+	new_post="&& killall pcsx2 antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -1211,9 +1211,9 @@ RetorRig loads to use the gamepad." 14 62
 
 	old_pre="med_gen_pre"
 	old_post="med_gen_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_gen_x360_wireless.joystick.xml"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_gen_x360_wireless.joystick.xml &"
 	# The line below is only for good measure
-	new_post="killall pcsx2 antimicro"
+	new_post="&& killall pcsx2 antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -1224,9 +1224,9 @@ RetorRig loads to use the gamepad." 14 62
 
 	old_pre="ps1_pre"
 	old_post="ps1_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_ps1_x360_wireless.joystick.xml"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_ps1_x360_wireless.joystick.xml &"
 	# The line below is only for good measure
-	new_post="killall pcsx2 antimicro"
+	new_post="&& killall pcsx2 antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -1237,9 +1237,9 @@ RetorRig loads to use the gamepad." 14 62
 
 	old_pre="psp_pre"
 	old_post="psp_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_ppsspp_x360_wireless.joystick.xml"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_ppsspp_x360_wireless.joystick.xml &"
 	# The line below is only for good measure
-	new_post="killall pcsx2 antimicro"
+	new_post="&& killall pcsx2 antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -1250,9 +1250,9 @@ RetorRig loads to use the gamepad." 14 62
 
 	old_pre="dolphin_pre"
 	old_post="dolphin_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_ppsspp_x360_wireless.joystick.xml"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_ppsspp_x360_wireless.joystick.xml &"
 	# The line below is only for good measure
-	new_post="killall pcsx2 antimicro"
+	new_post="&& killall pcsx2 antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -1263,9 +1263,9 @@ RetorRig loads to use the gamepad." 14 62
 
 	old_pre="gens_pre"
 	old_post="gens_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_gensgs_x360_wireless.joystick.xml"
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_gensgs_x360_wireless.joystick.xml &"
 	# The line below is only for good measure
-	new_post="killall antimicro"
+	new_post="&& killall antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -1483,7 +1483,7 @@ RetorRig loads to use the gamepad" 14 62
 
 	old_pre="ps2_pre"
 	old_post="ps2_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_pcsx2_x360_usb.joystick.xml & "
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_pcsx2_x360_usb.joystick.xml &"
 	# The line below is only for good measure
 	new_post=" && killall pcsx2 antimicro"
 	# perform actual changes
@@ -1496,9 +1496,9 @@ RetorRig loads to use the gamepad" 14 62
 
 	old_pre="med_gen_pre"
 	old_post="med_gen_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_gen_x360_usb.joystick.xml & "
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_gen_x360_usb.joystick.xml &"
 	# The line below is only for good measure
-	new_post=" && killall antimicro"
+	new_post="&& killall antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -1509,9 +1509,9 @@ RetorRig loads to use the gamepad" 14 62
 
 	old_pre="ps1_pre"
 	old_post="ps1_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_ps1_x360_usb.joystick.xml & "
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_ps1_x360_usb.joystick.xml &"
 	# The line below is only for good measure
-	new_post=" && killall pcsx2 antimicro"
+	new_post="&& killall pcsx2 antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -1522,9 +1522,9 @@ RetorRig loads to use the gamepad" 14 62
 
 	old_pre="psp_pre"
 	old_post="psp_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_ppsspp_x360_usb.joystick.xml & "
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_ppsspp_x360_usb.joystick.xml &"
 	# The line below is only for good measure
-	new_post=" && killall antimicro"
+	new_post="&& killall antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -1535,9 +1535,9 @@ RetorRig loads to use the gamepad" 14 62
 
 	old_pre="dolphin_pre"
 	old_post="dolphin_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_dolphin_x360_usb.joystick.xml & "
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_dolphin_x360_usb.joystick.xml &"
 	# The line below is only for good measure
-	new_post=" && killall antimicro"
+	new_post="&& killall antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -1548,9 +1548,9 @@ RetorRig loads to use the gamepad" 14 62
 
 	old_pre="gens_pre"
 	old_post="gens_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_gensgs_x360_usb.joystick.xml & "
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_gensgs_x360_usb.joystick.xml &"
 	# The line below is only for good measure
-	new_post=" && killall antimicro"
+	new_post="&& killall antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -1775,9 +1775,9 @@ RetorRig loads to use the gamepad" 14 62
 
 	old_pre="ps2_pre"
 	old_post="ps2_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_pcsx2_x360_usb.joystick.xml & "
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_pcsx2_x360_usb.joystick.xml &"
 	# The line below is only for good measure
-	new_post=" && killall pcsx2 antimicro"
+	new_post="&& killall pcsx2 antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -1788,9 +1788,9 @@ RetorRig loads to use the gamepad" 14 62
 
 	old_pre="med_gen_pre"
 	old_post="med_gen_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_gen_x360_usb.joystick.xml & "
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_gen_x360_usb.joystick.xml &"
 	# The line below is only for good measure
-	new_post=" && killall antimicro"
+	new_post="&& killall antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -1801,7 +1801,7 @@ RetorRig loads to use the gamepad" 14 62
 
 	old_pre="ps1_pre"
 	old_post="ps1_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_ps1_x360_usb.joystick.xml & "
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_mednafen_ps1_x360_usb.joystick.xml &"
 	# The line below is only for good measure
 	new_post=" && killall pcsx2 antimicro"
 	# perform actual changes
@@ -1814,9 +1814,9 @@ RetorRig loads to use the gamepad" 14 62
 
 	old_pre="psp_pre"
 	old_post="psp_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_ppsspp_x360_usb.joystick.xml & "
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_ppsspp_x360_usb.joystick.xml &"
 	# The line below is only for good measure
-	new_post=" && killall antimicro"
+	new_post="&& killall antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -1827,9 +1827,9 @@ RetorRig loads to use the gamepad" 14 62
 
 	old_pre="dolphin_pre"
 	old_post="dolphin_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_dolphin_x360_usb.joystick.xml & "
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_dolphin_x360_usb.joystick.xml &"
 	# The line below is only for good measure
-	new_post=" && killall antimicro"
+	new_post="&& killall antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
@@ -1840,9 +1840,9 @@ RetorRig loads to use the gamepad" 14 62
 
 	old_pre="gens_pre"
 	old_post="gens_post"
-	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_gensgs_x360_usb.joystick.xml & "
+	new_pre="antimicro --hidden --profile $config_home/.config/antimicro/am_gensgs_x360_usb.joystick.xml &"
 	# The line below is only for good measure
-	new_post=" && killall antimicro"
+	new_post="&& killall antimicro"
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
