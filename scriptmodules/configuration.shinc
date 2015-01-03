@@ -223,6 +223,9 @@ function cfg_uninstall()
 }
 
 
+function parameterIsTrue()
+{
+
 ########################################################################
 #
 # Functions to handle configuration file
@@ -249,8 +252,6 @@ function cfg_uninstall()
 #
 ########################################################################
 
-function parameterIsTrue()
-{
   VAR=`grep "$1" $configFile |cut -f 2 -d ','|grep true`
 
   if [ -n "$VAR" ]; then
@@ -261,6 +262,10 @@ function parameterIsTrue()
     return 1
   fi
 }
+
+
+function setParameter()
+{
 
 ########################################################################
 #
@@ -275,9 +280,6 @@ function parameterIsTrue()
 #
 ########################################################################
 
-
-function setParameter()
-{
   #echo "setParameter $1, $2"
   newLine="$1, $2"
 
@@ -290,6 +292,11 @@ function setParameter()
 
 }
 
+
+
+function getParameter()
+{
+
 ########################################################################
 #
 #  getParameter()
@@ -299,10 +306,6 @@ function setParameter()
 #  Return:       parameter value
 #
 ########################################################################
-
-
-function getParameter()
-{
 
   VAR=`grep "$1" $configFile |cut -f 2 -d ','`
 
