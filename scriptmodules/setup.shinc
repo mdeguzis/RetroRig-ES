@@ -524,7 +524,9 @@ function rrs_add_standard_repos()
 			# Add our standport Debian repositories for various pkgs
 			###############################################################
 			# add respository for RetroRig backends (dolphin, mednafen,...)
-			$cmd_add_repo ppa:beauman/retrorig
+			# Using standard packages for now from system repos unless needed...
+			# $cmd_add_repo ppa:beauman/retrorig
+
 			# Add repository for additional pkgs (retrorig-setup, joydetect)
 			$cmd_add_repo ppa:mdeguzis/retrorig
 
@@ -539,33 +541,9 @@ function rrs_add_standard_repos()
 
 					echo "running Ubuntu 14.10"
 
-					#add beauman's trusty repository 
-					echo "deb http://ppa.launchpad.net/beauman/retrorig/ubuntu trusty main" >\
-					  /etc/apt/sources.list.d/beauman-ubuntu-retrorig-trusty.list
+					# no repos for now unless needed. EmulationStation may handle X window position much better
+					# than XBMC
 
-					echo "copying missing libraries for Ubuntu 14.10"
-					mkdir -p /usr/share/RetroRig
-					cd /usr/share/RetroRig
-					wget --tries=50 -P /tmp "http://www.libregeek.org/RetroRig/libs/libs.Ubuntu.14.10.tar.bz"
-					tar xvfj /tmp/libs.Ubuntu.14.10.tar.bz
-
-					echo "installing libraries system wide"
-					cd /etc/ld.so.conf.d/
-					echo /usr/share/RetroRig > RetroRig.conf
-					ldconfig
-				
-#					TODO
-#					DEINSTALLATION CODE
-#
-#					# remove PPA
-#					rm -f /etc/apt/sources.list.d/beauman-ubuntu-retrorig-trusty.list*
-#					rm -f /etc/apt/sources.list.d/beauman-ubuntu-retrorig-testing-trusty.list*
-#					apt-get update
-#
-#					# remove supplemental libraries
-#					rm -rf /usr/share/RetroRig
-#					rm /etc/ld.so.conf.d/RetroRig.conf
-#					ldconfig
 					;;
 
 				*)
@@ -601,7 +579,9 @@ function rrs_add_standard_repos()
 			# Add our standport Debian repositories for various pkgs
 			###############################################################
 			# add respository for RetroRig backends (dolphin, mednafen,...)
-			$cmd_add_repo ppa:beauman/retrorig
+			#$cmd_add_repo ppa:beauman/retrorig
+			# Using standard packages for now from system repos unless needed...
+			
 			# Add repository for additional pkgs (retrorig-setup, joydetect)
 			$cmd_add_repo ppa:mdeguzis/retrorig
 
@@ -672,7 +652,7 @@ function rrs_software()
 	# add add repos and 
 	rrs_add_standard_repos
 
-	# add extra repostories to the em_add_repos function!
+	# add extra emulator repostories to the em_add_repos function!
 	em_add_repos
 
 	# update system pkgs currently installed first

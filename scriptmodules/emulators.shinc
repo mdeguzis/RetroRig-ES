@@ -9,9 +9,16 @@
 
 function em_add_repos()
 {
+	# Note: system update for repos occurs in rrs_software
 
-  #dummy instruction
-  sleep 1
+	# PCSX2
+	$cmd_add_repo ppa:gregory-hainaut/pcsx2.official.ppa
+
+	# Dolphin
+	$cmd_add_repo ppa:glennric/dolphin-emu
+
+	# PPSSPP
+	$cmd_add_repo ppa:ppsspp/stable
 
 }
 
@@ -31,15 +38,13 @@ function em_install_pcsx2()
 	
 	echo "Installing Playstation 2 emulator PCSX2"
 	$cmd_install_pkg pcsx2
-	# Unstable version still needs testing:
-	# pkg_install pcsx2-unstable
   
 	# Link BIOS path from home/RetroRig (source) to .retrorig/
 	ln -sf "$rootdir/BIOS/PCSX2" "$config_home/.config/pcsx2/bios"
 
-	#User might have the idea to manually state a bios file in the terminal.
-	#To save them exporting HOME as /home/user/.retrorig,
-	#a symbolic link is created.
+	# User might have the idea to manually state a bios file in the terminal.
+	# To save them exporting HOME as /home/user/.retrorig,
+	# a symbolic link is created.
 
 	date=`date`
 	mv "$HOME/.config/pcsx2" "$HOME/.config/pcsx2.backup_retrorig.$date"
@@ -51,8 +56,8 @@ function em_install_dolphin()
 {
 
 	echo "Installing Nintendo Gamecube emulator Dolphin"
-	$cmd_remove_pkg dolphin-emu dolphin-emu-master
-	$cmd_install_pkg dolphin-emu
+	# Note: Glenric's PPA uses dolphin-emu-master, not dolphin-emu
+	$cmd_install_pkg dolphin-emu-master
 
 }
 
@@ -89,17 +94,8 @@ function em_install_ppsspp()
 {
 	echo "Installing Playstation Portable emulator ppsspp"
 
-	# release aptitude hold for upgrade/install
-	$cmd_unhold_pkg ppsspp
-
-        #remove any previously installed version
-	$cmd_remove_pkg ppsspp
-
-        #install from PPA
+        #install from Noob's Lab PPA
 	$cmd_install_pkg ppsspp
-
-	# hold package after install against upgrades
-	$cmd_hold_pkg ppsspp
 
 }
 
@@ -107,13 +103,7 @@ function em_install_stella()
 {
 	echo "Installing Atari 2600 emulator Stella"
 
-	# release aptitude hold for upgrade/install
-	$cmd_unhold_pkg stella
-
-        #remove any previously installed version
-	$cmd_remove_pkg stella
-
-        #install from PPA
+        #install from core repos
 	$cmd_install_pkg stella
 
 	# hold package after install against upgrades
@@ -148,20 +138,9 @@ function em_install_mame()
 
 function em_install_mednafen()
 {
-	# release aptitude hold for upgrade/install
-	$cmd_unhold_pkg mednafen
-
-        #remove any previously installed version
-	$cmd_remove_pkg mednafen
 
 	echo "Installing Mednafen emulator"
 	$cmd_install_pkg mednafen
-	#wget --tries=50 -P /tmp "www.libregeek.org/RetroRig/Ubuntu-Trusty/mednafen/mednafen-patched-for-retrorig-patchlevel-1-0trusty.deb"
-	#$cmd_install_pkg libsdl2-2.0-0
-        #dpkg -i "/tmp/mednafen-patched-for-retrorig-patchlevel-1-0trusty.deb"
-
-	# hold package after install against upgrades
-	$cmd_hold_pkg mednafen
 
 }
 
@@ -174,24 +153,90 @@ function em_install_mess()
 function em_install_gens()
 {
 
-	# release pkg hold for upgrade/install
-	$cmd_unhold_pkg gens
+	# add beaumans repository just for this installation
+	# This may change in the future with manual dep resolution
+	#$cmd_add_repo ppa:beauman/retrorig
+	#h_upgrade_system
 
-        #remove any previously installed version
-	$cmd_remove_pkg gens
+	# Install pre-requisites for libsdl2:i386 (*yes there is a LOT!):
+	$cmd_install_pkg gcc-4.8-base:i386 gcc-4.9-base:i386 libasound2:i386 \
+	libasyncns0:i386 libatk1.0-0:i386 libavahi-client3:i386 \
+	libavahi-common-data:i386 libavahi-common3:i386 libc6:i386 libcairo2:i386 \
+	libcgmanager0:i386 libcomerr2:i386 libcups2:i386 libdatrie1:i386 \
+	libdbus-1-3:i386 libdrm-intel1:i386 libdrm-nouveau2:i386 libdrm-radeon1:i386 \
+	libdrm2:i386 libegl1-mesa:i386 libegl1-mesa-drivers:i386 libelf1:i386 \
+	libexpat1:i386 libffi6:i386 libflac8:i386 libfontconfig1:i386 \
+	libfreetype6:i386 libgbm1:i386 libgcc1:i386 libgcrypt11:i386 \
+	libgdk-pixbuf2.0-0:i386 libgl1-mesa-dri:i386 libgl1-mesa-glx:i386 \
+	libglapi-mesa:i386 libglib2.0-0:i386 libgnutls26:i386 libgpg-error0:i386 \
+	libgraphite2-3:i386 libgssapi-krb5-2:i386 libgtk2.0-0:i386 \
+	libharfbuzz0b:i386 libjasper1:i386 libjbig0:i386 libjpeg-turbo8:i386 \
+	libjpeg8:i386 libjson-c2:i386 libk5crypto3:i386 libkeyutils1:i386 \
+	libkrb5-3:i386 libkrb5support0:i386 libllvm3.4:i386 liblzma5:i386 \
+	libnih-dbus1:i386 libnih1:i386 libogg0:i386 libopenvg1-mesa:i386 \
+	libp11-kit0:i386 libpango-1.0-0:i386 libpangocairo-1.0-0:i386 \
+	libpangoft2-1.0-0:i386 libpciaccess0:i386 libpcre3:i386 libpixman-1-0:i386 \
+	libpng12-0:i386 libpulse0:i386 libselinux1:i386 \
+	libsndfile1:i386 libstdc++6:i386 libtasn1-6:i386 libthai0:i386 libtiff5:i386 \
+	libtinfo5:i386 libtxc-dxtn-s2tc0:i386 libudev1:i386 libvorbis0a:i386 \
+	libvorbisenc2:i386 libwayland-client0:i386 libwayland-cursor0:i386 \
+	libwayland-egl1-mesa:i386 libwayland-server0:i386 libwrap0:i386 \
+	libx11-6:i386 libx11-xcb1:i386 libxau6:i386 libxcb-dri2-0:i386 \
+	libxcb-dri3-0:i386 libxcb-glx0:i386 libxcb-present0:i386 libxcb-render0:i386 \
+	libxcb-shm0:i386 libxcb-sync1:i386 libxcb-xfixes0:i386 libxcb1:i386 \
+	libxcomposite1:i386 libxcursor1:i386 libxdamage1:i386 libxdmcp6:i386 \
+	libxext6:i386 libxfixes3:i386 libxi6:i386 libxinerama1:i386 \
+	libxkbcommon0:i386 libxrandr2:i386 libxrender1:i386 libxshmfence1:i386 \
+	libxss1:i386 libxxf86vm1:i386 zlib1g:i386
+
+	# install Beauman's libsdl2 pkg
+	# https://launchpad.net/~beauman/+archive/ubuntu/retrorig/+packages
+	wget --tries=50 -P /tmp "http://www.libregeek.org/RetroRig/Ubuntu-Trusty/emulators/gens/libsdl2-i386_2.0.2_i386.deb"
+        dpkg -i "/tmp/libsdl2-i386_2.0.2_i386.deb"
+	cleanup pkg file
+	rm -f "/tmp/libsdl2-i386_2.0.2_i386.deb"
+
+	# install Beauman's gens pkg that is updated for SDL2
+        #Installation from libregeek.org:
+	wget --tries=50 -P /tmp "http://www.libregeek.org/RetroRig/Ubuntu-Trusty/emulators/gens/gens_2.16.7.2.2_i386.deb"
+        dpkg -i "/tmp/gens_2.16.7.2.2_i386.deb"
+	cleanup pkg file
+	rm -f "/tmp/gens_2.16.7.2.2_i386.deb"
 
 	echo "Installing Gens Sega CD/32X emulator"
 	$cmd_install_pkg gens
 
-        # deprecated: installation from libregeek.org:
-	#wget --tries=50 -P /tmp "http://www.libregeek.org/RetroRig/Ubuntu-Trusty/emulators/gens//Gens_2.16.7_i386.deb"
-        #dpkg -i "/tmp/Gens_2.16.7_i386.deb"
-	# cleanup pkg file
-	#rm -f "/tmp/Gens_2.16.7_i386.deb"
-
-	# hold package after install against upgrades
-	$cmd_hold_pkg gens
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
