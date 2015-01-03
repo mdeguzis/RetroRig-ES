@@ -426,27 +426,19 @@ function ps3_set_ctrl_assignments()
 			fi
 		fi
 	fi
-	echo -e "\nController ID/MAC Address applied to XBMC controls was:\n$PS3_MAC_BLU \n"
+	echo -e "\nController ID/MAC Address applied to ES controls was:\n$PS3_MAC_BLU \n"
 
-	# copy over default keyboard file:
-	cp "$scriptdir/gamepad-cfgs/ps3_blu_controller/keyboard.xml" "$es_home/userdata/keymaps/"
-
-	# Copy our keymap to the regular .xbmc dotfile directory if keyboard.xml exists:
-	if [[ -f "$home/.xbmc/userdata/keymaps/keyboard.xml" ]]; then
-		# back up current file
-		cp "$home/.xbmc/userdata/keymaps/keyboard.xml" "$home/.xbmc/userdata/keymaps/keyboard.xml.old"
-		# copy in keymap
-		cp "$scriptdir/gamepad-cfgs/ps3_blu_controller/keyboard.xml" "$home/.xbmc/userdata/keymaps/"
-	fi
+	# copy over default keyboard file for ES:
+	cp "$scriptdir/gamepad-cfgs/ps3_blu_controller/es_input.cfg" "$es_home"
 
 	# First grab MAC Addresses:
 	# In the config file, the MAC is set to 00:00:00:00:00:00
 
-	# set MAC values
+	# set default MAC values
 	PS3_MAC_OLD="00:00:00:00:00:00"
 
 	# Replace MAC Address for ***CONTROLLER 1 ONLY!*** This will be used to control XBMC		
-	sed -i "s|$PS3_MAC_OLD|$PS3_MAC_BLU|g" "$es_home/userdata/keymaps/keyboard.xml"
+	sed -i "s|$PS3_MAC_OLD|$PS3_MAC_BLU|g" "$es_home/es_input.cfg"
 	sleep 2s
 
 }
@@ -826,19 +818,11 @@ function gp_ps3_usb()
 	cp -v "$scriptdir/init-scripts/ps3_usb_controller/xboxdrv" "/etc/init.d/"
 	cp -v "$scriptdir/init-scripts/ps3_usb_controller/default/xboxdrv" "/etc/default/xboxdrv"
 
-	# Copy our keymap to the regular .xbmc dotfile directory if keyboard.xml exists:
-	if [[ -f "$home/.xbmc/userdata/keymaps/keyboard.xml" ]]; then
-		# back up current file
-		cp -v "$home/.xbmc/userdata/keymaps/keyboard.xml" "$home/.xbmc/userdata/keymaps/keyboard.xml.old"
-		# copy in keymap
-		cp "$scriptdir/gamepad-cfgs/ps3_usb_controller/keyboard.xml" "$home/.xbmc/userdata/keymaps/"
-	fi
+	# copy over default keyboard file for ES:
+	cp "$scriptdir/gamepad-cfgs/ps3_usb_controller/es_input.cfg" "$es_home"
 	
 	# blacklist xpad
 	cp -v "$scriptdir/init-scripts/ps3_usb_controller/blacklist.conf" "/etc/modprobe.d/"
-
-	# copy over default keyboard file:
-	cp -v "$scriptdir/gamepad-cfgs/ps3_usb_controller/keyboard.xml" "$es_home/userdata/keymaps/keyboard.xml"
 
 	##############################################################
 	# Set number of controllers for /etc/default/xboxdrv
@@ -1318,63 +1302,63 @@ function gp_x360_usb()
 	#mame
 	# default path: /home/$USER/.mame
 	# Main config
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/MAME/default.cfg" "$config_home/.mame/cfg"
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/MAME/mame.ini" "$config_home/.mame/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/MAME/default.cfg" "$config_home/.mame/cfg"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/MAME/mame.ini" "$config_home/.mame/"
 
 	# mess
 	# default path: /home/$USER/.mednafen/mednafen.cfg
 	# Main config
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/MESS/mess.ini" "$config_home/.mess/"
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/MESS/aes.ini" "$config_home/.mess/"
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/MESS/neocdz.ini" "$config_home/.mess/"
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/MESS/default.cfg" "$config_home/.mess/cfg/"
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/MESS/neocdz.cfg" "$config_home/.mess/cfg/"
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/MESS/aes.cfg" "$config_home/.mess/cfg/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/MESS/mess.ini" "$config_home/.mess/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/MESS/aes.ini" "$config_home/.mess/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/MESS/neocdz.ini" "$config_home/.mess/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/MESS/default.cfg" "$config_home/.mess/cfg/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/MESS/neocdz.cfg" "$config_home/.mess/cfg/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/MESS/aes.cfg" "$config_home/.mess/cfg/"
 
 	# mednafen
 	# default path: /home/$USER/.mednafen/mednafen.cfg
 	# Main config
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/mednafen/mednafen-09x.cfg" "$config_home/.mednafen/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/mednafen/mednafen-09x.cfg" "$config_home/.mednafen/"
 
 	# mupen64plus
 	# default path: /home/$USER/.config/mupen64plus
 	# Main config
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/mupen64plus/mupen64plus.cfg" "$config_home/.config/mupen64plus/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/mupen64plus/mupen64plus.cfg" "$config_home/.config/mupen64plus/"
 
 	# Dolphin (GameCube/Wii)
 	# default path: /home/$USER/.retrorig/.dolphin-emu/Wii/
 	# default path: /home/$USER/.retrorig/.dolphin-emu/GC/
 	## GC config ##
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/Dolphin/GC/GCPadNew.ini" "$config_home/.dolphin-emu/GC/Config/"
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/Dolphin/GC/Dolphin.ini" "$config_home/.dolphin-emu/GC/Config/"
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/Dolphin/GC/WiimoteNew.ini" "$config_home/.dolphin-emu/GC/Config/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/Dolphin/GC/GCPadNew.ini" "$config_home/.dolphin-emu/GC/Config/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/Dolphin/GC/Dolphin.ini" "$config_home/.dolphin-emu/GC/Config/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/Dolphin/GC/WiimoteNew.ini" "$config_home/.dolphin-emu/GC/Config/"
 	## Wii config ##
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/Dolphin/Wii/GCPadNew.ini" "$config_home/.dolphin-emu/Wii/Config/"
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/Dolphin/Wii/Dolphin.ini" "$config_home/.dolphin-emu/Wii/Config/"
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/Dolphin/Wii/WiimoteNew.ini" "$config_home/.dolphin-emu/Wii/Config/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/Dolphin/Wii/GCPadNew.ini" "$config_home/.dolphin-emu/Wii/Config/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/Dolphin/Wii/Dolphin.ini" "$config_home/.dolphin-emu/Wii/Config/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/Dolphin/Wii/WiimoteNew.ini" "$config_home/.dolphin-emu/Wii/Config/"
 
 	# PCSX2
 	# base config folder
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/PCSX2/inisOnePAD.ini" "$config_home/.config/pcsx2/inisOnePAD.ini"
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/PCSX2/PCSX2-reg.ini" "$config_home/.config/pcsx2/PCSX2-reg.ini"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/PCSX2/inisOnePAD.ini" "$config_home/.config/pcsx2/inisOnePAD.ini"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/PCSX2/PCSX2-reg.ini" "$config_home/.config/pcsx2/PCSX2-reg.ini"
 	# inis
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/PCSX2/inis/GSdx.ini" "$config_home/.config/pcsx2/inis/"
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/PCSX2/inis/OnePAD.ini" "$config_home/.config/pcsx2/inis/"
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/PCSX2/inis/PCSX2_ui.ini" "$config_home/.config/pcsx2/inis/"
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/PCSX2/inis/PCSX2_vm.ini" "$config_home/.config/pcsx2/inis/"
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/PCSX2/inis/spu2-x.ini" "$config_home/.config/pcsx2/inis/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/PCSX2/inis/GSdx.ini" "$config_home/.config/pcsx2/inis/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/PCSX2/inis/OnePAD.ini" "$config_home/.config/pcsx2/inis/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/PCSX2/inis/PCSX2_ui.ini" "$config_home/.config/pcsx2/inis/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/PCSX2/inis/PCSX2_vm.ini" "$config_home/.config/pcsx2/inis/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/PCSX2/inis/spu2-x.ini" "$config_home/.config/pcsx2/inis/"
 
 	#Stella
 	#default path: /home/$USER/.config/mupen64plus
 	#Main config
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/Stella/stellarc" "$config_home/.stella/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/Stella/stellarc" "$config_home/.stella/"
 
 	# PPSSPP
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/PPSSPP/ppsspp.ini" "$config_home/.config/ppsspp/PSP/SYSTEM/"
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/PPSSPP/controls.ini" "$config_home/.config/ppsspp/PSP/SYSTEM/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/PPSSPP/ppsspp.ini" "$config_home/.config/ppsspp/PSP/SYSTEM/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/PPSSPP/controls.ini" "$config_home/.config/ppsspp/PSP/SYSTEM/"
 
 	# Gens GS (Sega CD/32X)
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/GensGS/gens.cfg" "$config_home/.gens/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/GensGS/gens.cfg" "$config_home/.gens/"
 
 	# Alter Steam config.vdf with proper controls if controller exists
 	STEAM_GP_TYPE="x360usb"
@@ -1385,23 +1369,14 @@ function gp_x360_usb()
 	############################################
 	
 	#blacklist xpad
-	cp -v "$scriptdir/init-scripts/generic_usb_controller/blacklist.conf" "/etc/modprobe.d/"
+	cp -v "$scriptdir/init-scripts/x360_usb_controller/blacklist.conf" "/etc/modprobe.d/"
 
 	#inject init script and default config
-	cp -v "$scriptdir/init-scripts/generic_usb_controller/xboxdrv" "/etc/init.d/"
-	cp -v "$scriptdir/init-scripts/generic_usb_controller/default/xboxdrv" "/etc/default/xboxdrv"
+	cp -v "$scriptdir/init-scripts/x360_usb_controller/xboxdrv" "/etc/init.d/"
+	cp -v "$scriptdir/init-scripts/x360_usb_controller/default/xboxdrv" "/etc/default/xboxdrv"
 
-	# copy keyboard.xml file for XBMC. Button id numbers are totally diffferent, due to the use of 
-	# the use-dpad-as-button, and use-trigger-as-button options used.
-	cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/keyboard.xml" "$es_home/userdata/keymaps"
-
-	# Copy our keymap to the regular .xbmc dotfile directory if keyboard.xml exists:
-	if [[ -f "$home/.xbmc/userdata/keymaps/keyboard.xml" ]]; then
-		# back up current file
-		cp -v "$home/.xbmc/userdata/keymaps/keyboard.xml" "$home/.xbmc/userdata/keymaps/keyboard.xml.old"
-		# copy in keymap
-		cp "$scriptdir/gamepad-cfgs/generic_usb_controller/keyboard.xml" "$home/.xbmc/userdata/keymaps/"
-	fi
+	# copy over default keyboard file for ES:
+	cp "$scriptdir/gamepad-cfgs/x360_usb_controller/es_input.cfg" "$es_home"
 
 	##############################################################
 	# Set number of controllers for /etc/default/xboxdrv
@@ -1459,7 +1434,7 @@ RetorRig loads to use the gamepad" 14 62
 	###########################################################
 
 	# blacklist xpad
-	cp -v "$scriptdir/init-scripts/generic_usb_controller/blacklist.conf" "/etc/modprobe.d/"
+	cp -v "$scriptdir/init-scripts/x360_usb_controller/blacklist.conf" "/etc/modprobe.d/"
 
 	###########################################################
 	# Add emulator specifc control remaps here for AniMicro
@@ -1469,13 +1444,13 @@ RetorRig loads to use the gamepad" 14 62
 	###########################################################
 
 	# copy in profiles for emulators (antimicro)
-	cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/antimicro_settings.ini" "$config_home/.config/antimicro/"
-	cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/am_pcsx2_x360_usb.joystick.xml" "$config_home/.config/antimicro/"
-	cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/am_mednafen_gen_x360_usb.joystick.xml" "$config_home/.config/antimicro/"
-	cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/am_mednafen_ps1_x360_usb.joystick.xml" "$config_home/.config/antimicro/"
-	cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/am_ppsspp_x360_usb.joystick.xml" "$config_home/.config/antimicro/"
-	cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/am_dolphin_x360_usb.joystick.xml" "$config_home/.config/antimicro/"
-	cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/am_gensgs_x360_usb.joystick.xml" "$config_home/.config/antimicro/"
+	cp -v "$scriptdir/gamepad-cfgs/x360_usb_controller/antimicro_settings.ini" "$config_home/.config/antimicro/"
+	cp -v "$scriptdir/gamepad-cfgs/x360_usb_controller/am_pcsx2_x360_usb.joystick.xml" "$config_home/.config/antimicro/"
+	cp -v "$scriptdir/gamepad-cfgs/x360_usb_controller/am_mednafen_gen_x360_usb.joystick.xml" "$config_home/.config/antimicro/"
+	cp -v "$scriptdir/gamepad-cfgs/x360_usb_controller/am_mednafen_ps1_x360_usb.joystick.xml" "$config_home/.config/antimicro/"
+	cp -v "$scriptdir/gamepad-cfgs/x360_usb_controller/am_ppsspp_x360_usb.joystick.xml" "$config_home/.config/antimicro/"
+	cp -v "$scriptdir/gamepad-cfgs/x360_usb_controller/am_dolphin_x360_usb.joystick.xml" "$config_home/.config/antimicro/"
+	cp -v "$scriptdir/gamepad-cfgs/x360_usb_controller/am_gensgs_x360_usb.joystick.xml" "$config_home/.config/antimicro/"
 
 	#####################
 	# PCSX2
@@ -1560,15 +1535,6 @@ RetorRig loads to use the gamepad" 14 62
 
 	# restart the xboxdrv service, not start, in case it was already loaded for a gamepad change
 	$cmd_xboxdrv_restart
-
-	#####################################################################################
-	# THIS FUNCTION SECTION IS NOT USED AT THE MOMENT, MORE TESTING IS NEEDED!!!
-	#####################################################################################
-
-	# Testing ONLY for gp_autodetect_xbmc.sh.testing
-	# new_controller_type="x360_wired"
-	# cp -v "$scriptdir/XBMC-cfgs/extra/gp_autodetect_xbmc.sh" "/usr/share/applications/" 
-	# sed -i "s|controller_temp|$new_controller_type|g" "/usr/share/applications/gp_autodetect_xbmc.sh"
 
 	# replace specific user paths that emulators and files may use
 	h_emu_user_fixes
