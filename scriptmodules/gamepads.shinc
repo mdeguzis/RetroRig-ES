@@ -419,7 +419,10 @@ function ps3_set_ctrl_assignments()
 	fi
 	echo -e "\nController ID/MAC Address applied to ES controls was:\n$PS3_MAC_BLU \n"
 
-	# copy over default keyboard file for ES:
+	# copy over default cfgs for ES:
+	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
+	cp -v "$scriptdir/es-cfgs/es_settings.cfg" "$es_home"
+	# Copy default ES input file
 	cp "$scriptdir/gamepad-cfgs/ps3_blu_controller/es_input.cfg" "$es_home"
 
 	# First grab MAC Addresses:
@@ -809,7 +812,10 @@ function gp_ps3_usb()
 	cp -v "$scriptdir/init-scripts/ps3_usb_controller/xboxdrv" "/etc/init.d/"
 	cp -v "$scriptdir/init-scripts/ps3_usb_controller/default/xboxdrv" "/etc/default/xboxdrv"
 
-	# copy over default keyboard file for ES:
+	# copy over default cfgs for ES:
+	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
+	cp -v "$scriptdir/es-cfgs/es_settings.cfg" "$es_home"
+	# Copy default ES input file
 	cp "$scriptdir/gamepad-cfgs/ps3_usb_controller/es_input.cfg" "$es_home"
 	
 	# blacklist xpad
@@ -1080,7 +1086,10 @@ function gp_x360_wireless()
 	#inject init script and default config
 	cp -v "$scriptdir/init-scripts/x360_wireless_controller/xboxdrv" "/etc/init.d/"
 
-	# copy over default keyboard file for ES:
+	# copy over default cfgs for ES:
+	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
+	cp -v "$scriptdir/es-cfgs/es_settings.cfg" "$es_home"
+	# Copy default ES input file
 	cp "$scriptdir/gamepad-cfgs/x360_wireless_controller/es_input.cfg" "$es_home"
 
 	##############################################################
@@ -1347,7 +1356,10 @@ function gp_x360_usb()
 	cp -v "$scriptdir/init-scripts/x360_usb_controller/xboxdrv" "/etc/init.d/"
 	cp -v "$scriptdir/init-scripts/x360_usb_controller/default/xboxdrv" "/etc/default/xboxdrv"
 
-	# copy over default keyboard file for ES:
+	# copy over default cfgs for ES:
+	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
+	cp -v "$scriptdir/es-cfgs/es_settings.cfg" "$es_home"
+	# Copy default ES input file
 	cp "$scriptdir/gamepad-cfgs/x360_usb_controller/es_input.cfg" "$es_home"
 
 	##############################################################
@@ -1621,7 +1633,10 @@ function gp_generic_usb()
 	cp -v "$scriptdir/init-scripts/generic_usb_controller/xboxdrv" "/etc/init.d/"
 	cp -v "$scriptdir/init-scripts/generic_usb_controller/default/xboxdrv" "/etc/default/xboxdrv"
 
-	# copy over default keyboard file for ES:
+	# copy over default cfgs for ES:
+	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
+	cp -v "$scriptdir/es-cfgs/es_settings.cfg" "$es_home"
+	# Copy default ES input file
 	cp "$scriptdir/gamepad-cfgs/ps3_usb_controller/es_input.cfg" "$es_home"
 
 	##############################################################
