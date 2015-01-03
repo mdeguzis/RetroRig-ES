@@ -1,10 +1,7 @@
 RetroRig-ES Project
 ===================================================
 ![alt text](http://i.imgur.com/Irgv0Fx.png "RetroRig")
-###### [Version 0.0.3]
-
-#### Warning!!!
-This project is very much in VERY early stages and should not be used. Please keep a close eye on commits. When this message is removed, a stable working version will likely be in place.
+###### [Version 0.1.1]
 
 RetroRig-ES is preconfigured setup of scripts, configurations, and emulators for x86_64 Linux systems, using EmulationStation as the front-end. I wanted to take as much out of the equation as possible for users to configure themselves. The "ES" fork of RetroRig was meant to give a hard look at using EmulationStation as the front end, rather than XBMC. This project is intended to be run on Ubuntu (currently 14.04 LTS), and a gamepad / controller.
 
