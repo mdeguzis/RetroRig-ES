@@ -1080,6 +1080,9 @@ function gp_x360_wireless()
 	#inject init script and default config
 	cp -v "$scriptdir/init-scripts/x360_wireless_controller/xboxdrv" "/etc/init.d/"
 
+	# copy over default keyboard file for ES:
+	cp "$scriptdir/gamepad-cfgs/x360_wireless_controller/es_input.cfg" "$es_home"
+
 	##############################################################
 	# Set number of controllers for /etc/default/xboxdrv
 	##############################################################
@@ -1618,6 +1621,8 @@ function gp_generic_usb()
 	cp -v "$scriptdir/init-scripts/generic_usb_controller/xboxdrv" "/etc/init.d/"
 	cp -v "$scriptdir/init-scripts/generic_usb_controller/default/xboxdrv" "/etc/default/xboxdrv"
 
+	# copy over default keyboard file for ES:
+	cp "$scriptdir/gamepad-cfgs/ps3_usb_controller/es_input.cfg" "$es_home"
 
 	##############################################################
 	# Set number of controllers for /etc/default/xboxdrv
@@ -1634,7 +1639,7 @@ the service may fail to start correctly.\n\nPlease see /etc/default/xboxdrv for 
 RetorRig loads to use the gamepad" 14 62
 
 	# Present small menu asking for number of controllers
-	cmd=(dialog --backtitle "LibreGeek.org RetroRig Installer" \
+	cmd=(dialog --backtitle "LibreGeek.org RetroRig-ES Installer" \
 		    --menu "Please select the number of USB Xbox controllers" 16 47 16)
 	options=(1 "1"
 	 	 2 "2"
@@ -1686,12 +1691,12 @@ RetorRig loads to use the gamepad" 14 62
 
 	# copy in profiles for emulators (antimicro)
 	cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/antimicro_settings.ini" "$config_home/.config/antimicro/"
-	cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/am_pcsx2_x360_usb.joystick.xml" "$config_home/.config/antimicro/"
-	cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/am_mednafen_gen_x360_usb.joystick.xml" "$config_home/.config/antimicro/"
-	cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/am_mednafen_ps1_x360_usb.joystick.xml" "$config_home/.config/antimicro/"
-	cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/am_ppsspp_x360_usb.joystick.xml" "$config_home/.config/antimicro/"
-	cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/am_dolphin_x360_usb.joystick.xml" "$config_home/.config/antimicro/"
-	cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/am_gensgs_x360_usb.joystick.xml" "$config_home/.config/antimicro/"
+	cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/am_pcsx2_16btn_usb.joystick.xml" "$config_home/.config/antimicro/"
+	cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/am_mednafen_gen_16btn_usb.joystick.xml" "$config_home/.config/antimicro/"
+	cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/am_mednafen_ps1_16btn_usb.joystick.xml" "$config_home/.config/antimicro/"
+	cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/am_ppsspp_16btn_usb.joystick.xml" "$config_home/.config/antimicro/"
+	cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/am_dolphin_16btn_usb.joystick.xml" "$config_home/.config/antimicro/"
+	cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/am_gensgs_16btn_usb.joystick.xml" "$config_home/.config/antimicro/"
 
 	#####################
 	# PCSX2
