@@ -344,7 +344,7 @@ es_home="$home/.retrorig-es/.emulationstation"
 config_home="$home/.retrorig-es"
 
 #set RetroRig configuration file
-configFile=$config_home/retrorig.cfg
+configFile=$config_home/retrorig-es.cfg
 
 cd "$rootdir"
 

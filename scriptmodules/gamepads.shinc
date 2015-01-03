@@ -1588,7 +1588,7 @@ function gp_generic_usb()
 	# default path: /home/$USER/.retrorig/.dolphin-emu/GC/
 	## GC config ##
 	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/Dolphin/GC/GCPadNew.ini" "$config_home/.dolphin-emu/GC/Config/"
-	cp -v "$scriptdir/emu-cfgs/pgeneric_usb_controller/Dolphin/GC/Dolphin.ini" "$config_home/.dolphin-emu/GC/Config/"
+	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/Dolphin/GC/Dolphin.ini" "$config_home/.dolphin-emu/GC/Config/"
 	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/Dolphin/GC/WiimoteNew.ini" "$config_home/.dolphin-emu/GC/Config/"
 	## Wii config ##
 	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/Dolphin/Wii/GCPadNew.ini" "$config_home/.dolphin-emu/Wii/Config/"
