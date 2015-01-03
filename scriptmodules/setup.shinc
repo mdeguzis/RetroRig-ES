@@ -857,7 +857,6 @@ function rrs_retrorig_cfgs()
 function rrs_es_cfgs()
 {
 	clear
-	
 	# ES configs will go here. Include sed operations for temp replacements
 	
 }

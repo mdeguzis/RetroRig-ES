@@ -965,6 +965,9 @@ function h_emu_user_fixes()
 	# RCB and some config files don't like using $config_home, rather /home/test/
 	# Let's change the config files to reflect the current username
 	
+	# EmulationStation
+	sed -i "s|installdir_temp|$rootdir|g" "$es_home/es_systems.cfg"
+
 	# mame
 	sed -i "s|installdir_temp|$rootdir|g" "$config_home/.mame/mame.ini"
 	sed -i "s|config_temp|$config_home|g" "$config_home/.mame/mame.ini"
