@@ -38,8 +38,10 @@ h_clean_gamepad()
 	# qjoypad 
 	rm -f "$home/.config/autostart/qjoypad.desktop"
 
-	# XBMC keymaps
-	rm -f "$xbmc_home/userdata/keymaps/keyboard.xml"
+	# Emulation Station configs
+	rm -f "$es_home/es_systems.cfg"
+	rm -f "$es_home/es_settings.cfg"
+	rm -f "$es_home/es_input.cfg"
 	
 	# remove the /usr/share/applications/gp_autodetect_xbmc.sh file, so we can actively
 	# set the gamepad type on changes from user input in the script gamepad select
