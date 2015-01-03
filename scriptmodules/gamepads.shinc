@@ -259,7 +259,7 @@ function gp_ps3_blu_main()
 		# call pairing function to set current bluetooth MAC to Player 1
 		n="1"
 		ps3_pair_blu
-		# Set up control assignments for emulators and XBMC control
+		# Set up control assignments for emulators and ES control
 		clear
 		ps3_set_ctrl_assignments
 		ps3_set_emulator_ids
@@ -271,7 +271,7 @@ function gp_ps3_blu_main()
 		# call pairing function to set current bluetooth MAC to Player 1
 		n="1"
 		ps3_pair_blu
-		# Set up control assignments for emulators and XBMC control
+		# Set up control assignments for emulators and ES control
 		clear
 		ps3_set_ctrl_assignments
 		ps3_set_emulator_ids
@@ -291,7 +291,7 @@ function gp_ps3_blu_main()
 		# call pairing function to set current bluetooth MAC to Player 1
 		n="1"
 		ps3_pair_blu
-		# Set up control assignments for emulators and XBMC control
+		# Set up control assignments for emulators and ES control
 		clear
 		ps3_set_ctrl_assignments
 		ps3_set_emulator_ids
@@ -319,7 +319,7 @@ function gp_ps3_blu_main()
 		# call pairing function to set current bluetooth MAC to Player 1
 		n="1"
 		ps3_pair_blu
-		# Set up control assignments for emulators and XBMC control
+		# Set up control assignments for emulators and ES control
 		clear
 		ps3_set_ctrl_assignments
 		ps3_set_emulator_ids
@@ -363,15 +363,6 @@ function gp_ps3_blu_main()
 
 	# replace specific user paths that emulators and files may use
 	h_emu_user_fixes
-
-	#####################################################################################
-	# THIS FUNCTION SECTION IS NOT USED AT THE MOMENT, MORE TESTING IS NEEDED!!!
-	#####################################################################################
-
-	# copy in the gp_autodetect_xbmc.sh template file, and change the gamepad type
-	# new_controller_type="ps3_blu"
-	# cp -v "$scriptdir/XBMC-cfgs/extra/gp_autodetect_xbmc.sh" "/usr/share/applications/" 
-	# sed -i "s|controller_temp|$new_controller_type|g" "/usr/share/applications/gp_autodetect_xbmc.sh"
 
 	# correct permissions since we install using sudo access
 	h_correct_perms	
@@ -437,7 +428,7 @@ function ps3_set_ctrl_assignments()
 	# set default MAC values
 	PS3_MAC_OLD="00:00:00:00:00:00"
 
-	# Replace MAC Address for ***CONTROLLER 1 ONLY!*** This will be used to control XBMC		
+	# Replace MAC Address for ***CONTROLLER 1 ONLY!*** This will be used to control ES		
 	sed -i "s|$PS3_MAC_OLD|$PS3_MAC_BLU|g" "$es_home/es_input.cfg"
 	sleep 2s
 
@@ -608,13 +599,13 @@ function enable_rr_autostart()
 	
 	if [ "$rr_autostart" == "enabled" ]; then
 		# create autostart entry, remove prior if it exists
-		rm -f "$home.config/autostart/RetroRig.desktop"
-		cp -v "$scriptdir/XBMC-cfgs/extra/RetroRig.desktop" "$home/.config/autostart"
+		rm -f "$home.config/autostart/RetroRig-ES.desktop"
+		cp -v "$scriptdir/es-cfgs/extra/RetroRig-ES.desktop" "$home/.config/autostart"
 		# fix permissions
-		chmod 755 "$home/.config/autostart/RetroRig.desktop"
+		chmod 755 "$home/.config/autostart/RetroRig-ES.desktop"
 	else
 		# remove any existing entry
-		rm -f "$home.config/autostart/RetroRig.desktop"
+		rm -f "$home.config/autostart/RetroRig-ES.desktop"
 	fi
 
 	sleep 2
@@ -1088,19 +1079,6 @@ function gp_x360_wireless()
 
 	#inject init script and default config
 	cp -v "$scriptdir/init-scripts/x360_wireless_controller/xboxdrv" "/etc/init.d/"
-	cp -v "$scriptdir/init-scripts/x360_wireless_controller/default/xboxdrv" "/etc/default/xboxdrv"
-
-	# copy keyboard.xml file for XBMC. Button id numbers are totally diffferent, due to the use of 
-	# the use-dpad-as-button, and use-trigger-as-button options used.
-	cp -v "$scriptdir/gamepad-cfgs/x360_wireless_controller/keyboard.xml" "$es_home/userdata/keymaps"
-
-	# Copy our keymap to the regular .xbmc dotfile directory if keyboard.xml exists:
-	if [[ -f "$home/.xbmc/userdata/keymaps/keyboard.xml" ]]; then
-		# back up current file
-		cp -v "$home/.xbmc/userdata/keymaps/keyboard.xml" "$home/.xbmc/userdata/keymaps/keyboard.xml.old"
-		# copy in keymap
-		cp "$scriptdir/gamepad-cfgs/x360_wireless_controller/keyboard.xml" "$home/.xbmc/userdata/keymaps/"
-	fi
 
 	##############################################################
 	# Set number of controllers for /etc/default/xboxdrv
@@ -1260,15 +1238,6 @@ RetorRig loads to use the gamepad." 14 62
 
 	# restart the xboxdrv service, not start, in case it was already loaded for a gamepad change
 	$cmd_xboxdrv_restart
-
-	#####################################################################################
-	# THIS FUNCTION SECTION IS NOT USED AT THE MOMENT, MORE TESTING IS NEEDED!!!
-	#####################################################################################
-	
-	# new_controller_type="x360_wireless"
-	# Testing ONLY for gp_autodetect_xbmc.sh.testing
-	# cp -v "$scriptdir/XBMC-cfgs/extra/gp_autodetect_xbmc.sh" "/usr/share/applications/" 
-	# sed -i "s|controller_temp|$new_controller_type|g" "/usr/share/applications/gp_autodetect_xbmc.sh"
 
 	# replace specific user paths that emulators and files may use
 	h_emu_user_fixes
@@ -1649,17 +1618,6 @@ function gp_generic_usb()
 	cp -v "$scriptdir/init-scripts/generic_usb_controller/xboxdrv" "/etc/init.d/"
 	cp -v "$scriptdir/init-scripts/generic_usb_controller/default/xboxdrv" "/etc/default/xboxdrv"
 
-	# copy keyboard.xml file for XBMC. Button id numbers are totally diffferent, due to the use of 
-	# the use-dpad-as-button, and use-trigger-as-button options used.
-	cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/keyboard.xml" "$es_home/userdata/keymaps"
-
-	# Copy our keymap to the regular .xbmc dotfile directory if keyboard.xml exists:
-	if [[ -f "$home/.xbmc/userdata/keymaps/keyboard.xml" ]]; then
-		# back up current file
-		cp -v "$home/.xbmc/userdata/keymaps/keyboard.xml" "$home/.xbmc/userdata/keymaps/keyboard.xml.old"
-		# copy in keymap
-		cp "$scriptdir/gamepad-cfgs/generic_usb_controller/keyboard.xml" "$home/.xbmc/userdata/keymaps/"
-	fi
 
 	##############################################################
 	# Set number of controllers for /etc/default/xboxdrv
@@ -1822,11 +1780,6 @@ RetorRig loads to use the gamepad" 14 62
 	#####################################################################################
 	# THIS FUNCTION SECTION IS NOT USED AT THE MOMENT, MORE TESTING IS NEEDED!!!
 	#####################################################################################
-
-	# Testing ONLY for gp_autodetect_xbmc.sh.testing
-	# new_controller_type="x360_wired"
-	# cp -v "$scriptdir/XBMC-cfgs/extra/gp_autodetect_xbmc.sh" "/usr/share/applications/" 
-	# sed -i "s|controller_temp|$new_controller_type|g" "/usr/share/applications/gp_autodetect_xbmc.sh"
 
 	# replace specific user paths that emulators and files may use
 	h_emu_user_fixes
