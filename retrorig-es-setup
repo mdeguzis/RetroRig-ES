@@ -3,7 +3,7 @@
 # RetroRig-ES Main Setup Script
 # This is a small script to copy over configuration files for emulators
 # append a "-x" on the end above for debugging if need be
-# Version 0.0.5
+# Version 0.1.1
 #
 # Note: Syscalls are now abstracted!
 # Please see syscalls-<pkg_mgr>.shinc for more.
@@ -352,7 +352,7 @@ cd "$rootdir"
 
 while true; do
     cmd=(dialog --backtitle "LibreGeek.org RetroRig-ES 
-Installer" --menu "| Main Menu (v.0.0.5) | \
+Installer" --menu "| Main Menu (v.0.1.1) | \
  			 BIOS files are NOT provided!" 17 62 16)
     options=(1 "Install RetroRig-ES" 
 	     2 "RetroRig Settings" 
