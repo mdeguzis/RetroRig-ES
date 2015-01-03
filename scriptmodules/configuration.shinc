@@ -61,12 +61,23 @@ function cfg_uninstall()
 		# do not remove software-properties-common, necessary pkg!
 		clear
 		$cmd_autoremove_pkg xboxdrv curl python-software-properties \
-		pkg-config mednafen mame mupen64plus dconf-tools qjoypad xbmc \
-		stella sixad
+		pkg-config software-properties-common dconf-tools jstest-gtk \
+		sixad libusb-0.1-4 antimicro bluez getpos unclutter \
+		joydetect sudo ttf-dejavu-core ttf-dejavu-core ttf-liberation \
+		wmctrl gdebi dos2unix
+
+		# emulators
+		$cmd_autoremove_pk ppsspp gens pcsx2 mednafen mupen64plus mame \
+		mess stella dolphin-emu-master
 
 		# add apport, apport-gtk back
 		$cmd_install_pkg apport apport-gtk
 		$cmd_remove_32bit_arch
+	
+		# remove PPA's and other repos
+		$cmd_remove_repo ppa:gregory-hainaut/pcsx2.official.ppa
+		$cmd_remove_repo ppa:glennric/dolphin-emu
+		$cmd_remove_repo ppa:glennric/ppa:ppsspp/stable
 
 		rm -f /etc/apt/sources.list.d/playdeb.list
 		;;
@@ -81,135 +92,133 @@ function cfg_uninstall()
 
 	esac
 
-# release holds on packages
-$cmd_unhold_pkg xbmc xbmc-bin mednafen
 
-#ask to keep folders
-#prompt user if they wish to keep folders from install
-dialog --title "Confirm yes/no" --backtitle "LibreGeek.org RetroRig Installer" \
-	--yesno "Do you wish to keep configuration folders?" 6 30	
+	#ask to keep folders
+	#prompt user if they wish to keep folders from install
+	dialog --title "Confirm yes/no" --backtitle "LibreGeek.org RetroRig Installer" \
+		--yesno "Do you wish to keep configuration folders?" 6 30	
 	 
-# Get exit status
-# 0 means user hit [yes] button.
-# 1 means user hit [no] button.
-# 255 means user hit [Esc] key.
-response=$?
-case $response in
+		# Get exit status
+		# 0 means user hit [yes] button.
+		# 1 means user hit [no] button.
+		# 255 means user hit [Esc] key.
+		response=$?
+		case $response in
 
-	0) 
-	# User hit [Yes]
-	# keep folders
-	sleep 2s
-	;;
+		0) 
+		# User hit [Yes]
+		# keep folders
+		sleep 2s
+		;;
 
-   	1) 
-	# User hit [No]
-	# remove dotfiles
-	rm -rf "$config_home"
+	   	1) 
+		# User hit [No]
+		# remove dotfiles
+		rm -rf "$config_home"
 
-	# user home objects
-	rm -f "$home/.config/autostart/qjoypad.desktop"
+		# user home objects
+		rm -f "$home/.config/autostart/qjoypad.desktop"
 
-	# Application entries
-	rm -f "/usr/share/applications/gp_autodetect_xbmc.sh"
-	rm -f "/usr/share/applications/startXBMC.sh"
-	rm -f "/usr/share/applications/RetriRig.desktop"
+		# Application entries
+		rm -f "/usr/share/applications/gp_autodetect_xbmc.sh"
+		rm -f "/usr/share/applications/startXBMC.sh"
+		rm -f "/usr/share/applications/RetriRig.desktop"
 
-	# remove /etc/sudoers lines we added
-	sed -i '/# RetroRig specific allowances/d' "/etc/sudoers"
-	sed -i '/%sudo   ALL=NOPASSWD: \/usr\/sbin\/service xboxdrv restart/d' "/etc/sudoers"
-	sed -i '/%sudo   ALL=NOPASSWD: \/sbin\/rmmod hid_sony/d' "/etc/sudoers"
-	sed -i '/%sudo   ALL=NOPASSWD: \/usr\/bin\/xboxdrv/d' "/etc/sudoers"
+		# remove /etc/sudoers lines we added
+		sed -i '/# RetroRig specific allowances/d' "/etc/sudoers"
+		sed -i '/%sudo   ALL=NOPASSWD: \/usr\/sbin\/service xboxdrv restart/d' "/etc/sudoers"
+		sed -i '/%sudo   ALL=NOPASSWD: \/sbin\/rmmod hid_sony/d' "/etc/sudoers"
+		sed -i '/%sudo   ALL=NOPASSWD: \/usr\/bin\/xboxdrv/d' "/etc/sudoers"
 
-	# remove system services
-	$cmd_xboxdrv_stop
-	$cmd_rescan_stop	
-	$cmd_remove_xboxdrv
-	rm -f /etc/init.d/xboxdrv
-	rm -f /etc/init.d/rescan
-	rm -f /etc/default/xboxdrv
-	sed -i 's|blacklist xpad||g' "/etc/modprobe.d/blacklist.conf"
+		# remove system services
+		$cmd_xboxdrv_stop
+		$cmd_rescan_stop	
+		$cmd_remove_xboxdrv
+		rm -f /etc/init.d/xboxdrv
+		rm -f /etc/init.d/rescan
+		rm -f /etc/default/xboxdrv
+		sed -i 's|blacklist xpad||g' "/etc/modprobe.d/blacklist.conf"
 
-	# Re-enable apport
-	sed -i "s|enabled=0|enabled=1|g" "/etc/default/apport"
+		# Re-enable apport
+		sed -i "s|enabled=0|enabled=1|g" "/etc/default/apport"
 
-	# XBMC session (if applicable)
-	# change default xsession
-	session_org="user-session=XBMC"
-	session_new="user-session=ubuntu"
+		# XBMC session (if applicable)
+		# change default xsession
+		session_org="user-session=XBMC"
+		session_new="user-session=ubuntu"
 
-	# auto start entries
-	rm -f "$home/.config/autostart/RetroRig.desktop"
+		# auto start entries
+		rm -f "$home/.config/autostart/RetroRig.desktop"
 
-	# shortcuts / symlinks
-	rm -f "$xdg_desktop_dir/RetroRig.desktop"
-	rm -f "/usr/bin/retrorig"
+		# shortcuts / symlinks
+		rm -f "$xdg_desktop_dir/RetroRig.desktop"
+		rm -f "/usr/bin/retrorig"
 
-	# change the session
-	# NOTE! As of Ubuntu Trusy 14.04, lightdm-set-defaults is no longer available. This is because 
-	# lightdm now using a configuration directory /etc/lightdm/lightdm.conf.d/ rather than a 
-	# single configuration file. The files in this directory can be edited by hand, new files 
-	# can be added, or files can be removed. There is no longer any need for a command that 
-	# edits the single configuration file.
+		# change the session
+		# NOTE! As of Ubuntu Trusy 14.04, lightdm-set-defaults is no longer available. This is because 
+		# lightdm now using a configuration directory /etc/lightdm/lightdm.conf.d/ rather than a 
+		# single configuration file. The files in this directory can be edited by hand, new files 
+		# can be added, or files can be removed. There is no longer any need for a command that 
+		# edits the single configuration file.
 
-	sed -i "s|$session_org|$session_new|g" "/usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf"
-	;;
+		sed -i "s|$session_org|$session_new|g" "/usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf"
+		;;
 
-	255)
-	# User hit [Cancel/Esc]
-	# Keep folders and continue on"
-	sleep 2s
-	;;
+		255)
+		# User hit [Cancel/Esc]
+		# Keep folders and continue on"
+		sleep 2s
+		;;
 
-	esac	
+		esac	
 
 	#ask to keep folders
 	#prompt user if they wish to keep ROMs they loaded
 
-dialog --title "Confirm yes/no" --backtitle "LibreGeek.org RetroRig Installer" \
-	--yesno "Do you wish to keep ROM folders?" 6 30
+	dialog --title "Confirm yes/no" --backtitle "LibreGeek.org RetroRig Installer" \
+		--yesno "Do you wish to keep ROM folders?" 6 30
 	 
-# Get exit status
-# 0 means user hit [yes] button.
-# 1 means user hit [no] button.
-# 255 means user hit [Esc] key.
-response=$?
-case $response in
+	# Get exit status
+	# 0 means user hit [yes] button.
+	# 1 means user hit [no] button.
+	# 255 means user hit [Esc] key.
+	response=$?
+	case $response in
 
-	0) 
-	#Keep ROMs
+		0) 
+		#Keep ROMs
+		sleep 2s
+		;;
+
+	   	1)
+		rm -rf "$rootdir/BIOS" 
+		rm -rf "$rootdir/ROMs"
+		rm -rf "$rootdir/Tools"
+		rm -rf "$rootdir/Artwork"
+		rm -rf "$rootdir/Saves"
+		rm -rf "$rootdir/Configs"
+		rm -rf "$rootdir/emulators"
+		;;
+
+		255)
+		#Keep ROMs
+		sleep 2s
+		;;
+
+		esac	
+
+	# RENAME (not remove) wherever it was created, so uses can still refer to it
+	mv "$rootdir" "$rootdir.old"
+
+	#update Ubuntu repository listings
+	$cmd_update_system
 	sleep 2s
-	;;
 
-   	1)
-	rm -rf "$rootdir/BIOS" 
-	rm -rf "$rootdir/ROMs"
-	rm -rf "$rootdir/Tools"
-	rm -rf "$rootdir/Artwork"
-	rm -rf "$rootdir/Saves"
-	rm -rf "$rootdir/Configs"
-	rm -rf "$rootdir/emulators"
-	;;
+	# correct permissions
+	h_correct_perms
 
-	255)
-	#Keep ROMs
-	sleep 2s
-	;;
-
-	esac	
-
-# RENAME (not remove) wherever it was created, so uses can still refer to it
-mv "$rootdir" "$rootdir.old"
-
-#update Ubuntu repository listings
-$cmd_update_system
-sleep 2s
-
-# correct permissions
-h_correct_perms
-
-# call reboot
-rrs_reboot
+	# call reboot
+	rrs_reboot
 
 }
 

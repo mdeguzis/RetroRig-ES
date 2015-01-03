@@ -259,8 +259,11 @@ function rrs_prepareFolders()
 function rrs_gamepad ()
 {
 
-# some residual chown/chmod text shows up at times, clear
-clear
+	# Steam control routines are disabled. ES does not seem to support
+	# external launchers
+
+	# some residual chown/chmod text shows up at times, clear
+	clear
 
 cmd=(dialog --backtitle "LibreGeek.org RetroRig-ES Installer" --menu "| Gamepad Select | \
 			 Request any new Gamepads via github!" 16 62 16)

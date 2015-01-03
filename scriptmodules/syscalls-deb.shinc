@@ -29,6 +29,7 @@ cmd_unhold_pkg="apt-mark unhold"
 cmd_update_system="apt-get update -y"
 cmd_upgrade_system="apt-get upgrade -y"
 cmd_add_repo="add-apt-repository -y"
+cmd_remove_repo="add-apt-repository --remove -y"
 cmd_manual_pkg_install="dpkg -i"
 
 ######################################################
