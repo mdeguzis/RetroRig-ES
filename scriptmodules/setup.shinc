@@ -689,10 +689,8 @@ function rrs_software()
 	#wii motion support
 	$cmd_install_pkg libcwiid1 lswm wmgui wminput
 
-	# call RetroRig's custom deb install for ps3 hotplugging. 
-	# Thankfully our package still works with the Xbox 360 implementation,
-	# so it is now part of the standard install set
-	rrs_es_extras
+	# call RetroRig's emulation station setup
+	rrs_es_setup
 
 	# Disable apport, as bug apport-gtk does nothing but interrupt
 	# User can always enable this again
