@@ -10,15 +10,24 @@
 function em_add_repos()
 {
 	# Note: system update for repos occurs in rrs_software
+	# The ppa:mdeguzis/retrorig PPA is added in rrs_add_standard_repos
 
 	# PCSX2
+	# PPA check: as of 20150104, PPA is fairly up to date
+	# Builds seem to be within a 2 week timeframe
 	$cmd_add_repo ppa:gregory-hainaut/pcsx2.official.ppa
 
 	# Dolphin
+	# PPA check: as of 20150104, PPA is kept very up to date
+	# Builds seem to be within the week of master git branch
+	# Use glenric's PPA due to this project moving so fast
 	$cmd_add_repo ppa:glennric/dolphin-emu
 
 	# PPSSPP
-	$cmd_add_repo ppa:ppsspp/stable
+	# The ppsspp/stable PPA is 20 wks old as of 20150104
+	# Use retorigs version, maintained by us
+	# This will need maintained with our build script
+	# $cmd_add_repo ppa:ppsspp/stable
 
 }
 
