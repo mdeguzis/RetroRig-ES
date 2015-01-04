@@ -75,7 +75,7 @@ Pre-built packages for other distributions will be coming in the future. Stay tu
 To install via GitHub source:
 ````
 cd RetroRig
-sudo ./retrorig_setup.sh
+sudo ./retrorig-es-setup.sh
 ````
 
 The main disitribution target is Ubuntu 14.04 LTS, but support for other platforms is being worked on. For a currernt list of supported platofrms and distributions, see [this](https://github.com/ProfessorKaos64/RetroRig/wiki/Installation#platforms) wiki entry. You can also perform a `git checkout Beta` to try our Beta branch, but please do so with caution and backup any file before hand!
