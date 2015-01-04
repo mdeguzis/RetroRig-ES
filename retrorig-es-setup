@@ -163,7 +163,7 @@ script_name=$(basename "$0")
 getScriptAbsoluteDir "$script_invoke_path"
 script_absolute_dir=$RESULT
 
-if [ "$script_invoke_path" == "/usr/bin/retrorig-setup" ]; then
+if [ "$script_invoke_path" == "/usr/bin/retrorig-es-setup" ]; then
 
 	#install method via system folder
 	
@@ -216,13 +216,13 @@ if [ "$(id -u)" -ne 0 ]; then
     printf "Script must be run as root! Try:"
     echo ""
     echo ""
-    printf "'sudo retrorig-setup'" 
+    printf "'sudo retrorig-es-setup'" 
     echo ""
     echo "OR (for a git cloned version of RetroRig in its base directory)"
-    printf "'sudo ./retrorig-setup.sh'" 
+    printf "'sudo ./retrorig-es-setup.sh'" 
     echo ""
     echo "OR "
-    printf "'retrorig-setup --help'"
+    printf "'retrorig-es-setup --help'"
     echo ""
     echo ""
     printf "for further information\n"
@@ -328,7 +328,7 @@ clear
 COLUMNS=$(tput cols) 
 title1="Welcome To" 
 printf "%*s\n" $(((${#title1}+$COLUMNS)/2)) "$title1"
-figlet -c "_.= RetroRig=._"
+figlet -c "_.= RetroRig-ES=._"
 echo ""
 # subtitle 2
 COLUMNS=$(tput cols) 
