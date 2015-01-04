@@ -1,0 +1,37 @@
+#!/bin/bash
+#
+# RetroRig emulator modules (BUILD FROM SOURCE)
+# This is a small script to build emulators from source
+# append a "-x" on the end above for debugging if need be
+# Please report any errors via a pull request
+# You can also reach me on twitter: @N3RD42
+#
+
+function em_install_ppsspp_source()
+{
+
+	# !!!! NOT USED AT THE MOMENT !!! #  
+	
+	# need to gauge speed or compile on different system setups 
+
+	# I have to compipile SDL support from source for now, since I need the
+	# multiple SDL joystick support for my use of xboxdrv 
+	# See: https://github.com/hrydgard/ppsspp/tree/master/SDL
+
+	echo "Installing (PSP Portable) emulator PPSSPP (from source)"
+	# install prereq packages
+	$cmd_install_pkg gcc, cmake, zlib1g-dev, libsdl1.2-dev, qtmobility-dev, qt4-qmake, libqt4-opengl, libqt4-dev, dh-make
+	cd "$rootdir/emulators"
+	# clone git repo and checkout modules
+	git clone https://github.com/hrydgard/ppsspp
+	cd ppsspp
+	git submodule update --init
+	# build qt4	
+	qmake-qt4 Qt/PPSSPPQt.pro	
+	# Install SDL support
+	cd SDL
+	./buildassets.sh
+	cd ..
+	./b.sh
+
+}
