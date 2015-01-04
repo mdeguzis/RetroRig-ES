@@ -158,29 +158,22 @@ function set_resolution() {
 
 while true; do
 cmd=(dialog --backtitle "RetroRig Settings" --menu "Choose your resolution" 16 0 16)
-options=(1 "Automatic Configuration"
-	 2 "Current Resolution"
-	 3 "1280x720  (720p)  (5:4)"
-	 4 "1280x1024 (SXGA)  (5:4)"
-	 5 "1360x768  (720p)  (16:9)"
-	 6 "1600x900  (900p)  (16:9)"
-	 7 "1920x1080 (1080p) (16:9)"
-	 8 "Custom"
-	 9 "Exit resolution selection")
+options=(1 "Current Resolution"
+	 2 "1280x720  (720p)  (5:4)"
+	 3 "1280x1024 (SXGA)  (5:4)"
+	 4 "1360x768  (720p)  (16:9)"
+	 5 "1600x900  (900p)  (16:9)"
+	 6 "1920x1080 (1080p) (16:9)"
+	 7 "Custom"
+	 8 "Exit resolution selection")
 	
 # Expanding arrays involves [@] and {}
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
 if [ "$choices" != "" ]; then
     case $choices in
+	
 
 	1) 
-		#enable auto resoltuion
-		setParameter "auto resolution" "true"
-		dialog --msgbox "Resolution settings for emulators will automatically be synchronized with XBMC's settings." 8 60
-		break
-		;;		
-
-	2) 
 		#Need to use extended regexp's here because of nes being within nes
 		#grep -Ee '\bnes\b' [list of files]
 
@@ -256,7 +249,7 @@ if [ "$choices" != "" ]; then
 		break
 		;;
 
-	3) 
+	2) 
 		#setting chosen: "1280x720  (720p)  (5:4)"
 		#set mupen64plus value
 		m_new_X="1280"
@@ -300,7 +293,7 @@ if [ "$choices" != "" ]; then
 		#return to menu
 		break
 		;;  
-	4) 
+	3) 
 		#setting chosen: "1280x1024 (SXGA)  (5:4)"
 		#set mupen64plus value
 		m_new_X="1280"
@@ -344,7 +337,7 @@ if [ "$choices" != "" ]; then
 		#return to menu
 		break
 		;;
-	5) 
+	4) 
 		#setting chosen: "1366x768  (720p)  (16:9)"
 		#set mupen64plus value
 		m_new_X="1360"
@@ -388,7 +381,7 @@ if [ "$choices" != "" ]; then
 		#return to menu
 		break
 		;;
-	6) 
+	5) 
 		#setting chosen: "1600x900  (900p)  (16:9)"
 		#set mupen64plus value
 		m_new_X="1600"
@@ -432,7 +425,7 @@ if [ "$choices" != "" ]; then
 		#return to menu
 		break
 		;;
-	7) 
+	6) 
 		# setting chosen: "1920x1080 (1080p) (16:9)"
 		# set mupen64plus value
 		m_new_X="1920"
@@ -476,7 +469,7 @@ if [ "$choices" != "" ]; then
 		#return to menu
 		break
 		;;    
-	8) 
+	7) 
 		dialog --infobox  "Setting resolution from user input" 3 40
 		# set new resolution(s) from user input
 		dialog --title "Set Custom Resolution" --inputbox "Enter Width (X)" 10 4 2> /tmp/new_X
@@ -532,7 +525,7 @@ if [ "$choices" != "" ]; then
 		#return to menu
 		break
 		;; 
-	9) 
+	8) 
 		break
 		;;
 
