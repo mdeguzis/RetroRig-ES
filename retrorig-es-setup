@@ -188,6 +188,7 @@ import "$scriptdir/scriptmodules/settings"
 import "$scriptdir/scriptmodules/setup"
 import "$scriptdir/scriptmodules/gamepads"
 import "$scriptdir/scriptmodules/emulators"
+import "$scriptdir/scriptmodules/emulators-source"
 
 # DEBUG ONLY!
 # Remove the below comment to double check all modules load
