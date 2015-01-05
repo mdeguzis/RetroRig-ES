@@ -185,7 +185,7 @@ case "$arg0" in
         ls -lah ~/packaging/antimicro
         echo ""
         echo ""
-        echo "you can upload the package with dput ppa:beauman/retrorig ~/packaging/antimicro/antimicro_$BASE.$PL""_source.changes"
+        echo "you can upload the package with dput ppa:mdeguzis/retrorig-es ~/packaging/antimicro/antimicro_$BASE.$PL""_source.changes"
         echo "all good"
         echo ""
         echo ""
@@ -193,7 +193,7 @@ case "$arg0" in
         while true; do
             read -p "Do you wish to upload the source package?    " yn
             case $yn in
-                [Yy]* ) dput ppa:beauman/retrorig ~/packaging/antimicro/antimicro_*.$PL""_source.changes; break;;
+                [Yy]* ) dput ppa:mdeguzis/retrorig-es ~/packaging/antimicro/antimicro_*.$PL""_source.changes; break;;
                 [Nn]* ) break;;
                 * ) echo "Please answer yes or no.";;
             esac

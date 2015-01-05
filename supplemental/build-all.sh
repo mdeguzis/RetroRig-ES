@@ -3,15 +3,18 @@
 #======================================================================== 
 #
 # Author      : Jens-Christian Lache
-# Date        : 20140928
+#		Michael DeGuzis
+# Date        : 20150114
 # Version     : 0.0.0.0.0.0.1
 # ========================================================================
 
-TARGET_OS=utopic
+# Define release
+TARGET_Release=utopic
 
-
-ppsspp=yes
+# define emulators / packages
+ppsspp=no
 dolphin_emu=no
+antimicro=yes
 
 echo "building all packages"
 
@@ -41,7 +44,7 @@ if [ "$ppsspp" == "yes" ]; then
   git checkout "./ppsspp/changelog"
   
   #replace target operating system
-  sed -i "s|trusty|$TARGET_OS|g" "./ppsspp/changelog"
+  sed -i "s|trusty|$TARGET_Release|g" "./ppsspp/changelog"
   
   #run build script
   ./build-ppsspp-ppa.sh      $target $2
@@ -71,7 +74,7 @@ if [ "$dolphin_emu" == "yes" ]; then
   git checkout "./dolphin-emu/changelog"
   
   #replace target operating system
-  sed -i "s|trusty|$TARGET_OS|g" "./dolphin-emu/changelog"
+  sed -i "s|trusty|$TARGET_Release|g" "./dolphin-emu/changelog"
   
   #run build script
   ./build-dolphin-emu-ppa.sh      $target $2
@@ -90,6 +93,34 @@ if [ "$dolphin_emu" == "yes" ]; then
 
 fi
  
+# =====================================================
+# antimicro
+# =====================================================
+
+if [ "$antimicro" == "yes" ]; then
+  
+  #restore default
+  git checkout "./antimicro/changelog"
+  
+  #replace target operating system
+  sed -i "s|trusty|$TARGET_Release|g" "./antimicro/changelog"
+  
+  #run build script
+  ./build-antimicro-ppa.sh      $target $2
+  returnValue=$?
+  
+  #restore default
+  git checkout "./antimicro/changelog"
+	
+  if [ $returnValue -eq 0 ]; then  
+      echo "successfully build"
+      antimicro_build=success
+  else  
+      echo "build failed, aborting"
+      antimicro_build=failed
+  fi
+
+fi
 
 find /home/yo/packaging/ -name "*.deb"
 find /home/yo/packaging/ -name "*changes"

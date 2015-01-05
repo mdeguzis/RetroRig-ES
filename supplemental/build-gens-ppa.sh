@@ -3,8 +3,9 @@
 #======================================================================== 
 #
 # Author      : Jens-Christian Lache
-# Date        : 20140917
-# Version     : 2.16.7.2
+#		Michael DeGuzis
+# Date        : 20150104
+# Version     : 2.16.7.3
 # Description : Version 2.16.7 from gerbilsoft, patch level 2
 #               
 #               Ported to SDL2.
@@ -15,8 +16,8 @@
 PRE=1
 BASE=2.16.7
 
-# define patch level
-PL=2.2
+# define release target/patch#
+PL=" ~utopic1"
 
 #define branch
 BRANCH=retrorig-pl2
@@ -189,7 +190,7 @@ case "$arg0" in
         ls -lah ~/packaging/gens
         echo ""
         echo ""
-        echo "you can upload the package with dput ppa:beauman/retrorig ~/packaging/gens/gens_$BASE.$PL""_source.changes"
+        echo "you can upload the package with dput ppa:mdeguzis/retrorig-es ~/packaging/gens/gens_$BASE.$PL""_source.changes"
         echo "all good"
         echo ""
         echo ""
@@ -197,7 +198,7 @@ case "$arg0" in
         while true; do
             read -p "Do you wish to upload the source package?    " yn
             case $yn in
-                [Yy]* ) dput ppa:beauman/retrorig ~/packaging/gens/gens_*.$PL""_source.changes; break;;
+                [Yy]* ) dput ppa:mdeguzis/retrorig-es ~/packaging/gens/gens_*.$PL""_source.changes; break;;
                 [Nn]* ) break;;
                 * ) echo "Please answer yes or no.";;
             esac

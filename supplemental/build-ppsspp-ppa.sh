@@ -5,9 +5,8 @@
 # Author      : Michael T. DeGuzis, Jens-Christian Lache
 # Date        : 20141024
 # Version     : 0.9.9.1 from upstream master 2014/10/24
-# Description : Version 0.9.9.1.2.2, 
+# Description : Version 0.9.9.1.2
 #               patchlevel 2 for dual monitor support
-#               upload try 2
 #               
 # Notes: Base for pl1: 
 #	 dual monitor support only for Qt version, new CLI option "--fullscreen"
@@ -23,19 +22,19 @@ PRE=0
 BASE=0.9.9.1
 
 # define patch level and upload try
-PL=2.2
+PL=2
 
 #define branch
 BRANCH=master
 
 #define upload target
-LAUNCHPAD_PPA="ppa:beauman/retrorig-testing"
+LAUNCHPAD_PPA="ppa:mdeguzis/retrorig"
 
 #define uploader for changelog
-uploader="Jens-Christian Lache <jc.lache@web.de>"
+uploader="Michael DeGuzis <mdeguzis@gmail.com>"
 
 #define package maintainer for dsc and control file 
-pkgmaintainer="RetroRig Development Team <jc.lache@gmail.com>"
+pkgmaintainer="RetroRig Development Team <mdeguzis@gmail.com>"
 
 clear
 echo "#################################################################"
