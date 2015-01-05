@@ -74,6 +74,7 @@ function em_install_dolphin()
 
 	echo "Installing Nintendo Gamecube emulator Dolphin"
 	# Note: Glenric's PPA uses dolphin-emu-master, not dolphin-emu for Trusty
+	# other wise install dolphin-emu
 	$cmd_install_pkg dolphin-emu-master
 
 }
