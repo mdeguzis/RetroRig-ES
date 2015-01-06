@@ -360,8 +360,8 @@ Installer" --menu "| Main Menu (v.0.2.1) | \
 	     3 "Pull latest files from git" 
 	     4 "Update emulator binaries"
 	     5 "Update core software" 
-	     6 "Update System"
-	     7 "Upgrade System (Use with caution)"  
+	     6 "Update system"
+	     7 "Upgrade system (Use with caution)"  
 	     8 "Reboot PC"
 	     9 "Uninstall RetroRig"  
 	     10 "Exit")
