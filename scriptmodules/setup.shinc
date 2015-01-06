@@ -432,14 +432,14 @@ function rrs_source_syscalls()
 			case $OS_RELEASE in
 
 				14.04)
-					source "$scriptdir/scriptmodules/syscalls-deb.shinc"
+					source "$scriptdir/scriptmodules/debian-syscalls.shinc"
 					platform_check="Yes"
 					pkg_manager="apt/aptitude"
 					init_system="upstart"
 					;;
 
 				14.10)
-					source "$scriptdir/scriptmodules/syscalls-deb.shinc"
+					source "$scriptdir/scriptmodules/debian-syscalls.shinc"
 					platform_check="Pending Utopic packages"
 					pkg_manager="apt/aptitude"
 					init_system="upstart"
@@ -465,7 +465,7 @@ function rrs_source_syscalls()
 			case $OS_RELEASE in
 
 				17)
-					source "$scriptdir/scriptmodules/syscalls-deb.shinc"
+					source "$scriptdir/scriptmodules/debian-syscalls.shinc"
 					platform_check="Yes"
 					pkg_manager="apt/aptitude"
 					init_system="upstart"
@@ -490,7 +490,7 @@ function rrs_source_syscalls()
 			case $OS_RELEASE in
 
 				2014)
-					source "$scriptdir/scriptmodules/syscalls-deb.shinc"
+					source "$scriptdir/scriptmodules/debian-syscalls.shinc"
 					platform_check="Yes"
 					pkg_manager="apt/aptitude"
 					init_system="upstart"
@@ -667,7 +667,7 @@ function rrs_software()
 
 				14.04)
 					# source install module
-					source "$scriptdir/scriptmodules/debian_install.shinc"
+					source "$scriptdir/scriptmodules/debian-install.shinc"
 					echo "Debian based install detected...installing packages"
 					deb_install_core_pkgs
 					rrs_sysv_openrc_init
@@ -676,7 +676,7 @@ function rrs_software()
 
 				14.10)
 					# source install module
-					source "$scriptdir/scriptmodules/debian_install.shinc"
+					source "$scriptdir/scriptmodules/debian-install.shinc"
 					# Commence software install routine
 					echo "Debian based install detected...installing packages"
 					deb_install_core_pkgs
@@ -694,7 +694,7 @@ function rrs_software()
 			case $OS_RELEASE in
 				"17")
 					# source install module
-					source "$scriptdir/scriptmodules/debian_install.shinc"
+					source "$scriptdir/scriptmodules/debian-install.shinc"
 					# Commence software install routine
 					echo "Debian based install detected...installing packages"
 					deb_install_core_pkgs
@@ -711,7 +711,7 @@ function rrs_software()
 			case $OS_RELEASE in
 				"2014")
 					# source install module
-					source "$scriptdir/scriptmodules/debian_install.shinc"
+					source "$scriptdir/scriptmodules/debian-install.shinc"
 					# Commence software install routine
 					echo "Debian based install detected...installing packages"
 					deb_install_core_pkgs
