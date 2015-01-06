@@ -7,6 +7,53 @@
 # You can also reach me on twitter: @N3RD42
 #
 
+function rrs_prereq()
+{
+	if [[ -z $(type -P git) || -z $(type -P dialog) || -z $(type -P figlet) ]]; then
+		echo ""
+		echo "######################################"
+		echo "Pre-req checks"	
+		echo "######################################"
+		echo "Did not find 1 or more of the packages: git, dialog, or figlet"
+		echo "Attempting to install these now."
+		echo ""
+		sleep 3s
+		# Update system first
+		$cmd_update_system
+		# fetch needed pkgs
+		$cmd_install_pkg git dialog figlet
+		if [ $? == '0' ]; then
+			echo "Successfully installed 'git/dialog/figlet'." > "$rootdir/logs/prechecks.log"
+			sleep 3s
+			prereqs="true"
+		else
+			echo "Could not install 'git' and/or 'dialog/figlet'. Exiting..." > "$rootdir/logs/prechecks.log"
+			prereqs="false"
+			sleep 3s
+			exit 1
+		fi
+	else
+		echo "Found packages 'git/dialog/figlet'." > "$rootdir/logs/prechecks.log"
+		prereqs="true"
+		sleep 2s
+	fi
+
+
+echo "Current install user: $SUDO_USER" >> "$rootdir/logs/prechecks.log"
+echo "Current install rootdir is: $rootdir" >>"$rootdir/logs/prechecks.log"
+echo "Current script dir is:  $rootdir" >>"$rootdir/logs/prechecks.log"
+
+if [ "$prereqs" == "true" ]; then
+	echo "Pre-checks were sucessful!!!" >> "$rootdir/logs/prechecks.log"
+else
+	echo "Pre-checks were NOT sucessful. Sad crab!" >> "$rootdir/logs/prechecks.log"
+fi
+
+chown -R "$user" "$rootdir/logs/prechecks.log"
+chgrp -R "$user" "$rootdir/logs/prechecks.log"
+
+}
+
 function rrs_prepareFolders()
 {
 	echo "Creating folders for ROMs, Artwork, Saves, and dotfiles"
@@ -340,46 +387,6 @@ options=(1 "Xbox 360 Controller (wireless)"
 	
 }
 
-
-function rrs_post_install()
-{
-
-	# Based on the type of type Desktop Environment
-	# This function targets DE-specific areas for screensavers,
-	# power functions, shortcuts and more.
-
-	# $XDG_CURRENT_DESKTOP will tell you what DE you are using.
-	rrDE=$XDG_CURRENT_DESKTOP
-
-	case $rrDE in
-		Unity)
-
-			# Disable screensaver, EmulationStation will manage this
-			# Export display to allow gsettings running in terminal window
-			export DISPLAY=:0.0
-			gsettings set org.gnome.desktop.screensaver lock-enabled false
-			gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend false
-			gsettings set org.gnome.desktop.session idle-delay 3600
-
-			# Create Unity launcher icon from existing /usr/share/applications/RetroRig-ES.desktop
-			# This only applies to Unity desktop users.
-			gsettings set com.canonical.Unity.Launcher favorites "$(gsettings get com.canonical.Unity.Launcher favorites | sed "s/, *'RetroRig-ES.desktop' *//g" | sed "s/'RetroRig-ES.desktop' *, *//g" | sed -e "s/]$/, 'RetroRig-ES.desktop'")"
-			;;
-
-		Gnome)
-			# Nothing to see here yet
-			;;
-
-		Cinnamon)
-			# Nothing to see here yet
-			;;			
-
-		*)
-		;;
-	esac
-
-}
-
 function rrs_discover_distro()
 {
 
@@ -633,42 +640,6 @@ function rrs_add_standard_repos()
 	esac
 }
 
-function rrs_emulators()
-{
-	__postMSGs=""
-
-	clear
-	echo "Binaries-based installation"
-
-	# install emulators
-	em_install_mupen64plus 
-	em_install_mame
-	em_install_mess
-	em_install_stella
-	em_install_mednafen
-	em_install_ppsspp
-	em_install_dolphin
-	em_install_pcsx2
-	em_install_gens
-
-	#fix permissions since we are running as sudo
-	h_correct_perms
-
-	__postMSGs="$__postMSGs This current configuration requires BIOS files be placed under '$rootdir/BIOS/' folder for the respective system you are using or under the '$rootdir/ROMs/' folder for the same system. You may also use the BIOS Loader under the settings menu. Many MAME games under MAME4ALL have self contained BIOS files."
-
-	# inject a space to seperate messages?
-	__postMSGs="$__postMSGs "
-
-	__postMSGs="$__postMSGs\n\nIf you wish to have artwork for the MAME games, please visit the RCB main page at http://bit.ly/1lHHSIe and follow the 'Get artwork from emumovies' section'. The size is much too large to contain in RetroRig or Github. This may change."
-
-
-	if [[ ! -z $__postMSGs ]]; then
-	dialog --backtitle "LibreGeek.org - RetroRig Setup. Installation folder: $rootdir" --msgbox "$__postMSGs" 17 70
-	fi
-
-	dialog --backtitle "LibreGeek.org - RetroRig Setup. Installation folder: $rootdir" --msgbox "Finished emulator installs.\n\nYou now have to copy roms to the roms folders. You may also use the 'ROM loader' in settings menu" 17 60
-
-}
 
 function rrs_software() 
 {
@@ -695,17 +666,22 @@ function rrs_software()
 			case $OS_RELEASE in
 
 				14.04)
-
+					# source install module
+					source "$scriptdir/scriptmodules/debian_install.shinc"
 					echo "Debian based install detected...installing packages"
-					rrs_debian_install
+					deb_install_core_pkgs
 					rrs_sysv_openrc_init
+					deb_debug_routine
 					;;
 
 				14.10)
-
+					# source install module
+					source "$scriptdir/scriptmodules/debian_install.shinc"
+					# Commence software install routine
 					echo "Debian based install detected...installing packages"
-					rrs_debian_install
+					deb_install_core_pkgs
 					rrs_sysv_openrc_init
+					deb_debug_routine
 					;;
 
 				*)
@@ -717,9 +693,13 @@ function rrs_software()
 
 			case $OS_RELEASE in
 				"17")
+					# source install module
+					source "$scriptdir/scriptmodules/debian_install.shinc"
+					# Commence software install routine
 					echo "Debian based install detected...installing packages"
-					rrs_debian_install
+					deb_install_core_pkgs
 					rrs_sysv_openrc_init
+					deb_debug_routine
 					;;
 
 				*)
@@ -730,9 +710,13 @@ function rrs_software()
 
 			case $OS_RELEASE in
 				"2014")
+					# source install module
+					source "$scriptdir/scriptmodules/debian_install.shinc"
+					# Commence software install routine
 					echo "Debian based install detected...installing packages"
-					rrs_debian_install
+					deb_install_core_pkgs
 					rrs_sysv_openrc_init
+					deb_debug_routine
 					;;
 
 				*)
@@ -767,129 +751,6 @@ function rrs_software()
 
 }
 
-rrs_debian_install()
-{
-
-	###########################################################################
-	# This function handles installation of Debian based RetroRig software
-	###########################################################################
-
-	# install software from repositories
-	# install binaries
-	$cmd_install_pkg xboxdrv curl python-software-properties \
-	pkg-config software-properties-common dconf-tools jstest-gtk \
-	sixad libusb-0.1-4 antimicro bluez getpos unclutter \
-	joydetect sudo ttf-dejavu-core ttf-dejavu-core ttf-liberation \
-	wmctrl gdebi dos2unix
-
-	# install emulationstation and its dependencies
-	# gdebi -n emulationstation.deb could be used instead to gather these automatically
-	$cmd_install_pkg libasound2 libboost-filesystem1.54.0 libboost-system1.54.0 libc6 libfreeimage3 libfreetype6 libgcc1 libgl1-mesa-glx libgl1 libsdl2-2.0-0 libstdc++6
-	wget --tries=50 -P /tmp "http://www.emulationstation.org/downloads/releases/emulationstation_amd64_latest.deb"
-	cd /tmp
-	$cmd_manual_pkg_install /tmp/emulationstation_amd64_latest.deb
-	
-	#wii motion support
-	$cmd_install_pkg libcwiid1 lswm wmgui wminput
-
-}
-
-rrs_arch_linux_install()
-{
-
-	# !!! NEEDS FINISHED AND REWORKED !!! #
-
-	###########################################################################
-	# This function handles installation of Debian based RetroRig software
-	###########################################################################
-
-	# install software from repositories
-	# install binaries
-	$cmd_install_pkg xboxdrv curl python-software-properties \
-	pkg-config software-properties-common dconf-tools jstest-gtk \
-	sixad libusb-0.1-4 antimicro bluez getpos unclutter \
-	joydetect sudo ttf-dejavu-core ttf-dejavu-core ttf-liberation \
-	wmctrl gdebi dos2unix
-
-	# install emulationstation and its dependencies
-	# gdebi -n emulationstation.deb could be used instead to gather these automatically
-	$cmd_install_pkg libasound2 libboost-filesystem1.54.0 libboost-system1.54.0 libc6 libfreeimage3 libfreetype6 libgcc1 libgl1-mesa-glx libgl1 libsdl2-2.0-0 libstdc++6
-	wget --tries=50 -P /tmp "http://www.emulationstation.org/downloads/releases/emulationstation_amd64_latest.deb"
-	cd /tmp
-	$cmd_manual_pkg_install /tmp/emulationstation_amd64_latest.deb
-	
-	#wii motion support
-	$cmd_install_pkg libcwiid1 lswm wmgui wminput
-
-}
-
-
-function rrs_debug()
-{
-	clear
-	echo "Generating debug log"
-
-	# Check for existance of essential files
-	echo "Essential files: EmulationStation:" > "$rootdir/logs/debug.log"
-	echo "Path(s): '$es_home'" >> "$rootdir/logs/debug.log"
-	h_filechecker "$es_home" "$rootdir/logs/debug.log"
-
-	# applications
-	h_filechecker "/usr/share/applications/RetroRig-ES.desktop"
-	h_filechecker "/usr/share/applications/startRetroES.sh"
-	h_filechecker "/usr/share/applications/gp_autodetect.sh"
-	h_filechecker "$xdg_desktop_dir/RetroRig-ES.desktop"
-	h_filechecker "$xdg_pictures_dir/retro-icon.png"
-
-	# autostart entries
-	h_filechecker "$home/.config/autostart/RetroRig-ES.desktop"
-	#h_filechecker "$home/.config/autostart/qjoypad.desktop"
-
-	# init file checks	
-	echo "Available init files:" >> "$rootdir/logs/debug.log"
-	echo "Has xboxdrv been loaded?" >> "$rootdir/logs/debug.log"
-	h_filechecker "/etc/init.d/xboxdrv"
-	h_filechecker "/etc/default/xboxdrv"
-
-	# Check unity settings:
-	echo "Unity settings (if applicable):" >> "$rootdir/logs/debug.log"
-	gsettings list-recursively "org.gnome.desktop.screensaver" | grep "lock-enabled" >> "$rootdir/logs/debug.log"
-	gsettings list-recursively "org.gnome.desktop.screensaver" | grep "ubuntu-lock-on-suspend" >> "$rootdir/logs/debug.log"	
-	gsettings list-recursively "org.gnome.desktop.session" | grep "idle-delay" >> "$rootdir/logs/debug.log"
-
-	# pkg checks
-	echo -e "\nChecking for needed pkgs installed: " >> "$rootdir/logs/debug.log"
-	h_pkgcheck "stella"
-	h_pkgcheck "mednafen"
-	h_pkgcheck "mess"
-	h_pkgcheck "mame"
-	h_pkgcheck "ppsspp"
-	h_pkgcheck "dolphin-emu"
-	h_pkgcheck "mupen64plus"
-	h_pkgcheck "pcsx2"
-	h_pkgcheck "gens"
-	
-	h_pkgcheck "python-software-properties"
-	h_pkgcheck "emulationstation"
-	h_pkgcheck "dconf-tools"
-	h_pkgcheck "xboxdrv"
-	h_pkgcheck "curl"
-	h_pkgcheck "getpos"
-	h_pkgcheck "jstest-gtk"
-	h_pkgcheck "antimicro"
-	h_pkgcheck "dolphin-emu"
-	h_pkgcheck "gens"
-	h_pkgcheck "pcsx2"
-	h_pkgcheck "ppsspp"
-	h_pkgcheck "dos2unix"
-
-	echo -e "\nEnd of log file" >> "$rootdir/logs/debug.log" >> "$rootdir/logs/debug.log"
-
-	dialog --backtitle "LibreGeek.org - RetroRig-ES Setup. Installation folder: $rootdir" --msgbox "Debug log was generated in $rootdir/logs/debug.log. Additional logs can be found in the folder $rootdir/logs/." 10 60 
-
-	#corect permissions
-	h_correct_perms
-}
 
 function rrs_es_setup()
 {
@@ -966,7 +827,6 @@ rrs_sysv_openrc_init()
 	# start service
 	$cmd_rescan_start
 
-
 }
 
 function rrs_retrorig_cfgs()
@@ -1042,53 +902,6 @@ echo -e "\e[0"$PATHCOLOR"ABSPATH for user USERNAME\e[0m"
     echo ""
 }
 
-function rrs_prereq()
-{
-	if [[ -z $(type -P git) || -z $(type -P dialog) || -z $(type -P figlet) ]]; then
-		echo ""
-		echo "######################################"
-		echo "Pre-req checks"	
-		echo "######################################"
-		echo "Did not find 1 or more of the packages: git, dialog, or figlet"
-		echo "Attempting to install these now."
-		echo ""
-		sleep 3s
-		# Update system first
-		$cmd_update_system
-		# fetch needed pkgs
-		$cmd_install_pkg git dialog figlet
-		if [ $? == '0' ]; then
-			echo "Successfully installed 'git/dialog/figlet'." > "$rootdir/logs/prechecks.log"
-			sleep 3s
-			prereqs="true"
-		else
-			echo "Could not install 'git' and/or 'dialog/figlet'. Exiting..." > "$rootdir/logs/prechecks.log"
-			prereqs="false"
-			sleep 3s
-			exit 1
-		fi
-	else
-		echo "Found packages 'git/dialog/figlet'." > "$rootdir/logs/prechecks.log"
-		prereqs="true"
-		sleep 2s
-	fi
-
-
-echo "Current install user: $SUDO_USER" >> "$rootdir/logs/prechecks.log"
-echo "Current install rootdir is: $rootdir" >>"$rootdir/logs/prechecks.log"
-echo "Current script dir is:  $rootdir" >>"$rootdir/logs/prechecks.log"
-
-if [ "$prereqs" == "true" ]; then
-	echo "Pre-checks were sucessful!!!" >> "$rootdir/logs/prechecks.log"
-else
-	echo "Pre-checks were NOT sucessful. Sad crab!" >> "$rootdir/logs/prechecks.log"
-fi
-
-chown -R "$user" "$rootdir/logs/prechecks.log"
-chgrp -R "$user" "$rootdir/logs/prechecks.log"
-
-}
-
 function rrs_reboot()
 {
 
@@ -1116,4 +929,43 @@ function rrs_reboot()
 		return
 		;;
 	esac
+}
+
+function rrs_post_install()
+{
+
+	# Based on the type of type Desktop Environment
+	# This function targets DE-specific areas for screensavers,
+	# power functions, shortcuts and more.
+
+	# $XDG_CURRENT_DESKTOP will tell you what DE you are using.
+	rrDE=$XDG_CURRENT_DESKTOP
+
+	case $rrDE in
+		Unity)
+
+			# Disable screensaver, EmulationStation will manage this
+			# Export display to allow gsettings running in terminal window
+			export DISPLAY=:0.0
+			gsettings set org.gnome.desktop.screensaver lock-enabled false
+			gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend false
+			gsettings set org.gnome.desktop.session idle-delay 3600
+
+			# Create Unity launcher icon from existing /usr/share/applications/RetroRig-ES.desktop
+			# This only applies to Unity desktop users.
+			gsettings set com.canonical.Unity.Launcher favorites "$(gsettings get com.canonical.Unity.Launcher favorites | sed "s/, *'RetroRig-ES.desktop' *//g" | sed "s/'RetroRig-ES.desktop' *, *//g" | sed -e "s/]$/, 'RetroRig-ES.desktop'")"
+			;;
+
+		Gnome)
+			# Nothing to see here yet
+			;;
+
+		Cinnamon)
+			# Nothing to see here yet
+			;;			
+
+		*)
+		;;
+	esac
+
 }

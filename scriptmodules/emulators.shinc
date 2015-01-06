@@ -38,22 +38,27 @@ function em_add_debian_repos()
 	# This will need maintained with our build script in /supplemental
 }
 
-function em_install_yabause()
+function em_install_deb_emulators()
 {
+
+	#####################################################################
+	# Yabause (Sega Saturn)
+	#####################################################################
+
 	# This may be source compiled in the future
 	echo "Installing Sega Saturn emulator Yabause"
 	$cmd_install_pkg yabause
 
-}
+	#####################################################################
+	# PCSX2 (Playstation 2)
+	#####################################################################
 
-function em_install_pcsx2()
-{
+	echo "Installing Playstation 2 emulator PCSX2"
+	$cmd_install_pkg pcsx2
 
 	#prerequisites
 	$cmd_install_pkg libportaudio2:i386 libjack-jackd2-0:i386
 	
-	echo "Installing Playstation 2 emulator PCSX2"
-	$cmd_install_pkg pcsx2
   
 	# Link BIOS path from home/RetroRig (source) to .retrorig/
 	ln -sf "$rootdir/BIOS/PCSX2" "$config_home/.config/pcsx2/bios"
@@ -66,85 +71,80 @@ function em_install_pcsx2()
 	mv "$HOME/.config/pcsx2" "$HOME/.config/pcsx2.backup_retrorig.$date"
 	ln -vs "$config_home/.config/pcsx2/" "$HOME/.config"
 
-}
+	#####################################################################
+	# Dolphin (Nintendo Gamecube)
+	#####################################################################
 
-function em_install_dolphin()
-{
 	# Installed via Glenric's PPA
-
 	echo "Installing Nintendo Gamecube emulator Dolphin"
 	# Note: Glenric's PPA uses dolphin-emu-master, not dolphin-emu for Trusty
 	# other wise install dolphin-emu
 	$cmd_install_pkg dolphin-emu-master
 
-}
+	#####################################################################
+	# PPSSPP (PSP)
+	#####################################################################
 
-function em_install_ppsspp()
-{
 	echo "Installing Playstation Portable emulator ppsspp"
 
         #install from RetroRig PPA
 	$cmd_install_pkg ppsspp
 
-}
-
-function em_install_stella()
-{
-	echo "Installing Atari 2600 emulator Stella"
+	#####################################################
+	# Stella (Atari 2600)
+	#####################################################
 
         #install from core repos
 	$cmd_install_pkg stella
 
-	############################################################################################################
+
 	# installation of stella from libregeek.org (deprecated)
 	#
-	#	# As of 20140802, Stella, at least in testing, would fail to launch when using OpenGL
-	#	# Stella was build from the latest SVN trunk, and works successfully
-	#	# Source: http://stella.sourceforge.net/development.php
-	#	# SVN trunk: 'svn co https://svn.code.sf.net/p/stella/code/trunk stella'
+	# As of 20140802, Stella, at least in testing, would fail to launch when using OpenGL
+	# Stella was build from the latest SVN trunk, and works successfully
+	# Source: http://stella.sourceforge.net/development.php
+	# SVN trunk: 'svn co https://svn.code.sf.net/p/stella/code/trunk stella'
 	#
-	#	wget --tries=50 -P "/usr/bin/" "www.libregeek.org/RetroRig/Ubuntu-Trusty/emulators/Stella/stella"
-	#	chmod +x "/usr/bin/stella"
-	############################################################################################################
+	# wget --tries=50 -P "/usr/bin/" \
+	# "www.libregeek.org/RetroRig/Ubuntu-Trusty/emulators/Stella/stella"
+	# chmod +x "/usr/bin/stella"
 
-}
-
-function em_install_mupen64plus()
-{
-
+	#####################################################################
+	# Mupen64plus (Sega Saturn)
+	#####################################################################
+	
 	# Installed via RetroRig PPA
 	echo "Installing mupen64plus emulator"
 	$cmd_install_pkg mupen64plus
-}
 
-
-function em_install_mame()
-{
+	#####################################################################
+	# MAME (multi-system)
+	#####################################################################
 
 	# Installed via RetroRig PPA
 	echo "Installing MAME emulator"
 	$cmd_install_pkg mame
-}
 
-function em_install_mednafen()
-{
+
+	#####################################################################
+	# Mednafen (multi-system)
+	#####################################################################
 
 	# Installed via core repos
 	echo "Installing Mednafen emulator"
 	$cmd_install_pkg mednafen
 
-}
-
-function em_install_mess()
-{
+	#####################################################################
+	# MESS (multi-system)
+	#####################################################################
 
 	# Installed via core repos
 	echo "Installing MESS emulator"
 	$cmd_install_pkg mess
-}
 
-function em_install_gens()
-{
+	#####################################################################
+	# Gens (Genesis/Sega CD/Saturn)
+	#####################################################################
 
 	# Installed via RetroRig PPA
 	echo "Installing Gens Sega Genesis/CD/32X emulator"
