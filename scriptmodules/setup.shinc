@@ -432,14 +432,14 @@ function rrs_source_syscalls()
 			case $OS_RELEASE in
 
 				14.04)
-					source "$scriptdir/scriptmodules/debian-syscalls.shinc"
+					source "$scriptdir/scriptmodules/syscalls-debian.shinc"
 					platform_check="Yes"
 					pkg_manager="apt/aptitude"
 					init_system="upstart"
 					;;
 
 				14.10)
-					source "$scriptdir/scriptmodules/debian-syscalls.shinc"
+					source "$scriptdir/scriptmodules/syscalls-debian.shinc"
 					platform_check="Pending Utopic packages"
 					pkg_manager="apt/aptitude"
 					init_system="upstart"
@@ -465,7 +465,7 @@ function rrs_source_syscalls()
 			case $OS_RELEASE in
 
 				17)
-					source "$scriptdir/scriptmodules/debian-syscalls.shinc"
+					source "$scriptdir/scriptmodules/syscalls-debian.shinc"
 					platform_check="Yes"
 					pkg_manager="apt/aptitude"
 					init_system="upstart"
@@ -490,7 +490,7 @@ function rrs_source_syscalls()
 			case $OS_RELEASE in
 
 				2014)
-					source "$scriptdir/scriptmodules/debian-syscalls.shinc"
+					source "$scriptdir/scriptmodules/syscalls-debian.shinc"
 					platform_check="Yes"
 					pkg_manager="apt/aptitude"
 					init_system="upstart"
