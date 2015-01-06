@@ -1,10 +1,4 @@
-gens (1:2.16.7.2) utopic; urgency=medium
-
-  * Build for Utopic
-
- -- Michael DeGuzis <mdeguzis@gmail.com>  Sun, 04 Sep 2015 00:21:00 -0500
-
-gens (1:2.16.7.2) trusty; urgency=medium
+gens (version_placeholder) trusty; urgency=medium
 
   * changed: ported to SDL 2 and linked against libSDL2-i386
 

@@ -3,9 +3,8 @@
 #======================================================================== 
 #
 # Author      : Jens-Christian Lache
-#		Michael DeGuzis
-# Date        : 20150104
-# Version     : 2.16.7.3f
+# Date        : 20140917
+# Version     : 2.16.7.2
 # Description : Version 2.16.7 from gerbilsoft, patch level 2
 #               
 #               Ported to SDL2.
@@ -16,8 +15,8 @@
 PRE=1
 BASE=2.16.7
 
-# define release target/patch#
-PL="~utopic1"
+# define patch level
+PL=2.2
 
 #define branch
 BRANCH=retrorig-pl2
@@ -65,10 +64,9 @@ if [[ -n "$2" ]]; then
 
 
   #apt-get install packages
-  sudo apt-get install -y build-essential fakeroot devscripts \
-  autoconf autotools-dev binutils-dev debhelper autotools-dev \
-  automake pkg-config nasm libsdl2-dev libglib2.0-dev libtool \
-  libgtk2.0-dev mesa-common-dev libgl1-mesa-dev zlib1g-dev libpng12-dev
+  sudo apt-get install -y build-essential fakeroot devscripts  autoconf autotools-dev binutils-dev \
+			  debhelper autotools-dev automake1.10 pkg-config nasm libsdl2-i386-dev \
+                          libglib2.0-dev libgtk2.0-dev mesa-common-dev libgl1-mesa-dev zlib1g-dev libpng12-dev
 
 else
   echo ""
@@ -101,7 +99,7 @@ echo "Setup package base files"
 echo "##########################################"
 
 echo "dsc file"
-cp ~/RetroRig-ES/supplemental/gens/gens.dsc gens-$PRE:$BASE.$PL.dsc
+cp ~/RetroRig/supplemental/gens/gens.dsc gens-$PRE:$BASE.$PL.dsc
 sed -i "s|version_placeholder|$PRE:$BASE.$PL|g" "gens-$PRE:$BASE.$PL.dsc"
 
 SRC_FOLDER=gens-$BASE.$PL
@@ -126,11 +124,11 @@ git checkout $BRANCH
 rm -rf .git .gitignore
 
 echo "changelog"
-cp ~/RetroRig-ES/supplemental/gens/changelog debian/
+cp ~/RetroRig/supplemental/gens/changelog debian/
 sed -i "s|version_placeholder|$PRE:$BASE.$PL|g" debian/changelog
 
 echo "control"
-cp ~/RetroRig-ES/supplemental/gens/control debian/
+cp ~/RetroRig/supplemental/gens/control debian/
 
 #get Makefiles straight
 aclocal && autoconf && autoreconf -i && automake --add-missing
@@ -191,7 +189,7 @@ case "$arg0" in
         ls -lah ~/packaging/gens
         echo ""
         echo ""
-        echo "you can upload the package with dput ppa:mdeguzis/retrorig-es ~/packaging/gens/gens_$BASE.$PL""_source.changes"
+        echo "you can upload the package with dput ppa:beauman/retrorig ~/packaging/gens/gens_$BASE.$PL""_source.changes"
         echo "all good"
         echo ""
         echo ""
@@ -199,7 +197,7 @@ case "$arg0" in
         while true; do
             read -p "Do you wish to upload the source package?    " yn
             case $yn in
-                [Yy]* ) dput ppa:mdeguzis/retrorig-es ~/packaging/gens/gens_*.$PL""_source.changes; break;;
+                [Yy]* ) dput ppa:beauman/retrorig ~/packaging/gens/gens_*.$PL""_source.changes; break;;
                 [Nn]* ) break;;
                 * ) echo "Please answer yes or no.";;
             esac
