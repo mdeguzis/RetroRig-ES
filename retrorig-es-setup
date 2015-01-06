@@ -359,7 +359,7 @@ Installer" --menu "| Main Menu (v.0.2.1) | \
 	     2 "RetroRig Settings" 
 	     3 "Pull latest files from git" 
 	     4 "Update emulator binaries"
-	     5 "Update EmulationStation" 
+	     5 "Update core software" 
 	     6 "Update System"
 	     7 "Upgrade System (Use with caution)"  
 	     8 "Reboot PC"
@@ -413,7 +413,7 @@ Installer" --menu "| Main Menu (v.0.2.1) | \
 		rrs_emulators
 		;;
 	    5)
-		rrs_xbmc_patched
+		rrs_software
 		;;
 
 	    6)
