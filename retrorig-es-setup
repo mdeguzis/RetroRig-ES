@@ -356,14 +356,14 @@ while true; do
 Installer" --menu "| Main Menu (v.0.2.5) | \
  			 BIOS files are NOT provided!" 17 62 16)
     options=(1 "Install RetroRig-ES" 
-	     2 "RetroRig Settings" 
+	     2 "RetroRig-ES Settings" 
 	     3 "Pull latest files from git" 
 	     4 "Update emulator binaries"
 	     5 "Update core software" 
 	     6 "Update system"
 	     7 "Upgrade system (Use with caution)"  
 	     8 "Reboot PC"
-	     9 "Uninstall RetroRig"  
+	     9 "Uninstall RetroRig-ES"  
 	     10 "Exit")
 
 	#make menu choice

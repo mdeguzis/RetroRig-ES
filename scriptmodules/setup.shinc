@@ -677,6 +677,7 @@ function rrs_software()
 	__postMSGs=""
 	clear
 
+	# selected binaries install
 	echo "Binaries-based installation"
 
 	# add multi-arch support
@@ -688,23 +689,61 @@ function rrs_software()
 	# update system pkgs currently installed first
 	h_upgrade_system
 
-	# install software from repositories
-	# install binaries
-	$cmd_install_pkg xboxdrv curl python-software-properties \
-	pkg-config software-properties-common dconf-tools jstest-gtk \
-	sixad libusb-0.1-4 antimicro bluez getpos unclutter \
-	joydetect sudo ttf-dejavu-core ttf-dejavu-core ttf-liberation \
-	wmctrl gdebi dos2unix
+	case $OS_TYPE in
+		"Ubuntu")
 
-	# install emulationstation and its dependencies
-	# gdebi -n emulationstation.deb could be used instead to gather these automatically
-	$cmd_install_pkg libasound2 libboost-filesystem1.54.0 libboost-system1.54.0 libc6 libfreeimage3 libfreetype6 libgcc1 libgl1-mesa-glx libgl1 libsdl2-2.0-0 libstdc++6
-	wget --tries=50 -P /tmp "http://www.emulationstation.org/downloads/releases/emulationstation_amd64_latest.deb"
-	cd /tmp
-	$cmd_manual_pkg_install /tmp/emulationstation_amd64_latest.deb
-	
-	#wii motion support
-	$cmd_install_pkg libcwiid1 lswm wmgui wminput
+			case $OS_RELEASE in
+
+				14.04)
+
+					echo "Debian based install detected...installing packages"
+					rrs_debian_install
+					rrs_sysv_openrc_init
+					;;
+
+				14.10)
+
+					echo "Debian based install detected...installing packages"
+					rrs_debian_install
+					rrs_sysv_openrc_init
+					;;
+
+				*)
+					;;
+			esac
+		;;
+
+		LinuxMint)
+
+			case $OS_RELEASE in
+				"17")
+					echo "Debian based install detected...installing packages"
+					rrs_debian_install
+					rrs_sysv_openrc_init
+					;;
+
+				*)
+					;;
+			esac
+		;;
+		Deepin)
+
+			case $OS_RELEASE in
+				"2014")
+					echo "Debian based install detected...installing packages"
+					rrs_debian_install
+					rrs_sysv_openrc_init
+					;;
+
+				*)
+					;;
+			esac
+		;;
+
+		*)
+			;;
+	esac
+
 
 	# call RetroRig's emulation station setup
 	rrs_es_setup
@@ -727,6 +766,63 @@ function rrs_software()
 	fi
 
 }
+
+rrs_debian_install()
+{
+
+	###########################################################################
+	# This function handles installation of Debian based RetroRig software
+	###########################################################################
+
+	# install software from repositories
+	# install binaries
+	$cmd_install_pkg xboxdrv curl python-software-properties \
+	pkg-config software-properties-common dconf-tools jstest-gtk \
+	sixad libusb-0.1-4 antimicro bluez getpos unclutter \
+	joydetect sudo ttf-dejavu-core ttf-dejavu-core ttf-liberation \
+	wmctrl gdebi dos2unix
+
+	# install emulationstation and its dependencies
+	# gdebi -n emulationstation.deb could be used instead to gather these automatically
+	$cmd_install_pkg libasound2 libboost-filesystem1.54.0 libboost-system1.54.0 libc6 libfreeimage3 libfreetype6 libgcc1 libgl1-mesa-glx libgl1 libsdl2-2.0-0 libstdc++6
+	wget --tries=50 -P /tmp "http://www.emulationstation.org/downloads/releases/emulationstation_amd64_latest.deb"
+	cd /tmp
+	$cmd_manual_pkg_install /tmp/emulationstation_amd64_latest.deb
+	
+	#wii motion support
+	$cmd_install_pkg libcwiid1 lswm wmgui wminput
+
+}
+
+rrs_arch_linux_install()
+{
+
+	# !!! NEEDS FINISHED AND REWORKED !!! #
+
+	###########################################################################
+	# This function handles installation of Debian based RetroRig software
+	###########################################################################
+
+	# install software from repositories
+	# install binaries
+	$cmd_install_pkg xboxdrv curl python-software-properties \
+	pkg-config software-properties-common dconf-tools jstest-gtk \
+	sixad libusb-0.1-4 antimicro bluez getpos unclutter \
+	joydetect sudo ttf-dejavu-core ttf-dejavu-core ttf-liberation \
+	wmctrl gdebi dos2unix
+
+	# install emulationstation and its dependencies
+	# gdebi -n emulationstation.deb could be used instead to gather these automatically
+	$cmd_install_pkg libasound2 libboost-filesystem1.54.0 libboost-system1.54.0 libc6 libfreeimage3 libfreetype6 libgcc1 libgl1-mesa-glx libgl1 libsdl2-2.0-0 libstdc++6
+	wget --tries=50 -P /tmp "http://www.emulationstation.org/downloads/releases/emulationstation_amd64_latest.deb"
+	cd /tmp
+	$cmd_manual_pkg_install /tmp/emulationstation_amd64_latest.deb
+	
+	#wii motion support
+	$cmd_install_pkg libcwiid1 lswm wmgui wminput
+
+}
+
 
 function rrs_debug()
 {
@@ -835,6 +931,19 @@ function rrs_es_setup()
 	chmod 755 "/usr/share/applications/RetroRig-ES.desktop"
 	chmod 755 "/usr/share/applications/startRetroES.sh" 
 
+	#corect permissions
+	h_correct_perms
+
+}
+
+rrs_sysv_openrc_init()
+{
+
+	#############################################################################
+	# This function handles init modules for Retrorig on OpenRC and SysV systems
+	#############################################################################
+	
+
 	# insert SHA1 tag to rescan by replacing the placeholder
 	#
 	# THIS WILL NEED ADJUSTED FOR RETRORIG-ES Hotplugging!
@@ -857,8 +966,6 @@ function rrs_es_setup()
 	# start service
 	$cmd_rescan_start
 
-	#corect permissions
-	h_correct_perms
 
 }
 
