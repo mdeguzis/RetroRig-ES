@@ -1,4 +1,11 @@
-mame (version_placeholder) trusty; urgency=medium
+mame (version_placeholder) utopic; urgency=medium
+
+  * Packaged for project RetroRig-ES
+  * Based off of 0.154 Ubuntu Utopic official package
+
+ -- uploader  date
+
+mame (1:0.152.0) trusty; urgency=medium
 
   * Packaged for project RetroRig
 

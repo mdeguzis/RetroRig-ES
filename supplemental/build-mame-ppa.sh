@@ -3,19 +3,28 @@
 #======================================================================== 
 #
 # Author      : Jens-Christian Lache
-# Date        : 20140918
-# Version     : 1:0.152
-# Description : Version 0.152-0ubuntu1, patch level 0
+# Date        : 20150107
+# Version     : 1:0.154
+# Description : Version 0.154-0ubuntu1, patch level 0
 #               
 #
 # ========================================================================
 
 #define base version
 PRE=1
-BASE=0.152
+BASE=0.154
 
 # define patch level
 PL=0
+
+# define release
+REL="~utopic1"
+
+# define uploader
+uploader="Michael DeGuzis <mdeguzis@gmail.com>"
+
+# define date
+date="Wed, 07 Jan 2015 16:58:00 -0400"
 
 BRANCH=unpatched
 
@@ -85,17 +94,17 @@ echo "Setup package base files"
 echo "##########################################"
 
 echo "dsc file"
-cp ~/RetroRig/supplemental/mame/mame.dsc mame-$PRE:$BASE.$PL.dsc
-sed -i "s|version_placeholder|$PRE:$BASE.$PL|g" "mame-$PRE:$BASE.$PL.dsc"
+cp ~/RetroRig/supplemental/mame/mame.dsc mame-$PRE:$BASE.$PL$REL.dsc
+sed -i "s|version_placeholder|$PRE:$BASE.$PL$REL|g" "mame-$PRE:$BASE.$PL$REL.dsc"
 
 SRC_FOLDER=mame-$BASE.$PL
 
 echo "original tarball"
-wget http://archive.ubuntu.com/ubuntu/pool/multiverse/m/mame/mame_0.152.orig.tar.xz
-tar xfJ mame_0.152.orig.tar.xz
-rm mame_0.152.orig.tar.xz
+wget http://archive.ubuntu.com/ubuntu/pool/multiverse/m/mame/mame_0.154.orig.tar.xz
+tar xfJ mame_0.154.orig.tar.xz
+rm mame_0.154.orig.tar.xz
 
-file mame-0.152/
+file mame-0.154/
 
 if [ $? -eq 0 ]; then  
     echo "successfully cloned"
@@ -104,7 +113,7 @@ else
     exit
 fi 
 
-mv mame-0.152/ $SRC_FOLDER
+mv mame-0.154/ $SRC_FOLDER
 
 #change to source folder
 cd $SRC_FOLDER
@@ -117,7 +126,7 @@ echo ""
 
 #unpack
 echo "unpacking template mupen64plus-video-glide64.debian.tar.xz"
-tar xfz ~/RetroRig/supplemental/mame/mame.debian.tar.gz
+tar xfz ~/RetroRig-ES/supplemental/mame/mame.debian.tar.gz
 
 echo "format"
 rm -rf debian/source 
@@ -126,10 +135,12 @@ cp ~/RetroRig/supplemental/mame/format debian/source/
 
 echo "changelog"
 cp ~/RetroRig/supplemental/mame/changelog debian/
-sed -i "s|version_placeholder|$PRE:$BASE.$PL|g" debian/changelog
+sed -i "s|version_placeholder|$PRE:$BASE.$PL$REL|g" debian/changelog
+sed -i "s|date|$date|g" debian/changelog
+sed -i "s|uploader|$uploader|g" debian/changelog
 
 echo "control"
-cp ~/RetroRig/supplemental/mame/control debian/
+cp ~/RetroRig-ES/supplemental/mame/control debian/
 
 echo "patches"
 rm -rf debian/patches
@@ -196,7 +207,7 @@ case "$arg0" in
         ls -lah ~/packaging/mame
         echo ""
         echo ""
-        echo "you can upload the package with dput ppa:beauman/retrorig ~/packaging/mame/mame_$BASE.$PL""_source.changes"
+        echo "you can upload the package with dput ppa:mdeguzis/retrorig-es ~/packaging/mame/mame_$BASE.$PL$REL""_source.changes"
         echo "all good"
         echo ""
         echo ""
@@ -204,7 +215,7 @@ case "$arg0" in
         while true; do
             read -p "Do you wish to upload the source package?    " yn
             case $yn in
-                [Yy]* ) dput ppa:beauman/retrorig ~/packaging/mame/mame_*.$PL""_source.changes; break;;
+                [Yy]* ) dput ppa:mdeguzis/retrorig-es ~/packaging/mame/mame_*.$PL$REL""_source.changes; break;;
                 [Nn]* ) break;;
                 * ) echo "Please answer yes or no.";;
             esac

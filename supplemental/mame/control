@@ -16,7 +16,7 @@ Build-Depends: debhelper (>= 9),
  subversion,
  python-dev,
  zlib1g-dev
-Standards-Version: 3.9.4
+Standards-Version: 3.9.5
 Homepage: http://mamedev.org/
 XS-Autobuild: yes
 
