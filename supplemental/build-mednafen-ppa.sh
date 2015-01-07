@@ -20,7 +20,7 @@ PRE=1:
 BASE=0.9.36.2
 
 # define patch level
-PL=2.2
+PL=2.4
 
 #define mednafen branch to checkout
 BRANCH=mednafen-0.9.36.2-SDL2-dual-head
@@ -69,7 +69,7 @@ echo "Setup package base files"
 echo "##########################################"
 
 echo "dsc file"
-cp ~/RetroRig/supplemental/mednafen/mednafen.dsc mednafen_$PRE$BASE.$PL.dsc
+cp ~/RetroRig-ES/supplemental/mednafen/mednafen.dsc mednafen_$PRE$BASE.$PL.dsc
 sed -i "s|version_placeholder|$BASE.$PL|g" "mednafen_$PRE$BASE.$PL.dsc"
 
 echo "original tarball"
@@ -119,14 +119,14 @@ echo ""
 cd mednafen/
 
 echo "control"
-cp ~/RetroRig/supplemental/mednafen/control debian/
+cp ~/RetroRig-ES/supplemental/mednafen/control debian/
 
 echo "rules"
-cp ~/RetroRig/supplemental/mednafen/rules debian/
+cp ~/RetroRig-ES/supplemental/mednafen/rules debian/
 
 
 echo "changelog"
-cp ~/RetroRig/supplemental/mednafen/changelog debian/
+cp ~/RetroRig-ES/supplemental/mednafen/changelog debian/
 sed -i "s|version_placeholder|$PRE$BASE.$PL|g" debian/changelog
 
 echo "setting up patches"
@@ -176,15 +176,43 @@ if [[ -n "$gpgkey" ]]; then
 
   debuild -S -sa -k$gpgkey
 
-  if [ $? -eq 0 ]; then
-    echo "you can upload the package with dput ppa:beauman/retrorig ~/packaging/mednafen/mednafen_$BASE.$PL""_source.changes"
-    echo "all good"
-  else
-    echo "debuild failed to generate the source package, aborting"
-  fi
-else
-  echo "secret key not found, aborting"
+   if [ $? -eq 0 ]; then
+        echo ""
+        echo ""
+        ls -lah ~/packaging/mednafen
+        echo ""
+        echo ""
+        echo "you can upload the package with dput ppa:beauman/retrorig ~/packaging/gens/gens_$BASE.$PL""_source.changes"
+        echo "all good"
+        echo ""
+        echo ""
+
+        while true; do
+            read -p "Do you wish to upload the source package?    " yn
+            case $yn in
+                [Yy]* ) dput ppa:mdeguzis/retrorig-es ~/packaging/mednafen/mednafen_*.$PL""_source.changes; break;;
+                [Nn]* ) break;;
+                * ) echo "Please answer yes or no.";;
+            esac
+        done
+
+        exit 0
+      else
+        echo "debuild failed to generate the source package, aborting"
+        exit 1
+   fi
+    else
+      echo "secret key not found, aborting"
+      exit 1
 fi
+    ;;
+esac
+
+
+
+
+
+
 
 
 

@@ -1,4 +1,10 @@
-joydetect (version_placeholder) trusty; urgency=medium
+joydetect (version_placeholder) Utopic; urgency=medium
+
+  * Build for Utopic
+
+ -- uploader  Sun, 04 Jan 2015 22:04:00 -0400 
+
+joydetect (0:1.0) trusty; urgency=medium
 
   * source code from https://github.com/professorkaos64/joydetect
   * branch: joydetect
@@ -14,5 +20,5 @@ joydetect (version_placeholder) trusty; urgency=medium
     - rules changed to catch all "dh $@"
     - [debian/copyright] updated for proper format
 
- -- uploader  Wed, 15 Oct 2014 19:27:00 -0400 
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 15 Oct 2014 19:27:00 -0400 
 

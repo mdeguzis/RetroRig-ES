@@ -1,4 +1,10 @@
-mednafen (version_placeholder) trusty; urgency=medium
+mednafen (1:0.9.36.2.2.4) utopic; urgency=medium
+
+  * Initial upload for Utopic
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 06 Jan 2015 20:32:00 -0400
+
+mednafen (1:0.9.36.2.2.2) trusty; urgency=medium
 
   * updated version prefix
 
