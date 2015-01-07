@@ -3,15 +3,25 @@
 #======================================================================== 
 #
 # Author:  Jens-Christian Lache
-# Date:    20140808
+#	   Michael DeGuzis
+# Date:    20150107
 # Version: Patch Level 0 (unpatched)
 # ========================================================================
 
 #define base version
-BASE=2:4.0
+BASE=2:4.5
 
 # define patch level
 PL=0
+
+# Define release, append numeric to keep the same ver
+REL="~utopic1"
+
+# Define uploader
+uploader="Michael DeGuzis <mdeguzis@gmail.com>"
+
+# Define todays date and time
+date="Wed, 07 Jan 2015 16:29:00 -0400"
 
 clear
 echo "#########################################################"
@@ -79,8 +89,8 @@ echo "Setup package base files"
 echo "##########################################"
 
 echo "dsc file"
-cp ~/RetroRig/supplemental/stella/stella.dsc stella_$BASE.$PL.dsc
-sed -i "s|version_placeholder|$BASE.$PL|g" "stella_$BASE.$PL.dsc"
+cp ~/RetroRig-ES/supplemental/stella/stella.dsc stella_$BASE.$PL$REL.dsc
+sed -i "s|version_placeholder|$BASE.$PL$REL|g" "stella_$BASE.$PL$REL.dsc"
 
 echo "original tarball"
 svn co https://svn.code.sf.net/p/stella/code/trunk stella 
@@ -97,7 +107,7 @@ fi
 cd stella
 rm -rf .svn
 cd ..
-tar cfj stella_$BASE.$PL.orig.tar.bz2 stella
+tar cfj stella_$BASE.$PL$REL.orig.tar.bz2 stella
 
 
 echo ""
@@ -110,18 +120,20 @@ echo ""
 cd stella/
 
 echo "compat"
-cp ~/RetroRig/supplemental/stella/compat debian/
+cp ~/RetroRig-ES/supplemental/stella/compat debian/
 
 echo "control"
-cp ~/RetroRig/supplemental/stella/control debian/
+cp ~/RetroRig-ES/supplemental/stella/control debian/
 
 echo "format"
 mkdir debian/source
-cp ~/RetroRig/supplemental/stella/format debian/source/
+cp ~/RetroRig-ES/supplemental/stella/format debian/source/
 
 echo "changelog"
-cp ~/RetroRig/supplemental/stella/changelog debian/
-sed -i "s|version_placeholder|$BASE.$PL|g" debian/changelog
+cp ~/RetroRig-ES/supplemental/stella/changelog debian/
+sed -i "s|version_placeholder|$BASE.$PL$REL|g" debian/changelog
+sed -i "s|uploader|$uploader|g" debian/changelog
+sed -i "s|date|$date|g" debian/changelog
 #dch -i
 
 if [[ -n "$1" ]]; then
@@ -180,7 +192,7 @@ case "$arg0" in
         ls -lah ~/packaging/stella
         echo ""
         echo ""
-        echo "you can upload the package with dput ppa:beauman/retrorig ~/packaging/stella/stella_$BASE.$PL""_source.changes"
+        echo "you can upload the package with dput ppa:mdeguzis/retrorig-es ~/packaging/stella/stella_$BASE.$PL""_source.changes"
         echo "all good"
         echo ""
         echo ""
@@ -188,7 +200,7 @@ case "$arg0" in
         while true; do
             read -p "Do you wish to upload the source package?    " yn
             case $yn in
-                [Yy]* ) dput ppa:beauman/retrorig ~/packaging/stella/stella_*.$PL""_source.changes; break;;
+                [Yy]* ) dput ppa:mdeguzis/retrorig-es ~/packaging/stella/stella_*.$PL$REL""_source.changes; break;;
                 [Nn]* ) break;;
                 * ) echo "Please answer yes or no.";;
             esac

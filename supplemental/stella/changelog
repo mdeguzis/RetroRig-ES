@@ -1,4 +1,14 @@
-stella (version_placeholder) trusty; urgency=medium
+stella (version_placeholder) utopic; urgency=medium
+
+  * Compiled and packaged for project RetroRig-ES (Utopic)
+  * source code: svn co https://svn.code.sf.net/p/stella/code/trunk stella
+  * Version 4.5-1 release from SVN
+  * Create originally by Stephen Anthony <stephena@users.sf.net>
+  * Original SVN create date: Thu, 01 Jan 2015 13:40:04 -0330
+
+ -- uploader  date
+
+stella (2:4.0.0) trusty; urgency=medium
 
   * source code: svn co https://svn.code.sf.net/p/stella/code/trunk stella
                  date 14/08/08
