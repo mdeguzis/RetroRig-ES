@@ -329,7 +329,7 @@ clear
 COLUMNS=$(tput cols) 
 title1="Welcome To" 
 printf "%*s\n" $(((${#title1}+$COLUMNS)/2)) "$title1"
-figlet -c "_.= RetroRig-ES=._"
+figlet -c "_.RetroRig ES._"
 echo ""
 # subtitle 2
 COLUMNS=$(tput cols) 

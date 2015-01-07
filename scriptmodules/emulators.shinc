@@ -53,12 +53,12 @@ function em_install_deb_emulators()
 	# PCSX2 (Playstation 2)
 	#####################################################################
 
+        #install from gregory-hainaut PPA
 	echo "Installing Playstation 2 emulator PCSX2"
 	$cmd_install_pkg pcsx2
 
 	#prerequisites
 	$cmd_install_pkg libportaudio2:i386 libjack-jackd2-0:i386
-	
   
 	# Link BIOS path from home/RetroRig (source) to .retrorig/
 	ln -sf "$rootdir/BIOS/PCSX2" "$config_home/.config/pcsx2/bios"
@@ -79,7 +79,9 @@ function em_install_deb_emulators()
 	echo "Installing Nintendo Gamecube emulator Dolphin"
 	# Note: Glenric's PPA uses dolphin-emu-master, not dolphin-emu for Trusty
 	# other wise install dolphin-emu
+
 	$cmd_install_pkg dolphin-emu-master
+
 
 	#####################################################################
 	# PPSSPP (PSP)
@@ -90,13 +92,12 @@ function em_install_deb_emulators()
         #install from RetroRig PPA
 	$cmd_install_pkg ppsspp
 
-	#####################################################
+	#####################################################################
 	# Stella (Atari 2600)
-	#####################################################
+	#####################################################################
 
-        #install from core repos
+	# Installed via RetroRig PPA
 	$cmd_install_pkg stella
-
 
 	# installation of stella from libregeek.org (deprecated)
 	#
@@ -121,7 +122,7 @@ function em_install_deb_emulators()
 	# MAME (multi-system)
 	#####################################################################
 
-	# Installed via RetroRig PPA
+	# Installed via core repos (kept up to date as of 20150107)
 	echo "Installing MAME emulator"
 	$cmd_install_pkg mame
 
@@ -138,7 +139,7 @@ function em_install_deb_emulators()
 	# MESS (multi-system)
 	#####################################################################
 
-	# Installed via core repos
+	# Installed via core repos (kept up to date as of 20150107)
 	echo "Installing MESS emulator"
 	$cmd_install_pkg mess
 
