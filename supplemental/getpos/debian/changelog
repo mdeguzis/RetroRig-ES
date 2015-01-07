@@ -1,4 +1,11 @@
-getpos (version_placeholder) trusty; urgency=medium
+getpos (version_placeholder) utopic; urgency=medium
+
+  * Initial upload for Utopic
+  * source code from https://github.com/beaumanvienna/getPos
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 06 Jan 2015 21:18:00 -0400
+
+getpos (1.1) trusty; urgency=medium
 
 
   * source code from https://github.com/beaumanvienna/getPos

@@ -3,9 +3,10 @@
 #======================================================================== 
 #
 # Author:  Jens-Christian Lache
+#	   Michael DeGuzis
 # Date:    20141002
-# Version: 1.1
-#          first approach 
+# Version: 1.3
+#          Upload for Utopic, 3rd upload try
 # ========================================================================
 
 
@@ -13,10 +14,13 @@
 BASE=1
 
 # define patch level
-PL=1
+PL=1.3
 
 #define branch
 BRANCH=retrorig-v$PL
+
+# Release
+REL="~utopic"
 
 clear
 echo "#####################################################################"
@@ -83,11 +87,11 @@ echo "Setup package base files"
 echo "##########################################"
 
 echo "dsc file"
-cp ~/RetroRig/supplemental/getpos/getpos.dsc getpos_$BASE.$PL.dsc
-sed -i "s|version_placeholder|$BASE.$PL|g" "getpos_$BASE.$PL.dsc"
+cp ~/RetroRig-ES/supplemental/getpos/getpos.dsc getpos_$BASE.$PL$REL.dsc
+sed -i "s|version_placeholder|$BASE.$PL|g" "getpos_$BASE.$PL$REL.dsc"
 
 echo "original tarball"
-git clone https://github.com/beaumanvienna/getpos
+git clone https://github.com/ProfessorKaos64/getpos
 
 file getpos/
 
@@ -104,10 +108,12 @@ rm -rf .git .gitignore .hgeol .hgignore
 cd ..
 
 tar cfj getpos.orig.tar.bz2 getpos
-mv getpos.orig.tar.bz2 getpos_$BASE.$PL.orig.tar.bz2
+file getpos.orig.tar.bz2
+mv getpos.orig.tar.bz2 getpos_$BASE.$PL$REL.orig.tar.bz2
+file getpos_$BASE.$PL$REL.orig.tar.bz2
 
 echo "debian files"
-cp -r ~/RetroRig/supplemental/getpos/debian getpos/
+cp -r ~/RetroRig-ES/supplemental/getpos/debian getpos/
 
 echo ""
 echo "##########################################"
@@ -119,7 +125,7 @@ echo ""
 cd getpos/
 
 echo "changelog"
-sed -i "s|version_placeholder|$BASE.$PL|g" debian/changelog
+sed -i "s|version_placeholder|$BASE.$PL$REL|g" debian/changelog
 #dch -i
 
 if [[ -n "$1" ]]; then
@@ -178,7 +184,7 @@ case "$arg0" in
         ls -lah ~/packaging/getpos
         echo ""
         echo ""
-        echo "you can upload the package with dput ppa:beauman/retrorig ~/packaging/getpos/getpos_$BASE.$PL""_source.changes"
+        echo "you can upload the package with dput ppa:mdeguis/retrorig-es ~/packaging/getpos/getpos_$BASE.$PL$REL""_source.changes"
         echo "all good"
         echo ""
         echo ""
@@ -186,7 +192,7 @@ case "$arg0" in
         while true; do
             read -p "Do you wish to upload the source package?    " yn
             case $yn in
-                [Yy]* ) dput ppa:beauman/retrorig ~/packaging/getpos/getpos_*.$PL""_source.changes; break;;
+                [Yy]* ) dput ppa:mdeguzis/retrorig-es ~/packaging/getpos/getpos_*.$PL$REL""_source.changes; break;;
                 [Nn]* ) break;;
                 * ) echo "Please answer yes or no.";;
             esac

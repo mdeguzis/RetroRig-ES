@@ -1,8 +1,8 @@
-joydetect (version_placeholder) Utopic; urgency=medium
+joydetect (version_placeholder) utopic; urgency=medium
 
   * Build for Utopic
 
- -- uploader  Sun, 04 Jan 2015 22:04:00 -0400 
+ -- uploader  Tue, 06 Jan 2015 22:03:00 -0400 
 
 joydetect (0:1.0) trusty; urgency=medium
 

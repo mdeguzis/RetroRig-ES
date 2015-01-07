@@ -3,9 +3,9 @@
 #======================================================================== 
 #
 # Author      : Michael T. DeGuzis, Jens-Christian Lache
-# Date        : 20141024
+# Date        : 20150106
 # Version     : 0.9.9.1 from upstream master 2014/10/24
-# Description : Version 0.9.9.1.2.2, 
+# Description : Version 0.9.9.1.2.3, 
 #               patchlevel 2 for dual monitor support
 #               upload try 2
 #               
@@ -23,13 +23,16 @@ PRE=0
 BASE=0.9.9.1
 
 # define patch level and upload try
-PL=2.2
+PL=2.3
 
 #define branch
 BRANCH=master
 
+#define release
+REL="~utopic"
+
 #define upload target
-LAUNCHPAD_PPA="ppa:beauman/retrorig-testing"
+LAUNCHPAD_PPA="ppa:mdeguzis/retrorig-es"
 
 #define uploader for changelog
 uploader="Jens-Christian Lache <jc.lache@web.de>"
@@ -101,9 +104,9 @@ echo "Setup package base files"
 echo "##########################################"
 
 echo "dsc file"
-cp ~/RetroRig/supplemental/ppsspp/ppsspp.dsc ppsspp-$PRE:$BASE.$PL.dsc
-sed -i "s|version_placeholder|$PRE:$BASE.$PL|g" "ppsspp-$PRE:$BASE.$PL.dsc"
-sed -i "s|pkgmaintainer|$pkgmaintainer|g" "ppsspp-$PRE:$BASE.$PL.dsc"
+cp ~/RetroRig-ES/supplemental/ppsspp/ppsspp.dsc ppsspp-$PRE:$BASE.$PL$REL.dsc
+sed -i "s|version_placeholder|$PRE:$BASE.$PL|g" "ppsspp-$PRE:$BASE.$PL$REL.dsc"
+sed -i "s|pkgmaintainer|$pkgmaintainer|g" "ppsspp-$PRE:$BASE.$PL$REL.dsc"
 
 SRC_FOLDER=ppsspp-$BASE.$PL
 
@@ -175,19 +178,19 @@ git checkout $BRANCH
 cd ..
 
 echo "changelog"
-cp ~/RetroRig/supplemental/ppsspp/changelog debian/
-sed -i "s|version_placeholder|$PRE:$BASE.$PL|g" debian/changelog
+cp ~/RetroRig-ES/supplemental/ppsspp/changelog debian/
+sed -i "s|version_placeholder|$PRE:$BASE.$PL$REL|g" debian/changelog
 sed -i "s|uploader|$uploader|g" debian/changelog
 
 echo "control"
-cp ~/RetroRig/supplemental/ppsspp/control debian/
+cp ~/RetroRig-ES/supplemental/ppsspp/control debian/
 sed -i "s|pkgmaintainer|$pkgmaintainer|g" debian/control
 
 echo "rules"
-cp ~/RetroRig/supplemental/ppsspp/rules debian/
+cp ~/RetroRig-ES/supplemental/ppsspp/rules debian/
 
 echo "format"
-cp ~/RetroRig/supplemental/ppsspp/format debian/source/
+cp ~/RetroRig-ES/supplemental/ppsspp/format debian/source/
 
 if [[ -n "$1" ]]; then
   arg0=$1
@@ -245,7 +248,7 @@ case "$arg0" in
         ls -lah ~/packaging/ppsspp
         echo ""
         echo ""
-        echo "you can upload the package with dput ppa:beauman/retrorig ~/packaging/ppsspp/ppsspp_$BASE.$PL""_source.changes"
+        echo "you can upload the package with dput ppa:mdeguzis/retrorig-es ~/packaging/ppsspp/ppsspp_$BASE.$PL$REL""_source.changes"
         echo "all good"
         echo ""
         echo ""
@@ -253,7 +256,7 @@ case "$arg0" in
         while true; do
             read -p "Do you wish to upload the source package?    " yn
             case $yn in
-                [Yy]* ) dput $LAUNCHPAD_PPA ~/packaging/ppsspp/ppsspp_*.$PL""_source.changes; break;;
+                [Yy]* ) dput $LAUNCHPAD_PPA ~/packaging/ppsspp/ppsspp_*.$PL$REL""_source.changes; break;;
                 [Nn]* ) break;;
                 * ) echo "Please answer yes or no.";;
             esac

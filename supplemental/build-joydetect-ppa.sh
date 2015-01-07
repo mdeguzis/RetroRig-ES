@@ -11,10 +11,13 @@
 
 #define base version
 PRE=0
-BASE=1
+BASE=1.1
 
 # define patch level
 PL=0
+
+# Define release
+REL="~utopic"
 
 #define branch
 BRANCH=joydetect-pl0
@@ -97,9 +100,9 @@ echo "Setup package base files"
 echo "##########################################"
 
 echo "dsc file"
-cp ~/RetroRig/supplemental/joydetect/joydetect.dsc joydetect-$PRE:$BASE.$PL.dsc
-sed -i "s|version_placeholder|$PRE:$BASE.$PL|g" "joydetect-$PRE:$BASE.$PL.dsc"
-sed -i "s|pkgmaintainer|$pkgmaintainer|g" "joydetect-$PRE:$BASE.$PL.dsc"
+cp ~/RetroRig-ES/supplemental/joydetect/joydetect.dsc joydetect-$PRE:$BASE.$PL$REL.dsc
+sed -i "s|version_placeholder|$PRE:$BASE.$PL$REL|g" "joydetect-$PRE:$BASE.$PL$REL.dsc"
+sed -i "s|pkgmaintainer|$pkgmaintainer|g" "joydetect-$PRE:$BASE.$PL$REL.dsc"
 
 echo "original tarball"
 git clone https://github.com/ProfessorKaos64/joydetect
@@ -124,7 +127,7 @@ rm -rf .git .gitignore .hgeol .hgignore
 # Create archive
 cd ..
 tar cfj joydetect.orig.tar.bz2 joydetect
-mv joydetect.orig.tar.bz2 joydetect_$BASE.$PL.orig.tar.bz2
+mv joydetect.orig.tar.bz2 joydetect_$BASE.$PL$REL.orig.tar.bz2
 
 echo ""
 echo "##########################################"
@@ -138,27 +141,27 @@ cd joydetect
 cd joydetect
 
 echo "changelog"
-cp ~/RetroRig/supplemental/joydetect/debian/changelog debian/
-sed -i "s|version_placeholder|$PRE:$BASE.$PL|g" debian/changelog
+cp ~/RetroRig-ES/supplemental/joydetect/debian/changelog debian/
+sed -i "s|version_placeholder|$PRE:$BASE.$PL$REL|g" debian/changelog
 sed -i "s|uploader|$uploader|g" debian/changelog
 
 echo "copyright"
-cp ~/RetroRig/supplemental/joydetect/debian/copyright debian/
+cp ~/RetroRig-ES/supplemental/joydetect/debian/copyright debian/
 sed -i "s|pkgmaintainer|$pkgmaintainer|g" debian/copyright
 
 echo "control"
-cp ~/RetroRig/supplemental/joydetect/debian/control debian/
+cp ~/RetroRig-ES/supplemental/joydetect/debian/control debian/
 sed -i "s|pkgmaintainer|$pkgmaintainer|g" debian/control
 
 echo "rules"
-cp ~/RetroRig/supplemental/joydetect/debian/rules debian/
+cp ~/RetroRig-ES/supplemental/joydetect/debian/rules debian/
 
 echo "format"
-cp ~/RetroRig/supplemental/joydetect/debian/source/format debian/source/
+cp ~/RetroRig-ES/supplemental/joydetect/debian/source/format debian/source/
 
 echo "manpage"
-cp ~/RetroRig/supplemental/joydetect/debian/joydetect.7 debian/
-cp ~/RetroRig/supplemental/joydetect/debian/joydetect.manpages debian/
+cp ~/RetroRig-ES/supplemental/joydetect/debian/joydetect.7 debian/
+cp ~/RetroRig-ES/supplemental/joydetect/debian/joydetect.manpages debian/
 sed -i "s|author_temp|$manpage_author|g" debian/joydetect.7
 
 if [[ -n "$1" ]]; then
@@ -217,7 +220,7 @@ case "$arg0" in
         ls -lah ~/pkg-build-tmp/joydetect
         echo ""
         echo ""
-        echo "you can upload the package with dput ppa:mdeguzis/retrorig ~/pkg-build-tmp/joydetect/joydetect_$BASE.$PL""_source.changes"
+        echo "you can upload the package with dput ppa:mdeguzis/retrorig-es ~/pkg-build-tmp/joydetect/joydetect/joydetect_$BASE.$PL$REL""_source.changes"
         echo "all good"
         echo ""
         echo ""
@@ -225,7 +228,7 @@ case "$arg0" in
         while true; do
             read -p "Do you wish to upload the source package?    " yn
             case $yn in
-                [Yy]* ) dput ppa:mdeguzis/retrorig ~/pkg-build-tmp/joydetect/joydetect_*.$PL""_source.changes; break;;
+                [Yy]* ) dput ppa:mdeguzis/retrorig-es ~/pkg-build-tmp/joydetect/joydetect/joydetect_$BASE.$PL$REL""_source.changes; break;;
                 [Nn]* ) break;;
                 * ) echo "Please answer yes or no.";;
             esac

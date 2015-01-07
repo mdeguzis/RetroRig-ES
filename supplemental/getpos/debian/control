@@ -3,7 +3,7 @@ Section: contrib/games
 Priority: optional
 Maintainer: RetroRig Development Team <jc.lache@gmail.com>
 Build-Depends: debhelper, qt4-qmake, libqt4-dev
-Standards-Version: 3.9.3
+Standards-Version: 3.9.5
 Homepage: https://github.com/beaumanvienna/getPos
 
 Package: getpos
