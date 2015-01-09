@@ -413,7 +413,7 @@ function rrs_discover_distro()
 		;;
 	*)
 		echo "32-bit"
-		os_arch="i386"
+		os_arch="x86"
 		;;
 	esac
 
