@@ -1,0 +1,96 @@
+#!/bin/bash
+#
+# RetroRig Debian syscall module
+# This module converts the abstract syscall variable wrappers into
+# Distro-specific actions. This avoids having to write insane
+# amounts of if-statements and lengthening the code even more.
+#
+# Please report any errors via a pull request
+# You can also reach me on twitter: @N3RD42
+#
+# prepare folder structure for emulator, cores, front end, and roms
+
+######################################################
+# System only
+######################################################
+
+cmd_reboot="reboot"
+
+######################################################
+# Packaging
+######################################################
+
+cmd_install_pkg="pacman -S --noconfirm"
+cmd_remove_pkg="pacman -Rs --noconfirm"
+cmd_autoremove_pkg="pacman -Qdt --noconfirm"
+cmd_query_pkg="pacman -Qs"
+#cmd_hold_pkg='echo "IgnorePkg = $package" > /etc/pacman.conf' 
+#cmd_unhold_pkg="apt-mark unhold"
+cmd_update_system="pacman -Syu --noconfirm"
+cmd_upgrade_system="pacman -Syu --noconfirm"
+#cmd_add_repo=""
+#cmd_remove_repo=""
+cmd_aur_install="pacaur -S --noconfirm"
+cmd_manual_pkg_install="dpkg -i"
+
+######################################################
+# Init
+######################################################
+# update rescan init
+update_init_rescan="update-rc.d rescan defaults"
+update_init_xboxdrv="update-rc.d xboxdrv defaults"
+xboxdrv_init="/etc/init.d/xboxdrv"
+xboxdrv_defaults="/etc/default/xboxdrv"
+
+######################################################
+# Kernel
+######################################################
+
+
+######################################################
+# Services
+######################################################
+
+# sixad
+cmd_sixad_start="service sixad start"
+cmd_sixad_restart="service sixad restart"
+cmd_sixad_stop="service sixad stop"
+cmd_remove_sixad="update-rc.d -f sixad remove"
+
+#rescan
+cmd_rescan_start="service rescan start"
+cmd_rescan_restart="service rescan restart"
+cmd_rescan_stop="service rescan stop"
+cmd_remove_rescan="update-rc.d -f rescan remove"
+
+# xboxdrv
+cmd_xboxdrv_start="service xboxdrv start"
+cmd_xboxdrv_restart="service xboxdrv restart"
+cmd_xboxdrv_stop="service xboxdrv stop"
+cmd_remove_xboxdrv="update-rc.d -f xboxdrv remove"
+
+# samba
+cmd_samba_start="service samba start"
+cmd_samba_restart="service samba restart"
+cmd_samba_stop="service samba stop"
+
+# ssh
+cmd_ssh_start="service ssh start"
+cmd_ssh_restart="service ssh restart"
+cmd_ssh_stop="service ssh stop"
+
+######################################################
+# Various
+######################################################
+cmd_add_32bit_arch="dpkg --add-architecture i386"
+cmd_remove_32bit_arch="dpkg --remove-architecture i386"
+
+######################################################
+# Applications
+######################################################
+
+# Populate any applications, whose path differs from the 
+# typical norm on the base targe Ubuntu.
+
+
+
