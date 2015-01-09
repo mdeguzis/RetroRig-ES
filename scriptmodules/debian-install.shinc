@@ -53,9 +53,6 @@ deb_install_core_pkgs()
 	# inject a space to seperate messages?
 	__postMSGs="$__postMSGs "
 
-	__postMSGs="$__postMSGs\n\nIf you wish to have artwork for the MAME games, please visit the RCB main page at http://bit.ly/1lHHSIe and follow the 'Get artwork from emumovies' section'. The size is much too large to contain in RetroRig-ES or Github. This may change."
-
-
 	if [[ ! -z $__postMSGs ]]; then
 	dialog --backtitle "LibreGeek.org - RetroRig-ES Setup. Installation folder: $rootdir" --msgbox "$__postMSGs" 17 70
 	fi
