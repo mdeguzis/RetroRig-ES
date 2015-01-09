@@ -27,12 +27,6 @@ deb_install_core_pkgs()
 	$cmd_install_pkg libasound2 libboost-filesystem1.54.0 libboost-system1.54.0 libc6 \
 	libfreeimage3 libfreetype6 libgcc1 libgl1-mesa-glx libgl1 libsdl2-2.0-0 libstdc++6 \
 	emulationstation emulationstation-theme-simple
-
-	# download and copy in latest theme files (link manually updated for now)
-	# When all required themse are in place, this may not be necessary
-	# Acquired from dev at http://blog.nilsbyte.de/downloads/, updated 20150109
-	wget --tries=50 -P /tmp "http://libregeek.org/RetroRig/extra/es_theme_simple_latest.zip"
-	unzip -o /tmp/es_theme_simple_latest.zip -d /usr/share/emulationstation/themes/
 	
 	#wii motion support
 	$cmd_install_pkg libcwiid1 lswm wmgui wminput
