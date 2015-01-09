@@ -566,6 +566,8 @@ function rrs_add_standard_repos()
 			$cmd_add_repo ppa:mdeguzis/retrorig-es
 			# Add repository for qtsixa 
 			$cmd_add_repo ppa:falk-t-j/qtsixa
+			# emulation station team PPA
+			cmd_add_repo ppa:emulationstation/ppa
 			# add emulator repostories
 			em_add_debian_repos
 
@@ -602,6 +604,8 @@ function rrs_add_standard_repos()
 			$cmd_add_repo ppa:mdeguzis/retrorig-es
 			# Add repository for qtsixa 
 			$cmd_add_repo ppa:falk-t-j/qtsixa
+			# emulation station team PPA
+			cmd_add_repo ppa:emulationstation/ppa
 			# add emulator repostories
 			em_add_debian_repos
 
@@ -630,6 +634,8 @@ function rrs_add_standard_repos()
 			$cmd_add_repo ppa:mdeguzis/retrorig-es
 			# Add repository for qtsixa 
 			$cmd_add_repo ppa:falk-t-j/qtsixa
+			# emulation station team PPA
+			cmd_add_repo ppa:emulationstation/ppa
 			# add emulator repostories
 			em_add_debian_repos
 
