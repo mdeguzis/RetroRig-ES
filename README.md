@@ -1,7 +1,7 @@
 RetroRig-ES Project
 ===================================================
-![alt text](http://i.imgur.com/Irgv0Fx.png "RetroRig")
-###### [Version 0.2.1]
+![alt text](http://i.imgur.com/Irgv0Fx.png "RetroRig-ES")
+###### [Version 0.2.5]
 
 RetroRig-ES is preconfigured setup of scripts, configurations, and emulators for x86_64 Linux systems, using EmulationStation as the front-end. I wanted to take as much out of the equation as possible for users to configure themselves. The "ES" fork of RetroRig was meant to give a hard look at using EmulationStation as the front end, rather than XBMC. This project is intended to be run on Ubuntu (currently 14.04 LTS), and a gamepad / controller.
 
@@ -37,11 +37,27 @@ wiki entries under "Installation," and "Advanced Configuration," or checkout the
 
 For all other features and future plans, please see the [wiki](https://github.com/ProfessorKaos64/RetroRig/wiki/Development-and-Features)
 
-* Coming soon!
+* Concentration on a console-like experience from bootup to shutdown
+* No need to install an entire separate distro on your Mint/Debian machine
+* Custom emulator and utilties packages
+* Seperate dot file (.retrorig-es) so no other program's configurations are affected
+* Auto-install software, emulator configs, and required components
+* Many supported consoles (more added frequently)
+* Gamepad select menu
+* SSH and samba share support
+* Preset Controller mappings for supported gamepads
+* Resolution presets/custom selection for emulators that support it
+* Save state, load state, exit emulators with gamepad
+* A cobbled together "first run" state of RCB with a blank games database and pre-set configs
+* Functions to update git repo, emulator binaries, upgrade system and more
+* ROM pre-loader
+* BIOS pre-loader
+* Modular design for expandability
+* Unity configuration set during config-setup to lengthen screen timeout + remove screen lock
 
 ## Wiki
 
-First, I must direct you to read the wiki on this github page, as it contains extra information outside this wiki. A large amount of tips, tricks, and how-to information is located on this, all for your benefit.
+First, I must direct you to read the wiki on this github page, as it contains extra information outside this wiki. A large amount of tips, tricks, and how-to information is located on this, all for your benefit. This may be replicated to this repository, or stay on its own.
 https://github.com/ProfessorKaos64/RetroRig/wiki
 
 **Please also note**  
@@ -74,7 +90,7 @@ Pre-built packages for other distributions will be coming in the future. Stay tu
 
 To install via GitHub source:
 ````
-cd RetroRig
+cd RetroRig-ES
 sudo ./retrorig-es-setup.sh
 ````
 
