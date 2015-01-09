@@ -368,6 +368,34 @@ function gp_ps3_blu_main()
 	h_correct_perms	
 }
 
+function ps3_pair_blu()
+{
+	####################################################################
+	# Function Description:
+	# 
+	# Set and pair up player controller interactively
+	####################################################################
+
+
+	dialog --msgbox "Please plug in these items now:\n\n1)The USB cable\n2)PS3 controller $n \n
+3)Bluetooth dongle\n\nAdditional controllers can be added in the settings menu"  12 40
+
+	clear
+	# Grab player 1 controller MAC Address of wired device
+	echo "Setting up Playstation 3 Sixaxis (bluetooth) [Player $n]" | tee "$rootdir/logs/debug.log"
+	sleep 2s
+
+	# Pair controller with logging
+	sixpair | tee "$rootdir/logs/debug.log"
+	sleep 2s
+
+	# Inform player 1 controller user to disconnect USB cord
+	dialog --msgbox "Please disconnect the USB cable and press the PS Button now. The appropriate \
+LED for player $n should be lit. If it is not, please hold in the PS button to turn it off, then back on.\n\nThere is no need to reboot to \
+fully enable the controller(s)" 12 60
+
+}
+
 function ps3_set_ctrl_assignments()
 {
 	####################################################################
@@ -693,34 +721,6 @@ options=(1 "Real Wiimote"
 		
 		esac
 	done
-
-}
-
-function ps3_pair_blu()
-{
-	####################################################################
-	# Function Description:
-	# 
-	# Set and pair up player controller interactively
-	####################################################################
-
-
-	dialog --msgbox "Please plug in these items now:\n\n1)The USB cable\n2)PS3 controller $n \n
-3)Bluetooth dongle\n\nAdditional controllers can be added in the settings menu"  12 40
-
-	clear
-	# Grab player 1 controller MAC Address of wired device
-	echo "Setting up Playstation 3 Sixaxis (bluetooth) [Player $n]" | tee "$rootdir/logs/debug.log"
-	sleep 2s
-
-	# Pair controller with logging
-	sixpair | tee "$rootdir/logs/debug.log"
-	sleep 2s
-
-	# Inform player 1 controller user to disconnect USB cord
-	dialog --msgbox "Please disconnect the USB cable and press the PS Button now. The appropriate \
-LED for player $n should be lit. If it is not, please hold in the PS button to turn it off, then back on.\n\nThere is no need to reboot to \
-fully enable the controller(s)" 12 60
 
 }
 

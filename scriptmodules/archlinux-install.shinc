@@ -14,32 +14,54 @@ deb_install_core_pkgs()
 	# This function handles installation of Debian based RetroRig software
 	###########################################################################
 
+	# pkgs that need attention/building!!!: 
+		# getpos (not needed for emulation station?)
+		# joydetect (source compiled below for now)
+
+
 	# install core software from repositories
 	# install binaries
-	$cmd_install_pkg curl python-software-properties \
-	pkg-config software-properties-common dconf-tools jstest-gtk \
-	sixad libusb-0.1-4 antimicro bluez getpos unclutter \
-	joydetect sudo ttf-dejavu-core ttf-dejavu-core ttf-liberation \
-	wmctrl gdebi dos2unix expac
+	$cmd_install_pkg curl pkg-config libusb bluez bluez-utils unclutter \
+	sudo ttf-dejavu-core ttf-dejavu-core ttf-liberation pyqt \
+	wmctrl gdebi dos2unix expac gcc
+
+	# load pre-requisite modules
+	modprobe btusb
+
+	# bluez conflict
+	# As of 20150118, qtsixa on the AUR (https://aur.archlinux.org/packages/qtsixa/)
+	# requires bluez4 when it has been renamed to bluez. Correcting manually for now...
+	wget --tries=50 -P /tmp "https://aur.archlinux.org/packages/qt/qtsixa/qtsixa.tar.gz"
+	tar -xzvf /tmp/qtsixa.tar.gz -C /tmp
+	sed -i "s|bluez4|bluez|g" "/tmp/qtsixa/PKGBUILD"
+	cd /tmp/qtsixa
+	makepkg -s
+	$cmd_manual_pkg_install *.pkg.tar.gz --noconfirm
+	gpasswd -a $user sixad	
 
 	# pacaur for manual pkg installs from AUR (integrates with pacman)
 	wget --tries=50 -P /tmp "https://aur.archlinux.org/packages/pa/pacaur/pacaur.tar.gz"
 	tar -xzvf /tmp/pacaur.tar.gz -C /tmp
 	makepkg -s /tmp/pacaur
-	pacman -U /tmp/pacaur/pacaur-* 
+	$cmd_manual_pkg_install *.pkg.tar.gz 
 
-	# manually install xboxdrv for now, for some reason pacaur is odd for me
-	wget --tries=50 -P /tmp	"https://aur.archlinux.org/packages/xb/xboxdrv/xboxdrv.tar.gz"
-	# untar as user to ensure proper permissions are present for operations
-	sudo -u $user tar -xzvf /tmp/xboxdrv.tar.gz -C /tmp
-	# for some reason it won't run by passing the full directory...cd for now
-	cd /tmp/xboxdrv/
-	# generate pkg as user, root is not allowed, nor should be
-	sudo -u $user makepkg -s /tmp/xboxdrv
-	pacman -U /tmp/xboxdrv/xboxdrv-*
+	# check that pacaur is install correctly, else abort
+	# Full pkg check will commence in debug section
+	if [ ! -f "/usr/bin/pacaur" ]; then
+		echo "pacaur sucessfully installed..."
+	else
+		echo "pacaur installation failed! Aborting..."
+		exit
+	fi
 
 	# Install core packages only found on the AUR
-	$cmd_aur_install xboxdrv
+	$cmd_aur_install xboxdrv jstest-gtk-git pyqt qtsixa antimicro
+
+	# Install core packages NOT in AUR or core repositories
+	
+	# joydetect (for PS3 MAC Address processing)
+	wget --tries=50 -P /tmp "http://www.libregeek.org/RetroRig/tools/joydetect/joydetect.c"
+	gcc 
 
 	# install emulationstation and its dependencies
 	# gdebi -n emulationstation.deb could be used instead to gather these automatically
@@ -86,7 +108,7 @@ deb_install_core_pkgs()
 }
 
 
-function deb_debug_routine()
+function archlinux_debug_routine()
 {
 	clear
 	echo "Generating debug log"

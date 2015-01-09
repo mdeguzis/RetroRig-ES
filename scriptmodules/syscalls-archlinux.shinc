@@ -30,8 +30,8 @@ cmd_update_system="pacman -Syu --noconfirm"
 cmd_upgrade_system="pacman -Syu --noconfirm"
 #cmd_add_repo=""
 #cmd_remove_repo=""
-cmd_aur_install="pacaur -S --noconfirm"
-cmd_manual_pkg_install="dpkg -i"
+cmd_aur_install="echo n | pacaur -y --noconfirm"
+cmd_manual_pkg_install="pacman -U --noconfirm"
 
 ######################################################
 # Init
@@ -48,36 +48,36 @@ xboxdrv_defaults="/etc/default/xboxdrv"
 
 
 ######################################################
-# Services
+# systemctls
 ######################################################
 
 # sixad
-cmd_sixad_start="service sixad start"
-cmd_sixad_restart="service sixad restart"
-cmd_sixad_stop="service sixad stop"
+cmd_sixad_start="systemctl sixad start"
+cmd_sixad_restart="systemctl sixad restart"
+cmd_sixad_stop="systemctl sixad stop"
 cmd_remove_sixad="update-rc.d -f sixad remove"
 
 #rescan
-cmd_rescan_start="service rescan start"
-cmd_rescan_restart="service rescan restart"
-cmd_rescan_stop="service rescan stop"
+cmd_rescan_start="systemctl rescan start"
+cmd_rescan_restart="systemctl rescan restart"
+cmd_rescan_stop="systemctl rescan stop"
 cmd_remove_rescan="update-rc.d -f rescan remove"
 
 # xboxdrv
-cmd_xboxdrv_start="service xboxdrv start"
-cmd_xboxdrv_restart="service xboxdrv restart"
-cmd_xboxdrv_stop="service xboxdrv stop"
+cmd_xboxdrv_start="systemctl xboxdrv start"
+cmd_xboxdrv_restart="systemctl xboxdrv restart"
+cmd_xboxdrv_stop="systemctl xboxdrv stop"
 cmd_remove_xboxdrv="update-rc.d -f xboxdrv remove"
 
 # samba
-cmd_samba_start="service samba start"
-cmd_samba_restart="service samba restart"
-cmd_samba_stop="service samba stop"
+cmd_samba_start="systemctl samba start"
+cmd_samba_restart="systemctl samba restart"
+cmd_samba_stop="systemctl samba stop"
 
 # ssh
-cmd_ssh_start="service ssh start"
-cmd_ssh_restart="service ssh restart"
-cmd_ssh_stop="service ssh stop"
+cmd_ssh_start="systemctl ssh start"
+cmd_ssh_restart="systemctl ssh restart"
+cmd_ssh_stop="systemctl ssh stop"
 
 ######################################################
 # Various
