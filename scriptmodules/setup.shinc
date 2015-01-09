@@ -11,9 +11,9 @@ function rrs_prereq()
 {
 	if [[ -z $(type -P git) || -z $(type -P dialog) || -z $(type -P figlet) ]]; then
 		echo ""
-		echo "######################################"
+		echo "#####################################################"
 		echo "Pre-req checks"	
-		echo "######################################"
+		echo "#####################################################"
 		echo "Did not find 1 or more of the packages: git, dialog, or figlet"
 		echo "Attempting to install these now."
 		echo ""
