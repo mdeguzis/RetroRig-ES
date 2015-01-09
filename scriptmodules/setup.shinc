@@ -736,7 +736,7 @@ function rrs_software()
 
 
 	# call RetroRig's emulation station setup
-	rrs_es_setup
+	rrs_es_cfgs
 
 	# Disable apport, as bug apport-gtk does nothing but interrupt
 	# User can always enable this again
@@ -758,7 +758,7 @@ function rrs_software()
 }
 
 
-function rrs_es_setup()
+function rrs_es_cfgs()
 {
 
 	clear
@@ -842,13 +842,6 @@ function rrs_retrorig_cfgs()
 	ln -sf "$scriptdir/scripts" "$config_home/scripts"
 	chown "$user" "$config_home/scripts"
 	chgrp "$user" "$config_home/scripts"
-}
-
-function rrs_es_cfgs()
-{
-	clear
-	# ES configs will go here. Include sed operations for temp replacements
-	
 }
 
 function rrs_done()
