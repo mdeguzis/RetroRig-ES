@@ -405,13 +405,15 @@ function rrs_discover_distro()
 	OS_RELEASE_STRING=$(lsb_release -a 2>/dev/null|grep "Release")
 	OS_RELEASE=$(echo $OS_RELEASE_STRING | sed s/' '//g | cut -f 2 -d ':')
 
-	# Arch
+	# Arch - this will affect how emulation station is installed
 	case $(uname -m) in
 	*64)
 		echo "64-bit"
+		os_arch="x64"
 		;;
 	*)
 		echo "32-bit"
+		os_arch="i386"
 		;;
 	esac
 
