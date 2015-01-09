@@ -25,22 +25,14 @@ deb_install_core_pkgs()
 	# install emulationstation and its dependencies
 	# gdebi -n emulationstation.deb could be used instead to gather these automatically
 	$cmd_install_pkg libasound2 libboost-filesystem1.54.0 libboost-system1.54.0 libc6 \
-	libfreeimage3 libfreetype6 libgcc1 libgl1-mesa-glx libgl1 libsdl2-2.0-0 libstdc++6
-	
-	# Install emulatation station based on arch:
-	if [ "$os_arch" == "x64" ]; then
-		wget --tries=50 -P /tmp "http://www.emulationstation.org/downloads/releases/emulationstation_amd64_latest.deb"
-		$cmd_manual_pkg_install /tmp/emulationstation_amd64_latest.deb
-	elif [ "$os_arch" == "x86" ]; then
-		wget --tries=50 -P /tmp "http://www.emulationstation.org/downloads/releases/emulationstation_x86_latest.deb"
-		$cmd_manual_pkg_install /tmp/emulationstation_x86_latest.deb	
-	fi
+	libfreeimage3 libfreetype6 libgcc1 libgl1-mesa-glx libgl1 libsdl2-2.0-0 libstdc++6 \
+	emulationstation emulationstation-theme-simple
 
 	# download and copy in latest theme files (link manually updated for now)
-	#wget --tries=50 -P /tmp "http://blog.nilsbyte.de/download/emulationstation-theme-simple-v1-3/<hardlinkhere>"
-	#cd /tmp
-	#unzip <file>
-	#cp -rv <folder> "/etc/emulationstation........."
+	# When all required themse are in place, this may not be necessary
+	# Acquired from dev at http://blog.nilsbyte.de/downloads/, updated 20150109
+	wget --tries=50 -P /tmp "http://libregeek.org/RetroRig/extra/es_theme_simple_latest.zip"
+	unzip -o /tmp/es_theme_simple_latest.zip -d /usr/share/emulationstation/themes/
 	
 	#wii motion support
 	$cmd_install_pkg libcwiid1 lswm wmgui wminput
