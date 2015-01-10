@@ -134,6 +134,8 @@ function rrs_prepareFolders()
 	pathlist+=("$rootdir/Saves/dolphin-emu/GC")
 	pathlist+=("$rootdir/Saves/dolphin-emu/Wii")
 	pathlist+=("$rootdir/Saves/mupen64plus")
+	pathlist+=("$rootdir/Saves/retroarch")
+	pathlist+=("$rootdir/Saves/Nintendo DS")
 	pathlist+=("$rootdir/Saves/mednafen")
 	pathlist+=("$rootdir/Saves/GensGS")
 	pathlist+=("$rootdir/Saves/GB")
@@ -253,6 +255,12 @@ function rrs_prepareFolders()
 		fi
 	fi
 
+	if [ ! -f "$config_home/.config/retroarch/*.state" ]; then
+		mkdir -p "$config_home/.config/retroarch/save_states_old"
+		mv -f "$config_home/.config/retroarch/*.state" "$config_home/.config/retroarch/save_states_old"
+		retroarch_nds_backup=true
+	fi
+
 	#remove old links
 	rm -f "$config_home/.dolphin-emu/StateSaves"
 	rm -f "$config_home/.dolphin-emu/GC/StateSaves"
@@ -299,6 +307,10 @@ function rrs_prepareFolders()
 
 	if [ "$pcsx2_backup" == "true" ]; then
 		cp -rf "$config_home/.config/pcsx2/sstates.old/*" "$config_home/.config/pcsx2/sstates"
+	fi
+
+	if [ "$retroarch_nds_backup" == "true" ]; then
+		cp -rf "$config_home/.config/retroarch/save_states_old" "$installdir_home/Saves/Nintendo DS/" 
 	fi
 
 	# correct permissions
