@@ -71,15 +71,20 @@ function rrs_prepareFolders()
 	# For RetroRig users using ES flavor, link DIRs to avoid
 	# Having to recopy ROMs
 
-	if [[ ! -d "$home/RetroRig/ROMs" ]]; then
-		# Backup old ES ROM directory for safety
-		mv -rv "$rootdir/ROMs" "$rootdir/ROMs.old"
-		# Remove any existing ROM dir from previous install
-		rm -f "$rootdir/ROMs"
-		# Link old ROMs folder
-		ln -s "$rootdir/RetroRig/ROMs" "$rootdir/ROMs"
-	else
-		#setup skelton folders for ROMs
+        if [[ ! -d "$home/RetroRig/ROMs" ]]; then
+                echo "Existing RetroRig ROMs directory found"
+                # Backup old ES ROM directory for safety
+                echo "Backing up old ROM DIR if present"
+                mv -fv  "$rootdir/ROMs/" "$rootdir/ROMs.old"
+                # Remove any existing ROM dir from previous install
+                echo "Removing existing ROM dir"
+                rm -fv "$rootdir/ROMs"
+                echo "Linking ROM DIRs"
+                # Link old ROMs folder
+                ln -s "$rootdir/RetroRig/ROMs" "$rootdir/ROMs"
+        else
+                echo "Creating blank folder set"
+                #setup skelton folders for ROMs
 		pathlist+=("$rootdir/ROMs/Atari 2600")
 		pathlist+=("$rootdir/ROMs/Atari Lynx")
 		pathlist+=("$rootdir/ROMs/Gamecube")
