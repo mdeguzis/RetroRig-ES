@@ -107,8 +107,8 @@ function gp_ps3_blu()
 	cp -v "$scriptdir/es-cfgs/es_settings.cfg" "$es_home"
 
 	# RetroArch
-	cp -v "$scriptdir/emu-cfgs/generic_blu_controller/retroarch/retroarch.cfg" "$config_home/.config/retroarch/"
-	cp -v "$scriptdir/emu-cfgs/generic_blu_controller/retroarch/retroarch-desmume.cfg" "$config_home/.config/retroarch/"
+	cp -v "$scriptdir/emu-cfgs/ps3_blu_controller/retroarch/retroarch.cfg" "$config_home/.config/retroarch/"
+	cp -v "$scriptdir/emu-cfgs/ps3_blu_controller/retroarch/retroarch-desmume.cfg" "$config_home/.config/retroarch/"
 
 	# Alter Steam config.vdf with proper controls if controller exists
 	STEAM_GP_TYPE="ps3blu"
