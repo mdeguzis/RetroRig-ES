@@ -452,6 +452,7 @@ options=(1 "Atari 2600"
 		#copy DS ROMs
 		if [ -n "$folder" ]; then
 			cp -R "$folder"/* "$rootdir/ROMs/Nintendo DS/"
+		;;
 
 		7)
 		#call file loader  	
