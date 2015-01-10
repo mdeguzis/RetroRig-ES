@@ -1662,9 +1662,9 @@ function enable_gp_autostart()
 	#################################################################### 
 
 	clear
-	
-	PS3_USB=$(grep -m 1 -Ee "autostartXBMC_PS3_USB" "/usr/share/applications/gp_autodetect_xbmc.sh")
-	PS3_BT=$(grep -m 1 -Ee "autostartXBMC_PS3_BT" "/usr/share/applications/gp_autodetect_xbmc.sh")
+
+	PS3_USB=$(grep -m 1 -Ee "autostartES_PS3_USB" "/usr/share/applications/gp_autodetect.sh")
+	PS3_BT=$(grep -m 1 -Ee "autostartES_PS3_BT" "/usr/share/applications/gp_autodetect.sh")
 	
 	#default gamepad autostart is disabled
 	gp_autostart=disabled
@@ -1692,11 +1692,11 @@ function enable_gp_autostart()
 	esac
 	
 	if [ "$gp_autostart" == "enabled" ]; then
-		sed -i "s|$PS3_USB|autostartXBMC_PS3_USB=enabled|g" "/usr/share/applications/gp_autodetect_xbmc.sh"
-		sed -i "s|$PS3_BT|autostartXBMC_PS3_BT=enabled|g" "/usr/share/applications/gp_autodetect_xbmc.sh"
+		sed -i "s|$PS3_USB|autostartES_PS3_USB=enabled|g" "/usr/share/applications/gp_autodetect.sh"
+		sed -i "s|$PS3_BT|autostartES_PS3_BT=enabled|g" "/usr/share/applications/gp_autodetect.sh"
 	else
-		sed -i "s|$PS3_USB|autostartXBMC_PS3_USB=disabled|g" "/usr/share/applications/gp_autodetect_xbmc.sh"
-		sed -i "s|$PS3_BT|autostartXBMC_PS3_BT=disabled|g" "/usr/share/applications/gp_autodetect_xbmc.sh"
+		sed -i "s|$PS3_USB|autostartES_PS3_USB=disabled|g" "/usr/share/applications/gp_autodetect.sh"
+		sed -i "s|$PS3_BT|autostartES_PS3_BT=disabled|g" "/usr/share/applications/gp_autodetect.sh"
 	fi
 	
 	clear
