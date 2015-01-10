@@ -45,7 +45,6 @@ do
     if [ "$autostartES_PS3_USB" == "enabled" ]; then
       echo "auto start function"
       autostarted=false
-      setup_running=`ps ax|grep retrorig-es-setup| grep -v grep`
       
       if [ -z "$setup_running" ]; then
         #retrorig-setup-es is not running
@@ -55,7 +54,7 @@ do
           #first controller was switched on
           echo "first controller was switched on"
           
-          es_running=`ps ax|grep emulationstation |grep -v grep`
+          es_running=`ps ax |grep emulationstation |grep -v grep`
           if [ -z "$es_running" ]; then
             # ES not running yet
             echo "EmulationStation not running yet"
@@ -81,7 +80,7 @@ do
       #diagnostic message
       sleep 2
       if [ "$autostarted" == "true" ]; then
-        if [ -n "$(ps ax|grep emulationstation | grep -v grep)" ]; then
+        if [ -n "$(ps ax |grep emulationstation | grep -v grep)" ]; then
           echo "RetroRig-ES sucessfully started"
         else
           echo "attempt to start RetroRig-ES failed"
@@ -109,7 +108,7 @@ do
     if [ "$autostartES_PS3_BT" == "enabled" ]; then
       echo "auto start function"
       autostarted=false
-      setup_running=`ps ax|grep retrorig-es-setup| grep -v grep`
+      setup_running=`ps ax |grep retrorig-es-setup| grep -v grep`
       
       if [ -z "$setup_running" ]; then
         #retrorig-setup is not running
@@ -119,7 +118,7 @@ do
           #first controller was switched on
           echo "first controller was switched on"
       
-          es_running=`ps ax|grep emulationstation |grep -v grep`
+          es_running=`ps ax |grep emulationstation |grep -v grep`
           if [ -z "$es_running" ]; then
             # xbmc not running yet
             echo "EmulationStation not running yet"
@@ -144,7 +143,7 @@ do
       #diagnostic message
       sleep 2
       if [ "$autostarted" == "true" ]; then
-        if [ -n "$(ps ax| grep emulationstation |grep -v grep)" ]; then
+        if [ -n "$(ps ax | grep emulationstation |grep -v grep)" ]; then
           echo "RetroRig-ES sucessfully started"
         else
           echo "attempt to start RetroRig-ES failed"
