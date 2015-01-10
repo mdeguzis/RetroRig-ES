@@ -61,7 +61,7 @@ function em_install_deb_emulators()
 	$cmd_install_pkg retroarch libretro-desmume
 
 	# Tip: launch command:
-	# retroarch -f -L /usr/lib/libretro/desmume_libretro.so <ROM_NAME>.nds 
+	# retroarch --config <config_file> -f -L /usr/lib/libretro/desmume_libretro.so <ROM_NAME>.nds 
 
 	#####################################################################
 	# PCSX2 (Playstation 2)
