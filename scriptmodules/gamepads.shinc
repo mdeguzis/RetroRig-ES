@@ -98,6 +98,12 @@ function gp_ps3_blu()
 	# Gens GS (Sega CD/32X)
 	cp -v "$scriptdir/emu-cfgs/ps3_blu_controller/GensGS/gens.cfg" "$config_home/.gens/"
 
+	# copy over default cfgs for ES:
+	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
+	cp -v "$scriptdir/es-cfgs/es_settings.cfg" "$es_home"
+	# Copy default ES input file
+	cp "$scriptdir/gamepad-cfgs/ps3_blu_controller/es_input.cfg" "$es_home"
+
 	# Alter Steam config.vdf with proper controls if controller exists
 	STEAM_GP_TYPE="ps3blu"
 	gp_steam_control
@@ -446,12 +452,6 @@ function ps3_set_ctrl_assignments()
 		fi
 	fi
 	echo -e "\nController ID/MAC Address applied to ES controls was:\n$PS3_MAC_BLU \n"
-
-	# copy over default cfgs for ES:
-	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
-	cp -v "$scriptdir/es-cfgs/es_settings.cfg" "$es_home"
-	# Copy default ES input file
-	cp "$scriptdir/gamepad-cfgs/ps3_blu_controller/es_input.cfg" "$es_home"
 
 	# First grab MAC Addresses:
 	# In the config file, the MAC is set to 00:00:00:00:00:00
