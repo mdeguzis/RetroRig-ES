@@ -42,6 +42,10 @@ h_clean_gamepad()
 	rm -f "$es_home/es_systems.cfg"
 	rm -f "$es_home/es_settings.cfg"
 	rm -f "$es_home/es_input.cfg"
+
+	# Retroarch
+	rm -rf "$config_home/.config/retroarch/retroarch.cfg"
+	rm -rf "$config_home/.config/retroarch/retroarch-desmume.cfg"
 	
 	# remove the /usr/share/applications/gp_autodetect_xbmc.sh file, so we can actively
 	# set the gamepad type on changes from user input in the script gamepad select
