@@ -81,7 +81,7 @@ function rrs_prepareFolders()
                 rm -fv "$rootdir/ROMs"
                 echo "Linking ROM DIRs"
                 # Link old ROMs folder
-                ln -s "$rootdir/RetroRig/ROMs" "$rootdir/ROMs"
+                ln -s "$home/RetroRig/ROMs" "$rootdir/ROMs"
         else
                 echo "Creating blank folder set"
                 #setup skelton folders for ROMs
