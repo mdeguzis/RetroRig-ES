@@ -898,6 +898,10 @@ function gp_x360_wireless()
 	# Gens GS (Sega CD/32X)
 	cp -v "$scriptdir/emu-cfgs/x360_wireless_controller/GensGS/gens.cfg" "$config_home/.gens/"
 
+	# RetroArch
+	cp -v "$scriptdir/emu-cfgs/x360_wireless_controller/retroarch/retroarch.cfg" "$config_home/.config/retroarch/"
+	cp -v "$scriptdir/emu-cfgs/x360_wireless_controller/retroarch/retroarch-desmume.cfg" "$config_home/.config/retroarch/"
+
 	# Alter Steam config.vdf with proper controls if controller exists
 	STEAM_GP_TYPE="x360wireless"
 	gp_steam_control
