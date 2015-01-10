@@ -68,30 +68,43 @@ function rrs_prepareFolders()
 	#emulator base directory
 	#pathlist+=("$rootdir/emulators")
 
-	#setup skelton folders for ROMs
-	pathlist+=("$rootdir/ROMs/Atari 2600")
-	pathlist+=("$rootdir/ROMs/Atari Lynx")
-	pathlist+=("$rootdir/ROMs/Gamecube")
-	pathlist+=("$rootdir/ROMs/MAME")
-	pathlist+=("$rootdir/ROMs/mupen64plus")
-	pathlist+=("$rootdir/ROMs/Nintendo DS")
-	pathlist+=("$rootdir/ROMs/NES")
-	pathlist+=("$rootdir/ROMs/SNES")
-	pathlist+=("$rootdir/ROMs/Sega Master System")
-	pathlist+=("$rootdir/ROMs/Sega Game Gear")
-	pathlist+=("$rootdir/ROMs/Sega Genesis")
-	pathlist+=("$rootdir/ROMs/Sega CD")
-	pathlist+=("$rootdir/ROMs/Sega 32X")
-	pathlist+=("$rootdir/ROMs/GB")
-	pathlist+=("$rootdir/ROMs/GBC")
-	pathlist+=("$rootdir/ROMs/GBA")
-	pathlist+=("$rootdir/ROMs/TurboGraphx 16")
-	pathlist+=("$rootdir/ROMs/Neo Geo/CDZ")
-	pathlist+=("$rootdir/ROMs/Neo Geo/AES")
-	pathlist+=("$rootdir/ROMs/PSP")
-	pathlist+=("$rootdir/ROMs/PS1")
-	pathlist+=("$rootdir/ROMs/PS2")
-	pathlist+=("$rootdir/ROMs/Wii")
+	# For RetroRig users using ES flavor, link DIRs to avoid
+	# Having to recopy ROMs
+
+	if [[ ! -d "$home/RetroRig/ROMs" ]]; then
+		# Backup old ES ROM directory for safety
+		mv -rv "$rootdir/ROMs" "$rootdir/ROMs.old"
+		# Remove any existing ROM dir from previous install
+		rm -f "$rootdir/ROMs"
+		# Link old ROMs folder
+		ln -s "$rootdir/RetroRig/ROMs" "$rootdir/ROMs"
+	else
+		#setup skelton folders for ROMs
+		pathlist+=("$rootdir/ROMs/Atari 2600")
+		pathlist+=("$rootdir/ROMs/Atari Lynx")
+		pathlist+=("$rootdir/ROMs/Gamecube")
+		pathlist+=("$rootdir/ROMs/MAME")
+		pathlist+=("$rootdir/ROMs/mupen64plus")
+		pathlist+=("$rootdir/ROMs/Nintendo DS")
+		pathlist+=("$rootdir/ROMs/NES")
+		pathlist+=("$rootdir/ROMs/SNES")
+		pathlist+=("$rootdir/ROMs/Sega Master System")
+		pathlist+=("$rootdir/ROMs/Sega Game Gear")
+		pathlist+=("$rootdir/ROMs/Sega Genesis")
+		pathlist+=("$rootdir/ROMs/Sega CD")
+		pathlist+=("$rootdir/ROMs/Sega 32X")
+		pathlist+=("$rootdir/ROMs/GB")
+		pathlist+=("$rootdir/ROMs/GBC")
+		pathlist+=("$rootdir/ROMs/GBA")
+		pathlist+=("$rootdir/ROMs/TurboGraphx 16")
+		pathlist+=("$rootdir/ROMs/Neo Geo/CDZ")
+		pathlist+=("$rootdir/ROMs/Neo Geo/AES")
+		pathlist+=("$rootdir/ROMs/PSP")
+		pathlist+=("$rootdir/ROMs/PS1")
+		pathlist+=("$rootdir/ROMs/PS2")
+		pathlist+=("$rootdir/ROMs/Wii")
+	fi
+
 
 	#Artwork 
 	pathlist+=("$rootdir/Artwork/Atari 2600")
