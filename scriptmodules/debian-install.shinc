@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # RetroRig setup modules
-# This is a small script to install Debian software for RetroRig
+# This is a small script to install Debian software for RetroRig-ES
 # append a "-x" on the end above for debugging if need be
 # Please report any errors via a pull request
 # You can also reach me on twitter: @N3RD42
@@ -11,7 +11,7 @@ deb_install_core_pkgs()
 {
 
 	###########################################################################
-	# This function handles installation of Debian based RetroRig software
+	# This function handles installation of Debian based RetroRig-ES software
 	###########################################################################
 
 	# install software from repositories
@@ -25,10 +25,8 @@ deb_install_core_pkgs()
 	# install emulationstation and its dependencies
 	# gdebi -n emulationstation.deb could be used instead to gather these automatically
 	$cmd_install_pkg libasound2 libboost-filesystem1.54.0 libboost-system1.54.0 libc6 \
-	libfreeimage3 libfreetype6 libgcc1 libgl1-mesa-glx libgl1 libsdl2-2.0-0 libstdc++6
-	wget --tries=50 -P /tmp "http://www.emulationstation.org/downloads/releases/emulationstation_amd64_latest.deb"
-	cd /tmp
-	$cmd_manual_pkg_install /tmp/emulationstation_amd64_latest.deb
+	libfreeimage3 libfreetype6 libgcc1 libgl1-mesa-glx libgl1 libsdl2-2.0-0 libstdc++6 \
+	emulationstation emulationstation-theme-simple
 	
 	#wii motion support
 	$cmd_install_pkg libcwiid1 lswm wmgui wminput
@@ -55,14 +53,11 @@ deb_install_core_pkgs()
 	# inject a space to seperate messages?
 	__postMSGs="$__postMSGs "
 
-	__postMSGs="$__postMSGs\n\nIf you wish to have artwork for the MAME games, please visit the RCB main page at http://bit.ly/1lHHSIe and follow the 'Get artwork from emumovies' section'. The size is much too large to contain in RetroRig or Github. This may change."
-
-
 	if [[ ! -z $__postMSGs ]]; then
-	dialog --backtitle "LibreGeek.org - RetroRig Setup. Installation folder: $rootdir" --msgbox "$__postMSGs" 17 70
+	dialog --backtitle "LibreGeek.org - RetroRig-ES Setup. Installation folder: $rootdir" --msgbox "$__postMSGs" 17 70
 	fi
 
-	dialog --backtitle "LibreGeek.org - RetroRig Setup. Installation folder: $rootdir" --msgbox "Finished emulator installs.\n\nYou now have to copy roms to the roms folders. You may also use the 'ROM loader' in settings menu" 17 60
+	dialog --backtitle "LibreGeek.org - RetroRig-ES Setup. Installation folder: $rootdir" --msgbox "Finished emulator installs.\n\nYou now have to copy roms to the roms folders. You may also use the 'ROM loader' in settings menu" 17 60
 
 }
 

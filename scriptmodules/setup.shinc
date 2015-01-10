@@ -11,9 +11,9 @@ function rrs_prereq()
 {
 	if [[ -z $(type -P git) || -z $(type -P dialog) || -z $(type -P figlet) ]]; then
 		echo ""
-		echo "######################################"
+		echo "#####################################################"
 		echo "Pre-req checks"	
-		echo "######################################"
+		echo "#####################################################"
 		echo "Did not find 1 or more of the packages: git, dialog, or figlet"
 		echo "Attempting to install these now."
 		echo ""
@@ -405,13 +405,15 @@ function rrs_discover_distro()
 	OS_RELEASE_STRING=$(lsb_release -a 2>/dev/null|grep "Release")
 	OS_RELEASE=$(echo $OS_RELEASE_STRING | sed s/' '//g | cut -f 2 -d ':')
 
-	# Arch
+	# Arch - this will affect how emulation station is installed
 	case $(uname -m) in
 	*64)
 		echo "64-bit"
+		os_arch="x64"
 		;;
 	*)
 		echo "32-bit"
+		os_arch="x86"
 		;;
 	esac
 
@@ -564,6 +566,8 @@ function rrs_add_standard_repos()
 			$cmd_add_repo ppa:mdeguzis/retrorig-es
 			# Add repository for qtsixa 
 			$cmd_add_repo ppa:falk-t-j/qtsixa
+			# emulation station team PPA
+			$cmd_add_repo ppa:emulationstation/ppa
 			# add emulator repostories
 			em_add_debian_repos
 
@@ -600,6 +604,8 @@ function rrs_add_standard_repos()
 			$cmd_add_repo ppa:mdeguzis/retrorig-es
 			# Add repository for qtsixa 
 			$cmd_add_repo ppa:falk-t-j/qtsixa
+			# emulation station team PPA
+			$cmd_add_repo ppa:emulationstation/ppa
 			# add emulator repostories
 			em_add_debian_repos
 
@@ -628,6 +634,8 @@ function rrs_add_standard_repos()
 			$cmd_add_repo ppa:mdeguzis/retrorig-es
 			# Add repository for qtsixa 
 			$cmd_add_repo ppa:falk-t-j/qtsixa
+			# emulation station team PPA
+			$cmd_add_repo ppa:emulationstation/ppa
 			# add emulator repostories
 			em_add_debian_repos
 
@@ -736,7 +744,7 @@ function rrs_software()
 
 
 	# call RetroRig's emulation station setup
-	rrs_es_setup
+	rrs_es_cfgs
 
 	# Disable apport, as bug apport-gtk does nothing but interrupt
 	# User can always enable this again
@@ -758,7 +766,7 @@ function rrs_software()
 }
 
 
-function rrs_es_setup()
+function rrs_es_cfgs()
 {
 
 	clear
@@ -842,13 +850,6 @@ function rrs_retrorig_cfgs()
 	ln -sf "$scriptdir/scripts" "$config_home/scripts"
 	chown "$user" "$config_home/scripts"
 	chgrp "$user" "$config_home/scripts"
-}
-
-function rrs_es_cfgs()
-{
-	clear
-	# ES configs will go here. Include sed operations for temp replacements
-	
 }
 
 function rrs_done()
