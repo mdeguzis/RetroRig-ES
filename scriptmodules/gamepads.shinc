@@ -33,8 +33,12 @@ function gp_ps3_blu()
 	# clean any old configs
 	h_clean_gamepad
 
-	# EmulationStation control: (NEEDS DONE YET!!!)
-	# cp -v "$scriptdir/gamepad-cfgs/ps3_blu_controller/es_input.cfg" "$es_home"
+	# copy over default cfgs for ES:
+	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
+	cp -v "$scriptdir/es-cfgs/es_settings.cfg" "$es_home"
+
+	# Copy default ES input file
+	cp "$scriptdir/gamepad-cfgs/ps3_blu_controller/es_input.cfg" "$es_home"
 
 	# mame
 	# default path: /home/$USER/.mame
@@ -101,8 +105,10 @@ function gp_ps3_blu()
 	# copy over default cfgs for ES:
 	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
 	cp -v "$scriptdir/es-cfgs/es_settings.cfg" "$es_home"
-	# Copy default ES input file
-	cp "$scriptdir/gamepad-cfgs/ps3_blu_controller/es_input.cfg" "$es_home"
+
+	# RetroArch
+	cp -v "$scriptdir/emu-cfgs/generic_blu_controller/retroarch/retroarch.cfg" "$config_home/.config/retroarch/"
+	cp -v "$scriptdir/emu-cfgs/generic_blu_controller/retroarch/retroarch-desmume.cfg" "$config_home/.config/retroarch/"
 
 	# Alter Steam config.vdf with proper controls if controller exists
 	STEAM_GP_TYPE="ps3blu"
@@ -538,192 +544,6 @@ function ps3_set_emulator_ids()
 
 }
 
-function enable_gp_autostart()
-{
-	####################################################################
-	#
-	# Function Description:
-	# 
-	# enable / disable auto start function for RetroRig with gamepads
-	# 	#
-	#################################################################### 
-
-	clear
-	
-	PS3_USB=$(grep -m 1 -Ee "autostartXBMC_PS3_USB" "/usr/share/applications/gp_autodetect_xbmc.sh")
-	PS3_BT=$(grep -m 1 -Ee "autostartXBMC_PS3_BT" "/usr/share/applications/gp_autodetect_xbmc.sh")
-	
-	#default gamepad autostart is disabled
-	gp_autostart=disabled
-	
-	dialog --title "Confirm yes/no" \
-	--backtitle "Auto Start RetroRig" \
-	--yesno "Do you want to have RetroRig-ES started automatically for the first gamepad being switch on? (PS3 Sixaxis only)"  6 60
-	# Get exit status
-	# 0 means user hit [yes] button.
-	# 1 means user hit [no] button.
-	# 255 means user hit [Esc] key.
-	response=$?
-	case $response in
-		0)
-			gp_autostart=enabled
-		;;
-
-		1)
-			gp_autostart=disabled
-		;;
-
-		255)
-			gp_autostart=disabled
-		;;
-	esac
-	
-	if [ "$gp_autostart" == "enabled" ]; then
-		sed -i "s|$PS3_USB|autostartXBMC_PS3_USB=enabled|g" "/usr/share/applications/gp_autodetect_xbmc.sh"
-		sed -i "s|$PS3_BT|autostartXBMC_PS3_BT=enabled|g" "/usr/share/applications/gp_autodetect_xbmc.sh"
-	else
-		sed -i "s|$PS3_USB|autostartXBMC_PS3_USB=disabled|g" "/usr/share/applications/gp_autodetect_xbmc.sh"
-		sed -i "s|$PS3_BT|autostartXBMC_PS3_BT=disabled|g" "/usr/share/applications/gp_autodetect_xbmc.sh"
-	fi
-	
-	clear
-	$cmd_rescan_restart
-	sleep 2
-}
-
-
-function enable_rr_autostart()
-{
-	####################################################################
-	#
-	# Function Description:
-	# 
-	# enable / disable auto start of RetroRig after login
-	# 	
-	#################################################################### 
-
-	clear
-
-	rr_autostart=disabled
-	
-	dialog --title "Confirm yes/no" \
-	--backtitle "Auto Start RetroRig" \
-	--yesno "Do you want to have RetroRig-ES started after the X server loads (GUI)?"  6 60
-	# Get exit status
-	# 0 means user hit [yes] button.
-	# 1 means user hit [no] button.
-	# 255 means user hit [Esc] key.
-	response=$?
-	case $response in
-		0)
-			rr_autostart=enabled
-		;;
-
-		1)
-			rr_autostart=disabled
-		;;
-
-		255)
-			rr_autostart=disabled
-		;;
-	esac
-	
-	if [ "$rr_autostart" == "enabled" ]; then
-		# create autostart entry, remove prior if it exists
-		rm -f "$home.config/autostart/RetroRig-ES.desktop"
-		cp -v "$scriptdir/es-cfgs/extra/RetroRig-ES.desktop" "$home/.config/autostart"
-		# fix permissions
-		chmod 755 "$home/.config/autostart/RetroRig-ES.desktop"
-	else
-		# remove any existing entry
-		rm -f "$home.config/autostart/RetroRig-ES.desktop"
-	fi
-
-	sleep 2
-}
-function wii_motion_controller_for_dolphin()
-{
-	####################################################################
-	#
-	# Function Description:
-	# 
-	# configure dolphin to use a Wii motion controller for Wii games
-	#
-	#################################################################### 
-
-	#native or emulated Wii controller 1=emulated 2=native
-	clear
-	src=1
-
-	# get the current state of GC controller state
-	# on state = 6
-	# off state = 0
-	gc1_state=$(grep "SIDevice0 = " "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini")
-	gc2_state=$(grep "SIDevice1 = " "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini")
-	gc3_state=$(grep "SIDevice2 = " "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini")
-	gc4_state=$(grep "SIDevice3 = " "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini")
-
-
-cmd=(dialog --backtitle "LibreGeek.org RetroRig" --menu "How do you wish to play your Wii games?" 18 0 15)
-options=(1 "Real Wiimote"  
-	 2 "Emulated Wiimote"
-	 3 "Emulated Gamecube Controller")
-
-	#make menu choice
-	selection=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
-	#functions
-
-	for choice in $selection
-	do
-		case $choice in
-
-		1)
-			clear
-			src=2
-			dialog --msgbox "For Wii games, controls have been mapped to a native motion controller. Press 1+2 for older Wii controller, or the small button in the battery compartement to activate the controller every time after game start. Navigation in XBMC, game launch and exit for Wii games, as for all other games, is still handled by your primary controller. This applies also to the save state and load state functions. Use your primary controller in parallel to your Wii controller to save and load game states. " 14 60
-
-			# DISABLE GC controller since user wants to use the Wiimote
-			# This was noted by a user to cause conflicts with using a Wii mote at the same time
-
-			sed -i "s|$gc1_state|SIDevice0 = 0|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
-			sed -i "s|$gc2_state|SIDevice1 = 0|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
-			sed -i "s|$gc3_state|SIDevice2 = 0|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
-			sed -i "s|$gc4_state|SIDevice3 = 0|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
-
-			# assign Wiimote
-			sed -i "s|PLAYER_SRC|$src|g" "$config_home/.dolphin-emu/Wii/Config/WiimoteNew.ini"
-			;;
-
-		2)
-			src=1
-			# DISABLE GC controller since user wants to use the emulated Wiimote
-			# This was noted by a user to cause conflicts with using a Wii mote at the same time
-			sed -i "s|$gc1_state|SIDevice0 = 0|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
-			sed -i "s|$gc2_state|SIDevice1 = 0|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
-			sed -i "s|$gc3_state|SIDevice2 = 0|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
-			sed -i "s|$gc4_state|SIDevice3 = 0|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
-
-			# assign Wiimote
-			sed -i "s|PLAYER_SRC|$src|g" "$config_home/.dolphin-emu/Wii/Config/WiimoteNew.ini"
-			;;
-
-		3)
-			src=0
-			# ENABLE GC controller since user does not want to use a Wiimote
-			sed -i "s|$gc1_state|SIDevice0 = 6|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
-			sed -i "s|$gc2_state|SIDevice1 = 6|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
-			sed -i "s|$gc3_state|SIDevice2 = 6|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
-			sed -i "s|$gc4_state|SIDevice3 = 6|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
-
-			# disable Wiimote with 0 value
-			sed -i "s|PLAYER_SRC|$src|g" "$config_home/.dolphin-emu/Wii/Config/WiimoteNew.ini"
-			;;
-		
-		esac
-	done
-
-}
-
 function gp_ps3_usb()
 {
 	####################################################################
@@ -736,8 +556,12 @@ function gp_ps3_usb()
 	# clean any old configs
 	h_clean_gamepad
 
-	# EmulationStation control: (NEEDS DONE YET!!!)
-	# cp -v "$scriptdir/gamepad-cfgs/ps3_usb_controller/es_input.cfg" "$es_home"
+	# copy over default cfgs for ES:
+	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
+	cp -v "$scriptdir/es-cfgs/es_settings.cfg" "$es_home"
+
+	# Copy default ES input file
+	cp "$scriptdir/gamepad-cfgs/ps3_usb_controller/es_input.cfg" "$es_home"
 
 	# MAME
 	# default path: /home/$USER/.retrorig/.mame
@@ -800,6 +624,10 @@ function gp_ps3_usb()
 	# Gens GS (Sega CD/32X)
 	cp -v "$scriptdir/emu-cfgs/ps3_usb_controller/GensGS/gens.cfg" "$config_home/.gens/"
 
+	# RetroArch
+	cp -v "$scriptdir/emu-cfgs/ps3_usb_controller/retroarch/retroarch.cfg" "$config_home/.config/retroarch/"
+	cp -v "$scriptdir/emu-cfgs/ps3_usb_controller/retroarch/retroarch-desmume.cfg" "$config_home/.config/retroarch/"
+
 	# Alter Steam config.vdf with proper controls if controller exists
 	STEAM_GP_TYPE="ps3usb"
 	gp_steam_control
@@ -811,12 +639,6 @@ function gp_ps3_usb()
 	# inject init script and default config for xboxdrv
 	cp -v "$scriptdir/init-scripts/ps3_usb_controller/xboxdrv" "/etc/init.d/"
 	cp -v "$scriptdir/init-scripts/ps3_usb_controller/default/xboxdrv" "/etc/default/xboxdrv"
-
-	# copy over default cfgs for ES:
-	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
-	cp -v "$scriptdir/es-cfgs/es_settings.cfg" "$es_home"
-	# Copy default ES input file
-	cp "$scriptdir/gamepad-cfgs/ps3_usb_controller/es_input.cfg" "$es_home"
 	
 	# blacklist xpad
 	cp -v "$scriptdir/init-scripts/ps3_usb_controller/blacklist.conf" "/etc/modprobe.d/"
@@ -1004,8 +826,12 @@ function gp_x360_wireless()
 	# clean any old configs
 	h_clean_gamepad
 
-	# EmulationStation control: (NEEDS DONE YET!!!)
-	# cp -v "$scriptdir/gamepad-cfgs/x360_wireless_controller/es_input.cfg" "$es_home"
+	# copy over default cfgs for ES:
+	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
+	cp -v "$scriptdir/es-cfgs/es_settings.cfg" "$es_home"
+
+	# Copy default ES input file
+	cp "$scriptdir/gamepad-cfgs/x360_wireless_controller/es_input.cfg" "$es_home"
 
 	#######################################################
 	# Add controller specifc emulator controls
@@ -1085,12 +911,6 @@ function gp_x360_wireless()
 
 	#inject init script and default config
 	cp -v "$scriptdir/init-scripts/x360_wireless_controller/xboxdrv" "/etc/init.d/"
-
-	# copy over default cfgs for ES:
-	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
-	cp -v "$scriptdir/es-cfgs/es_settings.cfg" "$es_home"
-	# Copy default ES input file
-	cp "$scriptdir/gamepad-cfgs/x360_wireless_controller/es_input.cfg" "$es_home"
 
 	##############################################################
 	# Set number of controllers for /etc/default/xboxdrv
@@ -1273,8 +1093,12 @@ function gp_x360_usb()
 	# clean any old configs
 	h_clean_gamepad
 
-	# EmulationStation control: (NEEDS DONE YET!!!)
-	# cp -v "$scriptdir/gamepad-cfgs/generic_usb_controller/es_input.cfg" "$es_home"
+	# copy over default cfgs for ES:
+	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
+	cp -v "$scriptdir/es-cfgs/es_settings.cfg" "$es_home"
+
+	# Copy default ES input file
+	cp "$scriptdir/gamepad-cfgs/x360_usb_controller/es_input.cfg" "$es_home"
 
 	#######################################################
 	# Add controller specifc emulator controlos
@@ -1341,6 +1165,10 @@ function gp_x360_usb()
 	# Gens GS (Sega CD/32X)
 	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/GensGS/gens.cfg" "$config_home/.gens/"
 
+	# copy over default cfgs for ES:
+	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
+	cp -v "$scriptdir/es-cfgs/es_settings.cfg" "$es_home"
+
 	# Alter Steam config.vdf with proper controls if controller exists
 	STEAM_GP_TYPE="x360usb"
 	gp_steam_control
@@ -1355,12 +1183,6 @@ function gp_x360_usb()
 	#inject init script and default config
 	cp -v "$scriptdir/init-scripts/x360_usb_controller/xboxdrv" "/etc/init.d/"
 	cp -v "$scriptdir/init-scripts/x360_usb_controller/default/xboxdrv" "/etc/default/xboxdrv"
-
-	# copy over default cfgs for ES:
-	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
-	cp -v "$scriptdir/es-cfgs/es_settings.cfg" "$es_home"
-	# Copy default ES input file
-	cp "$scriptdir/gamepad-cfgs/x360_usb_controller/es_input.cfg" "$es_home"
 
 	##############################################################
 	# Set number of controllers for /etc/default/xboxdrv
@@ -1550,8 +1372,12 @@ function gp_generic_usb()
 	# clean any old configs
 	h_clean_gamepad
 
-	# EmulationStation control: (NEEDS DONE YET!!!)
-	# cp -v "$scriptdir/gamepad-cfgs/gen_usb_controller/es_input.cfg" "$es_home"
+	# copy over default cfgs for ES:
+	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
+	cp -v "$scriptdir/es-cfgs/es_settings.cfg" "$es_home"
+
+	# Copy default ES input file:
+	cp "$scriptdir/gamepad-cfgs/generic_usb_controller/es_input.cfg" "$es_home"
 
 	#######################################################
 	# Add controller specifc emulator controlos
@@ -1622,6 +1448,10 @@ function gp_generic_usb()
 	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/retroarch/retroarch.cfg" "$config_home/.config/retroarch/"
 	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/retroarch/retroarch-desmume.cfg" "$config_home/.config/retroarch/"
 
+	# copy over default cfgs for ES:
+	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
+	cp -v "$scriptdir/es-cfgs/es_settings.cfg" "$es_home"
+
 	# Alter Steam config.vdf with proper controls if controller exists
 	STEAM_GP_TYPE="x360usb"
 	gp_steam_control
@@ -1636,12 +1466,6 @@ function gp_generic_usb()
 	#inject init script and default config
 	cp -v "$scriptdir/init-scripts/generic_usb_controller/xboxdrv" "/etc/init.d/"
 	cp -v "$scriptdir/init-scripts/generic_usb_controller/default/xboxdrv" "/etc/default/xboxdrv"
-
-	# copy over default cfgs for ES:
-	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
-	cp -v "$scriptdir/es-cfgs/es_settings.cfg" "$es_home"
-	# Copy default ES input file
-	cp "$scriptdir/gamepad-cfgs/ps3_usb_controller/es_input.cfg" "$es_home"
 
 	##############################################################
 	# Set number of controllers for /etc/default/xboxdrv
@@ -1825,6 +1649,193 @@ RetorRig loads to use the gamepad" 14 62
 received the wrong LED, unplug and plug the USB cable back in until you get the correct LED number."  16 62
 
 	sixad --boot-no
+}
+
+function enable_gp_autostart()
+{
+	####################################################################
+	#
+	# Function Description:
+	# 
+	# enable / disable auto start function for RetroRig with gamepads
+	# 	#
+	#################################################################### 
+
+	clear
+	
+	PS3_USB=$(grep -m 1 -Ee "autostartXBMC_PS3_USB" "/usr/share/applications/gp_autodetect_xbmc.sh")
+	PS3_BT=$(grep -m 1 -Ee "autostartXBMC_PS3_BT" "/usr/share/applications/gp_autodetect_xbmc.sh")
+	
+	#default gamepad autostart is disabled
+	gp_autostart=disabled
+	
+	dialog --title "Confirm yes/no" \
+	--backtitle "Auto Start RetroRig" \
+	--yesno "Do you want to have RetroRig-ES started automatically for the first gamepad being switch on? (PS3 Sixaxis only)"  6 60
+	# Get exit status
+	# 0 means user hit [yes] button.
+	# 1 means user hit [no] button.
+	# 255 means user hit [Esc] key.
+	response=$?
+	case $response in
+		0)
+			gp_autostart=enabled
+		;;
+
+		1)
+			gp_autostart=disabled
+		;;
+
+		255)
+			gp_autostart=disabled
+		;;
+	esac
+	
+	if [ "$gp_autostart" == "enabled" ]; then
+		sed -i "s|$PS3_USB|autostartXBMC_PS3_USB=enabled|g" "/usr/share/applications/gp_autodetect_xbmc.sh"
+		sed -i "s|$PS3_BT|autostartXBMC_PS3_BT=enabled|g" "/usr/share/applications/gp_autodetect_xbmc.sh"
+	else
+		sed -i "s|$PS3_USB|autostartXBMC_PS3_USB=disabled|g" "/usr/share/applications/gp_autodetect_xbmc.sh"
+		sed -i "s|$PS3_BT|autostartXBMC_PS3_BT=disabled|g" "/usr/share/applications/gp_autodetect_xbmc.sh"
+	fi
+	
+	clear
+	$cmd_rescan_restart
+	sleep 2
+}
+
+
+function enable_rr_autostart()
+{
+	####################################################################
+	#
+	# Function Description:
+	# 
+	# enable / disable auto start of RetroRig after login
+	# 	
+	#################################################################### 
+
+	clear
+
+	rr_autostart=disabled
+	
+	dialog --title "Confirm yes/no" \
+	--backtitle "Auto Start RetroRig" \
+	--yesno "Do you want to have RetroRig-ES started after the X server loads (GUI)?"  6 60
+	# Get exit status
+	# 0 means user hit [yes] button.
+	# 1 means user hit [no] button.
+	# 255 means user hit [Esc] key.
+	response=$?
+	case $response in
+		0)
+			rr_autostart=enabled
+		;;
+
+		1)
+			rr_autostart=disabled
+		;;
+
+		255)
+			rr_autostart=disabled
+		;;
+	esac
+	
+	if [ "$rr_autostart" == "enabled" ]; then
+		# create autostart entry, remove prior if it exists
+		rm -f "$home.config/autostart/RetroRig-ES.desktop"
+		cp -v "$scriptdir/es-cfgs/extra/RetroRig-ES.desktop" "$home/.config/autostart"
+		# fix permissions
+		chmod 755 "$home/.config/autostart/RetroRig-ES.desktop"
+	else
+		# remove any existing entry
+		rm -f "$home.config/autostart/RetroRig-ES.desktop"
+	fi
+
+	sleep 2
+}
+
+function wii_motion_controller_for_dolphin()
+{
+	####################################################################
+	#
+	# Function Description:
+	# 
+	# configure dolphin to use a Wii motion controller for Wii games
+	#
+	#################################################################### 
+
+	#native or emulated Wii controller 1=emulated 2=native
+	clear
+	src=1
+
+	# get the current state of GC controller state
+	# on state = 6
+	# off state = 0
+	gc1_state=$(grep "SIDevice0 = " "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini")
+	gc2_state=$(grep "SIDevice1 = " "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini")
+	gc3_state=$(grep "SIDevice2 = " "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini")
+	gc4_state=$(grep "SIDevice3 = " "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini")
+
+
+cmd=(dialog --backtitle "LibreGeek.org RetroRig" --menu "How do you wish to play your Wii games?" 18 0 15)
+options=(1 "Real Wiimote"  
+	 2 "Emulated Wiimote"
+	 3 "Emulated Gamecube Controller")
+
+	#make menu choice
+	selection=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
+	#functions
+
+	for choice in $selection
+	do
+		case $choice in
+
+		1)
+			clear
+			src=2
+			dialog --msgbox "For Wii games, controls have been mapped to a native motion controller. Press 1+2 for older Wii controller, or the small button in the battery compartement to activate the controller every time after game start. Navigation in XBMC, game launch and exit for Wii games, as for all other games, is still handled by your primary controller. This applies also to the save state and load state functions. Use your primary controller in parallel to your Wii controller to save and load game states. " 14 60
+
+			# DISABLE GC controller since user wants to use the Wiimote
+			# This was noted by a user to cause conflicts with using a Wii mote at the same time
+
+			sed -i "s|$gc1_state|SIDevice0 = 0|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
+			sed -i "s|$gc2_state|SIDevice1 = 0|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
+			sed -i "s|$gc3_state|SIDevice2 = 0|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
+			sed -i "s|$gc4_state|SIDevice3 = 0|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
+
+			# assign Wiimote
+			sed -i "s|PLAYER_SRC|$src|g" "$config_home/.dolphin-emu/Wii/Config/WiimoteNew.ini"
+			;;
+
+		2)
+			src=1
+			# DISABLE GC controller since user wants to use the emulated Wiimote
+			# This was noted by a user to cause conflicts with using a Wii mote at the same time
+			sed -i "s|$gc1_state|SIDevice0 = 0|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
+			sed -i "s|$gc2_state|SIDevice1 = 0|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
+			sed -i "s|$gc3_state|SIDevice2 = 0|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
+			sed -i "s|$gc4_state|SIDevice3 = 0|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
+
+			# assign Wiimote
+			sed -i "s|PLAYER_SRC|$src|g" "$config_home/.dolphin-emu/Wii/Config/WiimoteNew.ini"
+			;;
+
+		3)
+			src=0
+			# ENABLE GC controller since user does not want to use a Wiimote
+			sed -i "s|$gc1_state|SIDevice0 = 6|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
+			sed -i "s|$gc2_state|SIDevice1 = 6|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
+			sed -i "s|$gc3_state|SIDevice2 = 6|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
+			sed -i "s|$gc4_state|SIDevice3 = 6|g" "$config_home/.dolphin-emu/Wii/Config/Dolphin.ini"
+
+			# disable Wiimote with 0 value
+			sed -i "s|PLAYER_SRC|$src|g" "$config_home/.dolphin-emu/Wii/Config/WiimoteNew.ini"
+			;;
+		
+		esac
+	done
+
 }
 
 gp_steam_control()
