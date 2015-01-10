@@ -422,7 +422,7 @@ function ps3_set_ctrl_assignments()
 	###########################################################
 
 	# inform user
-	echo -e "Assigning controls to XBMC / applicable emulators based\non controller MAC Address"
+	echo -e "Assigning controls to Emulation Station / applicable emulators based\non controller MAC Address"
 	sleep 2s
 
 	# Set PS3 Blu MAC value with the "joydetect" C program
@@ -1671,7 +1671,7 @@ function enable_gp_autostart()
 	
 	dialog --title "Confirm yes/no" \
 	--backtitle "Auto Start RetroRig" \
-	--yesno "Do you want to have RetroRig-ES started automatically for the first gamepad being switch on? (PS3 Sixaxis only)"  6 60
+	--yesno "Do you want to have RetroRig-ES started automatically for the first gamepad being switch on? (PS3 Sixaxis only)"  7 60
 	# Get exit status
 	# 0 means user hit [yes] button.
 	# 1 means user hit [no] button.
@@ -1794,7 +1794,7 @@ options=(1 "Real Wiimote"
 		1)
 			clear
 			src=2
-			dialog --msgbox "For Wii games, controls have been mapped to a native motion controller. Press 1+2 for older Wii controller, or the small button in the battery compartement to activate the controller every time after game start. Navigation in XBMC, game launch and exit for Wii games, as for all other games, is still handled by your primary controller. This applies also to the save state and load state functions. Use your primary controller in parallel to your Wii controller to save and load game states. " 14 60
+			dialog --msgbox "For Wii games, controls have been mapped to a native motion controller. Press 1+2 for older Wii controller, or the small button in the battery compartement to activate the controller every time after game start. Navigation in Emulation Station, game launch and exit for Wii games, as for all other games, is still handled by your primary controller. This applies also to the save state and load state functions. Use your primary controller in parallel to your Wii controller to save and load game states. " 14 60
 
 			# DISABLE GC controller since user wants to use the Wiimote
 			# This was noted by a user to cause conflicts with using a Wii mote at the same time
@@ -1863,14 +1863,14 @@ gp_steam_control()
 		else
 			# Bindings do not exist, fall back to skeleton file
 			# Unfortunately, this means user must login again
-			cp -v "$scriptdir/XBMC-cfgs/extra/Steam/config.vdf" "$config_home/.local/share/Steam/config"
+			cp -v "$scriptdir/es-cfgs/extra/Steam/config.vdf" "$config_home/.local/share/Steam/config"
 			# Set var to skeleton file place holder
 			STEAM_GP_ORIG="SDL_BIND_TEMP"
 		fi
 	else
 		# copy skeleton file instead
 		# Unfortunately, this means user must login again
-		cp -v "$scriptdir/XBMC-cfgs/extra/Steam/config.vdf" "$config_home/.local/share/Steam/config"
+		cp -v "$scriptdir/es-cfgs/extra/Steam/config.vdf" "$config_home/.local/share/Steam/config"
 		# Set var to skeleton file place holder
 		STEAM_GP_ORIG="SDL_BIND_TEMP"
 	fi
