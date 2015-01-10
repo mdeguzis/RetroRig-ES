@@ -946,6 +946,7 @@ function rrs_post_install()
 
 	#############################################################################
 	# This function DOES NOT WORK UNDER SUDO, NEEDS FIXED!
+	# For now, using default managers set for platform detected.
 	#############################################################################
 
 	# Based on the type of type Desktop Environment
@@ -953,10 +954,11 @@ function rrs_post_install()
 	# power functions, shortcuts and more.
 
 	# $XDG_CURRENT_DESKTOP will tell you what DE you are using.
-	rrDE=$XDG_CURRENT_DESKTOP
+	#rrDE=$XDG_CURRENT_DESKTOP
 
-	case $rrDE in
-		Unity)
+	# Using temp OS var ......
+	case $OS_TYPE in
+		Ubuntu)
 
 			# Disable screensaver, EmulationStation will manage this
 			# Export display to allow gsettings running in terminal window
@@ -970,11 +972,11 @@ function rrs_post_install()
 			gsettings set com.canonical.Unity.Launcher favorites "$(gsettings get com.canonical.Unity.Launcher favorites | sed "s/, *'RetroRig-ES.desktop' *//g" | sed "s/'RetroRig-ES.desktop' *, *//g" | sed -e "s/]$/, 'RetroRig-ES.desktop'")"
 			;;
 
-		Gnome)
+		Mint)
 			# Nothing to see here yet
 			;;
 
-		Cinnamon)
+		Deepin)
 			# Nothing to see here yet
 			;;			
 
