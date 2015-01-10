@@ -208,6 +208,8 @@ function rrs_prepareFolders()
 				dolphin_backup=true
 			fi
 		fi
+	else
+		echo "no save states found"
 	fi
 
 	if [ ! -d "$config_home/.config/mupen64plus/save.old" ]; then
@@ -217,6 +219,8 @@ function rrs_prepareFolders()
 				mupen64plus_backup=true
 			fi
 		fi
+	else
+		echo "no save states found"
 	fi
 
 	if [ ! -d "$config_home/.mednafen/sav.old" ]; then
@@ -226,6 +230,8 @@ function rrs_prepareFolders()
 				mednafen_backup=true
 			fi
 		fi
+	else
+		echo "no save states found"
 	fi
 
 	if [ ! -d "$config_home/.gens/StateSaves.old" ]; then
@@ -235,7 +241,10 @@ function rrs_prepareFolders()
 				gens_backup=true
 			fi
 		fi
+	else
+		echo "no save states found"
 	fi
+
 
 	if [ ! -d "$config_home/.config/ppsspp/PSP/SAVEDATA.old" ]; then
 		if [ ! -L "$config_home/.config/ppsspp/PSP/SAVEDATA" ]; then
@@ -244,6 +253,8 @@ function rrs_prepareFolders()
 				ppsspp_backup=true
 			fi
 		fi
+	else
+		echo "no save states found"
 	fi
 
 	if [ ! -d "$config_home/.config/pcsx2/sstates.old" ]; then
@@ -253,13 +264,26 @@ function rrs_prepareFolders()
 				pcsx2_backup=true
 			fi
 		fi
+	else
+		echo "no save states found"
 	fi
 
-	if [ ! -f "$config_home/.config/retroarch/*.state" ]; then
+	if [ ! -f "$installdir/ROMs/Nintendo DS/*.state" ]; then
 		mkdir -p "$config_home/.config/retroarch/save_states_old"
-		mv -f "$config_home/.config/retroarch/*.state" "$config_home/.config/retroarch/save_states_old"
+		mv -f "$installdir/ROMs/Nintendo DS/*.state" "$config_home/.config/retroarch/save_states_old"
 		retroarch_nds_backup=true
+	else
+		echo "no save states found"
 	fi
+
+	if [[ -f $installdir/ROMs/Nintendo\ DS/*.state ]]; then
+		mkdir -p "$installdir/Saves/Nintendo DS/save_states_old"
+		mv -f $installdir/ROMs/Nintendo\ DS/*.state "$installdir/Saves/Nintendo DS/save_states_old"
+		retroarch_nds_backup=true
+	else
+		echo "no save states found"
+	fi
+
 
 	#remove old links
 	rm -f "$config_home/.dolphin-emu/StateSaves"
