@@ -37,6 +37,7 @@ wiki entries under "Installation," and "Advanced Configuration," or checkout the
 
 For all other features and future plans, please see the [wiki](https://github.com/ProfessorKaos64/RetroRig/wiki/Development-and-Features)
 
+* Gamepad friendly support for at least 20 amazing consoles
 * Concentration on a console-like experience from bootup to shutdown
 * No need to install an entire separate distro on your Mint/Debian machine
 * Custom emulator and utilties packages
