@@ -10,11 +10,12 @@
 ### END INIT INFO
 #
 # Author:      beauman @ jc techno labs
+# Author:      ProfessorKaos64, Michael DeGuzis
 #
 # set -e 
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
-DAEMON=/usr/share/applications/gp_autodetect_xbmc.sh
+DAEMON=/usr/share/applications/gp_autodetect.sh
 SHA1=placeholderSHA1
 
 
@@ -28,7 +29,7 @@ SHA1=placeholderSHA1
 ########################################################
 
 rescanIsRunning () {
-  VAR=`ps ax| grep gp_autodetect_xbmc.sh|grep /bin/bash`
+  VAR=`ps ax| grep gp_autodetect.sh|grep /bin/bash`
   if [ -n "$VAR" ]; then
     #"VAR is not empty"
     return 0
@@ -37,19 +38,11 @@ rescanIsRunning () {
   fi
 }
 
-########################################################
-#
-# Function checkSHA1ofXBMC ()
-#
-# This function returns true (=0)
-# if xbmc.bin matches the SHA1 string,
-# that was inserted during RetroRig installation.
-#
-########################################################
 
-checkSHA1ofXBMC () {
 
-  VAR=`file /usr/lib/xbmc/xbmc.bin | cut -f 19 -d ' '| cut -f 2 -d '='|cut -f 1 -d ','| grep $SHA1`
+check_es_binary () {
+
+  VAR=`file /usr/bin/emulationstation`
   # skip version test
   # VAR=notEmpty
 
@@ -70,15 +63,15 @@ case "$1" in
       log_warning_msg "rescan is already running"
     else
     {
-      if checkSHA1ofXBMC; then
+      if check_es_binary; then
       {
-        log_daemon_msg "Starting gp_autodetect_xbmc.sh"
+        log_daemon_msg "Starting gp_autodetect.sh"
         $DAEMON &>>/var/log/rescan &
         log_end_msg 0
       }
       else
       {
-        log_daemon_msg "Wrong version of XBMC. Daemon has not been started."
+        log_daemon_msg "EmulationStation Binary Missing. Daemon has not been started."
       }
       fi
     }
@@ -88,7 +81,7 @@ case "$1" in
     if rescanIsRunning; then
     {
       log_daemon_msg "Stopping rescan"
-      killall gp_autodetect_xbmc.sh
+      killall gp_autodetect.sh
       log_end_msg 0
     }
     else
