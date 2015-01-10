@@ -18,7 +18,6 @@ deb_install_core_pkgs()
 		# getpos (not needed for emulation station?)
 		# joydetect (source compiled below for now)
 
-
 	# install core software from repositories
 	# install binaries
 	$cmd_install_pkg curl pkg-config libusb bluez bluez-utils unclutter \

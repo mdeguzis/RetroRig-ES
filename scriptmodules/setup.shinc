@@ -940,6 +940,10 @@ function rrs_reboot()
 function rrs_post_install()
 {
 
+	#############################################################################
+	# This function DOES NOT WORK UNDER SUDO, NEEDS FIXED!
+	#############################################################################
+
 	# Based on the type of type Desktop Environment
 	# This function targets DE-specific areas for screensavers,
 	# power functions, shortcuts and more.

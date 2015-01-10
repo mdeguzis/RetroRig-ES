@@ -36,18 +36,32 @@ function em_add_debian_repos()
 
 	# Use retorigs PPA version, maintained by us (contains SDL2)
 	# This will need maintained with our build script in /supplemental
+
+	#########################
+	# Retroarch / Libretro
+	#########################
+	$cmd_add_repo ppa:hunter-kaller/ppa
+
 }
 
 function em_install_deb_emulators()
 {
 
 	#####################################################################
-	# Yabause (Sega Saturn)
+	# DesMuMe (libretro core)
 	#####################################################################
 
-	# This may be source compiled in the future
-	echo "Installing Sega Saturn emulator Yabause"
-	$cmd_install_pkg yabause
+        #install from hunter-kaller PPA
+	
+	# Install front-end Retroarch
+	echo "Installing Retroarch"
+
+	# Install desmume core
+	# Use libretro* for all packages
+	$cmd_install_pkg retroarch libretro-desmume
+
+	# Tip: launch command:
+	# retroarch -f -L /usr/lib/libretro/desmume_libretro.so <ROM_NAME>.nds 
 
 	#####################################################################
 	# PCSX2 (Playstation 2)
