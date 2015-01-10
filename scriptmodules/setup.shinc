@@ -71,11 +71,11 @@ function rrs_prepareFolders()
 	# For RetroRig users using ES flavor, link DIRs to avoid
 	# Having to recopy ROMs
 
-        if [[ ! -d "$home/RetroRig/ROMs" ]]; then
+        if [[ -d "$home/RetroRig/ROMs" ]]; then
                 echo "Existing RetroRig ROMs directory found"
                 # Backup old ES ROM directory for safety
                 echo "Backing up old ROM DIR if present"
-                mv -fv  "$rootdir/ROMs/" "$rootdir/ROMs.old"
+                mv -fv  "$rootdir/ROMs" "$rootdir/ROMs.old"
                 # Remove any existing ROM dir from previous install
                 echo "Removing existing ROM dir"
                 rm -fv "$rootdir/ROMs"
