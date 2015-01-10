@@ -868,7 +868,7 @@ function gp_x360_wireless()
 	# default path: /home/$USER/.retrorig/.dolphin-emu/GC/
 	## GC config ##
 	cp -v "$scriptdir/emu-cfgs/x360_wireless_controller/Dolphin/GC/GCPadNew.ini" "$config_home/.dolphin-emu/GC/Config/"
-	cp -v "$scriptdir/emu-cfgs/px360_wireless_controller/Dolphin/GC/Dolphin.ini" "$config_home/.dolphin-emu/GC/Config/"
+	cp -v "$scriptdir/emu-cfgs/x360_wireless_controller/Dolphin/GC/Dolphin.ini" "$config_home/.dolphin-emu/GC/Config/"
 	cp -v "$scriptdir/emu-cfgs/x360_wireless_controller/Dolphin/GC/WiimoteNew.ini" "$config_home/.dolphin-emu/GC/Config/"
 	## Wii config ##
 	cp -v "$scriptdir/emu-cfgs/x360_wireless_controller/Dolphin/Wii/GCPadNew.ini" "$config_home/.dolphin-emu/Wii/Config/"
@@ -915,6 +915,7 @@ function gp_x360_wireless()
 
 	#inject init script and default config
 	cp -v "$scriptdir/init-scripts/x360_wireless_controller/xboxdrv" "/etc/init.d/"
+	cp -v "$scriptdir/init-scripts/x360_wireless_controller/default/xboxdrv" "/etc/xboxdrv"
 
 	##############################################################
 	# Set number of controllers for /etc/default/xboxdrv

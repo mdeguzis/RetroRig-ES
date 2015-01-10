@@ -35,8 +35,11 @@ h_clean_gamepad()
 	# system objects that may interfere with switching gamepads
 	# The rescan service should be able to coexist with xboxdrv
 	
-	# qjoypad 
+	# qjoypad (deprecated)
 	rm -f "$home/.config/autostart/qjoypad.desktop"
+
+	# Antimicro
+	rm -f "$config_home/.config/antimicro*"
 
 	# Emulation Station configs
 	rm -f "$es_home/es_systems.cfg"
