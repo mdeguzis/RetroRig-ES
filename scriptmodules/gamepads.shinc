@@ -1618,6 +1618,10 @@ function gp_generic_usb()
 	# Gens GS (Sega CD/32X)
 	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/GensGS/gens.cfg" "$config_home/.gens/"
 
+	# RetroArch
+	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/retroarch/retroarch.cfg" "$config_home/.config/retroarch/"
+	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/retroarch/retroarch-desmume.cfg" "$config_home/.config/retroarch/"
+
 	# Alter Steam config.vdf with proper controls if controller exists
 	STEAM_GP_TYPE="x360usb"
 	gp_steam_control
@@ -1790,6 +1794,15 @@ RetorRig loads to use the gamepad" 14 62
 	# perform actual changes
 	sed -i "s|$old_pre|$new_pre|g" "$es_home/es_systems.cfg"
 	sed -i "s|$old_post|$new_post|g" "$es_home/es_systems.cfg"
+
+	################################
+	# Retroarch/Desmume (DS)
+	################################
+
+	# not needed at this time.
+
+
+/usr/bin/retroarch --config config_temp/retroarch/retroarch-desmume.cfg -f -L /usr/lib/libretro/desmume_libretro.so installdir_temp %ROM%
 
 	# update init scripts for xboxdrv
 	$update_init_xboxdrv

@@ -967,6 +967,7 @@ function h_emu_user_fixes()
 	
 	# EmulationStation
 	sed -i "s|installdir_temp|$rootdir|g" "$es_home/es_systems.cfg"
+	sed -i "s|config_temp|$config_home|g" "$es_home/es_systems.cfg"
 
 	# mame
 	sed -i "s|installdir_temp|$rootdir|g" "$config_home/.mame/mame.ini"
@@ -1020,8 +1021,13 @@ function h_emu_user_fixes()
 	# Mupen64Plus
 	sed -i "s|PLACEHOLDER_SAVESTATEPTH|$config_home/.config/mupen64plus/save|g" "$config_home/.config/mupen64plus/mupen64plus.cfg"	
 
+	# Retroarch
+	sed -i "s|installdir_temp|$rootdir|g" "$config_home/.config/retroarch/retroarch.cfg"
+	sed -i "s|installdir_temp|$rootdir|g" "$config_home/.config/retroarch/retroarch-desmume.cfg"	
+
 	# echo change
 	echo "The user applied to configuration files was: $user" | tee >> "$rootdir/logs/debug.log"
+
 }
 
 function h_filechecker()
