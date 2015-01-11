@@ -638,7 +638,7 @@ function gp_ps3_usb()
 
 	# inject init script and default config for xboxdrv
 	cp -v "$scriptdir/init-scripts/ps3_usb_controller/xboxdrv" "/etc/init.d/"
-	cp -v "$scriptdir/init-scripts/ps3_usb_controller/default/xboxdrv" "/etc/default/xboxdrv"
+	cp -v "$scriptdir/init-scripts/ps3_usb_controller/default/xboxdrv" "/etc/default/"
 	
 	# blacklist xpad
 	cp -v "$scriptdir/init-scripts/ps3_usb_controller/blacklist.conf" "/etc/modprobe.d/"
@@ -915,7 +915,7 @@ function gp_x360_wireless()
 
 	#inject init script and default config
 	cp -v "$scriptdir/init-scripts/x360_wireless_controller/xboxdrv" "/etc/init.d/"
-	cp -v "$scriptdir/init-scripts/x360_wireless_controller/default/xboxdrv" "/etc/xboxdrv"
+	cp -v "$scriptdir/init-scripts/x360_wireless_controller/default/xboxdrv" "/etc/default/"
 
 	##############################################################
 	# Set number of controllers for /etc/default/xboxdrv
@@ -1187,7 +1187,7 @@ function gp_x360_usb()
 
 	#inject init script and default config
 	cp -v "$scriptdir/init-scripts/x360_usb_controller/xboxdrv" "/etc/init.d/"
-	cp -v "$scriptdir/init-scripts/x360_usb_controller/default/xboxdrv" "/etc/default/xboxdrv"
+	cp -v "$scriptdir/init-scripts/x360_usb_controller/default/xboxdrv" "/etc/default/"
 
 	##############################################################
 	# Set number of controllers for /etc/default/xboxdrv
@@ -1470,7 +1470,7 @@ function gp_generic_usb()
 
 	#inject init script and default config
 	cp -v "$scriptdir/init-scripts/generic_usb_controller/xboxdrv" "/etc/init.d/"
-	cp -v "$scriptdir/init-scripts/generic_usb_controller/default/xboxdrv" "/etc/default/xboxdrv"
+	cp -v "$scriptdir/init-scripts/generic_usb_controller/default/xboxdrv" "/etc/default/"
 
 	##############################################################
 	# Set number of controllers for /etc/default/xboxdrv
