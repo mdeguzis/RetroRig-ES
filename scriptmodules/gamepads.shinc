@@ -126,12 +126,6 @@ function gp_ps3_blu()
 	###############################################################################################
 	# Add emulator specifc control remaps here for AniMicro
 	###############################################################################################
-	# set vars for pre/post command for the PPSSPP emulator in RCB
-	# We need this unforuntely, since the SDL/sixad mapping are so screwy, we need ot use 
-	# keyboard.Esc instead of a button press (PS button is an axis in sixad anyway).
-	# It is very important that you preceed '&amp;' with a backslash to escape the '&' character
-	# so it is properly replaced. RCB requires '&amp' over the literal '&'.s
-	###############################################################################################
 
 	# copy in profiles for emulators (antimicro)
 	cp -v "$scriptdir/gamepad-cfgs/ps3_blu_controller/antimicro_settings.ini" "$config_home/.config/antimicro/"
@@ -703,12 +697,6 @@ RetorRig loads to use the gamepad" 14 60
 
 	###############################################################################################
 	# Add emulator specifc control remaps here for AniMicro
-	###############################################################################################
-	# set vars for pre/post command for the PPSSPP emulator in RCB
-	# We need this unforuntely, since the SDL/sixad mapping are so screwy, we need ot use 
-	# keyboard.Esc instead of a button press (PS button is an axis in sixad anyway).
-	# It is very important that you preceed '&amp;' with a backslash to escape the '&' character
-	# so it is properly replaced. RCB requires '&amp' over the literal '&'.s
 	###############################################################################################
 
 	# copy in profiles for emulators (antimicro)
@@ -1532,9 +1520,6 @@ RetorRig loads to use the gamepad" 14 62
 
 	###########################################################
 	# Add emulator specifc control remaps here for AniMicro
-	###########################################################
-	# Note: In due time, AntiMicro may replace qjoypad for all
-	# emulator control hotswaps for gamepads
 	###########################################################
 
 	# copy in profiles for emulators (antimicro)
