@@ -40,6 +40,9 @@ function em_add_debian_repos()
 	#########################
 	# Retroarch / Libretro
 	#########################
+	# Official Libretro team
+	$cmd_add_repo ppa:libretro/stable
+	# Alternative (limited pkgs)
 	$cmd_add_repo ppa:hunter-kaller/ppa
 
 }
