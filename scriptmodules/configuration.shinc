@@ -62,13 +62,14 @@ function cfg_uninstall()
 		clear
 		$cmd_autoremove_pkg xboxdrv curl python-software-properties \
 		pkg-config software-properties-common dconf-tools jstest-gtk \
-		sixad libusb-0.1-4 antimicro bluez getpos unclutter \
+		sixad libusb antimicro bluez getpos unclutter \
 		joydetect sudo ttf-dejavu-core ttf-dejavu-core ttf-liberation \
-		wmctrl gdebi dos2unix
+		wmctrl gdebi dos2unix retroarch emulationstation \
+		emulationstation-theme-simple
 
 		# emulators
 		$cmd_autoremove_pk ppsspp gens pcsx2 mednafen mupen64plus mame \
-		mess stella dolphin-emu-master
+		mess stella dolphin-emu-master libretro-desmume
 
 		# add apport, apport-gtk back
 		$cmd_install_pkg apport apport-gtk
@@ -78,6 +79,9 @@ function cfg_uninstall()
 		$cmd_remove_repo ppa:gregory-hainaut/pcsx2.official.ppa
 		$cmd_remove_repo ppa:glennric/dolphin-emu
 		$cmd_remove_repo ppa:glennric/ppa:ppsspp/stable
+		$cmd_remove_repo ppa:mdeguzis/retrorig-es
+		$cmd_remove_repo ppa:hunter-kaller/ppa
+		$cmd_remove_repo ppa:libretro/stable
 
 		rm -f /etc/apt/sources.list.d/playdeb.list
 		;;
