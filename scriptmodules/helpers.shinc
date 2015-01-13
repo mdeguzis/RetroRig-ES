@@ -1039,7 +1039,8 @@ function h_emu_user_fixes()
 
 	# Retroarch
 	sed -i "s|installdir_temp|$rootdir|g" "$config_home/.config/retroarch/retroarch.cfg"
-	sed -i "s|installdir_temp|$rootdir|g" "$config_home/.config/retroarch/desmume_libretro.cfg"	
+	sed -i "s|installdir_temp|$rootdir|g" "$config_home/.config/retroarch/desmume_libretro.cfg"
+	sed -i "s|installdir_temp|$rootdir|g" "$config_home/.config/retroarch/stella_libretro.cfg"
 
 	# echo change
 	echo "The user applied to configuration files was: $user" | tee >> "$rootdir/logs/debug.log"
