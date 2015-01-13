@@ -522,7 +522,7 @@ function ps3_set_emulator_ids()
 	fi
 
 	echo -e "Controller ID/MAC Address applied to the Dolphin emulator Controller $n was:\n$dolphin_MAC_BLU"
-	echo -e "\nController ID/MAC Address applied to the Stella emulator Controller $n was:\n$Stella_MAC_BLU"
+	#echo -e "\nController ID/MAC Address applied to the Stella emulator Controller $n was:\n$Stella_MAC_BLU"
 
 	# Assign controller ID for Dolphin
 	## GC ##
@@ -1728,13 +1728,14 @@ function enable_rr_autostart()
 	
 	if [ "$rr_autostart" == "enabled" ]; then
 		# create autostart entry, remove prior if it exists
+		echo "removing autostart entry"
 		rm -f "$home/.config/autostart/RetroRig-ES.desktop"
 		cp -v "$scriptdir/es-cfgs/extra/RetroRig-ES.desktop" "$home/.config/autostart"
 		# fix permissions
 		chmod 755 "$home/.config/autostart/RetroRig-ES.desktop"
 	else
 		# remove any existing entry
-		rm -f "$home.config/autostart/RetroRig-ES.desktop"
+		rm -f "$home/.config/autostart/RetroRig-ES.desktop"
 	fi
 
 	sleep 2
