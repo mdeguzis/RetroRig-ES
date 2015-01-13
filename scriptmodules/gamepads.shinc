@@ -493,8 +493,6 @@ function ps3_set_emulator_ids()
 		dolphin_MAC_BLU=$(joydetect /dev/input/js$i | awk -F'[^:[a-zA-Z0-9]*' '{print $6}')
 		# Stella (supports only 2 players )
 		# Stella_MAC_BLU=$(joydetect /dev/input/js$i | awk -F'[^:[a-zA-Z0-9]*' '{print $6}')
-		# Set MAC address for Steam Assignment
-		Steam_MAC_BLU=$(joydetect /dev/input/js$i | awk -F'[^:[a-zA-Z0-9]*' '{print $6}')
 
 	elif [ $n == "2" ]; then
 		
@@ -533,7 +531,7 @@ function ps3_set_emulator_ids()
 	sed -i "s|MAC_TEMP_$n|$dolphin_MAC_BLU|g" "$config_home/.dolphin-emu/Wii/Config/WiimoteNew.ini"
 
 	# Assign controller ID for Stella
-	sed -i "s|MAC_TEMP_$n|$Stella_MAC_BLU|g" "$config_home/.stella/stellarc"
+	# sed -i "s|MAC_TEMP_$n|$Stella_MAC_BLU|g" "$config_home/.stella/stellarc"
 	
 	sleep 2
 
@@ -1821,90 +1819,5 @@ options=(1 "Real Wiimote"
 		
 		esac
 	done
-
-}
-
-gp_steam_control()
-{
-
-	########################################################################
-	# set Steam controls based on current controller type
-	# note: $STEAM_GP_TYPE is set in rrs_gamepad
-	# This function will also take care of if the user already has other
-	# Settings defined for Steam, such as login information etc.
-	# *Very early draft
-	########################################################################
-
-	########################################################################
-	##################### !!!!!!!!UNFINISHED!!!!!!!!!!!#####################
-	########################################################################
-
-	# Config.vdf file evaulation
-	if [ ! -d "$home/.local/share/Steam/config/config.vdf" ]; then
-		# copy existing user file to avoid reconfiguration
-		cp -v "$home/.local/share/Steam/config/config.vdf" "$config_home/.local/share/Steam/config"
-
-		# Now check if SDL Bindings are in place
-		if grep -q grep "\bSDL_GamepadBind\b" "$config_home/.local/share/Steam/config/config.vdf"
-			# ascertain current bindings to var
-			then STEAM_GP_ORIG=$(grep "\bSDL_GamepadBind\b" "$config_home/.local/share/Steam/config/config.vdf")
-		else
-			# Bindings do not exist, fall back to skeleton file
-			# Unfortunately, this means user must login again
-			cp -v "$scriptdir/es-cfgs/extra/Steam/config.vdf" "$config_home/.local/share/Steam/config"
-			# Set var to skeleton file place holder
-			STEAM_GP_ORIG="SDL_BIND_TEMP"
-		fi
-	else
-		# copy skeleton file instead
-		# Unfortunately, this means user must login again
-		cp -v "$scriptdir/es-cfgs/extra/Steam/config.vdf" "$config_home/.local/share/Steam/config"
-		# Set var to skeleton file place holder
-		STEAM_GP_ORIG="SDL_BIND_TEMP"
-	fi
-
-	# change controls
-	# User can always set controls manually, but if we can make it easier for them
-	# Let's make it happen :)
-	case $STEAM_GP_TYPE in
-
-
-		x360wireless)
-			# set keybinding value
-			STEAM_GP_NEW=$(<"$scriptdir/gamepad-cfgs/x360_wireless_controller/x360wireless_steam.txt")
-			# change controller bindings
-			sed -i "s|$STEAM_GP_ORIG|$STEAM_GP_NEW|g" "$config_home/.local/share/Steam/config/config.vdf"
-			;;
-
-		x360usb)
-			# set keybinding value
-			STEAM_GP_NEW=$(<"$scriptdir/gamepad-cfgs/x360_usb_controller/x360usb_steam.txt")
-			# change controller bindings
-			sed -i "s|$STEAM_GP_ORIG|$STEAM_GP_NEW|g" "$config_home/.local/share/Steam/config/config.vdf"
-			;;
-
-		ps3blu)
-			# set keybinding value
-			STEAM_GP_NEW=$(<"$scriptdir/gamepad-cfgs/ps3_blu_controller/ps3blu_steam.txt")
-			# change controller bindings
-			sed -i "s|$STEAM_GP_ORIG|$STEAM_GP_NEW|g" "$config_home/.local/share/Steam/config/config.vdf"
-			# replace MAC address in keybinding file
-			sed -i "s|steam_mac_tmp|$Steam_MAC_BLU|g" "$config_home/.local/share/Steam/config/config.vdf"
-			;;
-
-		ps3usb)
-			# set keybinding value
-			STEAM_GP_NEW=$(<"$scriptdir/gamepad-cfgs/ps3_usb_controller/ps3usb_steam.txt")
-			# change controller bindings
-			sed -i "s|$STEAM_GP_ORIG|$STEAM_GP_NEW|g" "$config_home/.local/share/Steam/config/config.vdf"
-			;;
-
-		generic_usb)
-			# set keybinding value
-			STEAM_GP_NEW=$(<"$scriptdir/gamepad-cfgs/ps3_usb_controller/generic_usb_steam.txt")
-			# change controller bindings
-			sed -i "s|$STEAM_GP_ORIG|$STEAM_GP_NEW|g" "$config_home/.local/share/Steam/config/config.vdf"
-			;;
-	esac		
 
 }
