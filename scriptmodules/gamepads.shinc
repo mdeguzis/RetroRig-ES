@@ -108,7 +108,7 @@ function gp_ps3_blu()
 
 	# RetroArch
 	cp -v "$scriptdir/emu-cfgs/ps3_blu_controller/retroarch/retroarch.cfg" "$config_home/.config/retroarch/"
-	cp -v "$scriptdir/emu-cfgs/ps3_blu_controller/retroarch/retroarch-desmume.cfg" "$config_home/.config/retroarch/"
+	cp -v "$scriptdir/emu-cfgs/ps3_blu_controller/retroarch/desmume_libretro.cfg" "$config_home/.config/retroarch/"
 
 	# Alter Steam config.vdf with proper controls if controller exists
 	STEAM_GP_TYPE="ps3blu"
@@ -626,7 +626,7 @@ function gp_ps3_usb()
 
 	# RetroArch
 	cp -v "$scriptdir/emu-cfgs/ps3_usb_controller/retroarch/retroarch.cfg" "$config_home/.config/retroarch/"
-	cp -v "$scriptdir/emu-cfgs/ps3_usb_controller/retroarch/retroarch-desmume.cfg" "$config_home/.config/retroarch/"
+	cp -v "$scriptdir/emu-cfgs/ps3_usb_controller/retroarch/desmume_libretro.cfg" "$config_home/.config/retroarch/"
 
 	# Alter Steam config.vdf with proper controls if controller exists
 	STEAM_GP_TYPE="ps3usb"
@@ -900,7 +900,7 @@ function gp_x360_wireless()
 
 	# RetroArch
 	cp -v "$scriptdir/emu-cfgs/x360_wireless_controller/retroarch/retroarch.cfg" "$config_home/.config/retroarch/"
-	cp -v "$scriptdir/emu-cfgs/x360_wireless_controller/retroarch/retroarch-desmume.cfg" "$config_home/.config/retroarch/"
+	cp -v "$scriptdir/emu-cfgs/x360_wireless_controller/retroarch/desmume_libretro.cfg" "$config_home/.config/retroarch/"
 
 	# Alter Steam config.vdf with proper controls if controller exists
 	STEAM_GP_TYPE="x360wireless"
@@ -1451,7 +1451,7 @@ function gp_generic_usb()
 
 	# RetroArch
 	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/retroarch/retroarch.cfg" "$config_home/.config/retroarch/"
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/retroarch/retroarch-desmume.cfg" "$config_home/.config/retroarch/"
+	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/retroarch/desmume_libretro.cfg" "$config_home/.config/retroarch/"
 
 	# copy over default cfgs for ES:
 	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
