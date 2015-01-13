@@ -93,7 +93,7 @@ function gp_ps3_blu()
 	# Stella
 	# default path: /home/$USER/.config/mupen64plus
 	# Main config
-	#cp -v "$scriptdir/emu-cfgs/ps3_blu_controller/Stella/stellarc" "$config_home/.stella/"
+	cp -v "$scriptdir/emu-cfgs/ps3_blu_controller/Stella/stellarc" "$config_home/.stella/"
 
 	# PPSSPP
 	cp -v "$scriptdir/emu-cfgs/ps3_blu_controller/PPSSPP/ppsspp.ini" "$config_home/.config/ppsspp/PSP/SYSTEM/"
@@ -108,8 +108,7 @@ function gp_ps3_blu()
 
 	# RetroArch
 	cp -v "$scriptdir/emu-cfgs/ps3_blu_controller/retroarch/retroarch.cfg" "$config_home/.config/retroarch/"
-	cp -v "$scriptdir/emu-cfgs/ps3_blu_controller/retroarch/desmume_libretro.cfg" "$config_home/.config/retroarch/"
-	cp -v "$scriptdir/emu-cfgs/ps3_blu_controller/retroarch/stella_libretro.cfg" "$config_home/.config/retroarch/"
+	cp -v "$scriptdir/emu-cfgs/ps3_blu_controller/retroarch/retroarch-desmume.cfg" "$config_home/.config/retroarch/"
 
 	# Alter Steam config.vdf with proper controls if controller exists
 	STEAM_GP_TYPE="ps3blu"
@@ -126,6 +125,12 @@ function gp_ps3_blu()
 
 	###############################################################################################
 	# Add emulator specifc control remaps here for AniMicro
+	###############################################################################################
+	# set vars for pre/post command for the PPSSPP emulator in RCB
+	# We need this unforuntely, since the SDL/sixad mapping are so screwy, we need ot use 
+	# keyboard.Esc instead of a button press (PS button is an axis in sixad anyway).
+	# It is very important that you preceed '&amp;' with a backslash to escape the '&' character
+	# so it is properly replaced. RCB requires '&amp' over the literal '&'.s
 	###############################################################################################
 
 	# copy in profiles for emulators (antimicro)
@@ -492,7 +497,9 @@ function ps3_set_emulator_ids()
 		# Dolphin
 		dolphin_MAC_BLU=$(joydetect /dev/input/js$i | awk -F'[^:[a-zA-Z0-9]*' '{print $6}')
 		# Stella (supports only 2 players )
-		# Stella_MAC_BLU=$(joydetect /dev/input/js$i | awk -F'[^:[a-zA-Z0-9]*' '{print $6}')
+		Stella_MAC_BLU=$(joydetect /dev/input/js$i | awk -F'[^:[a-zA-Z0-9]*' '{print $6}')
+		# Set MAC address for Steam Assignment
+		Steam_MAC_BLU=$(joydetect /dev/input/js$i | awk -F'[^:[a-zA-Z0-9]*' '{print $6}')
 
 	elif [ $n == "2" ]; then
 		
@@ -500,7 +507,7 @@ function ps3_set_emulator_ids()
 		# Dolphin
 		dolphin_MAC_BLU=$(joydetect /dev/input/js$i | awk -F'[^:[a-zA-Z0-9]*' '{print $6}')
 		# Stella (supports only 2 players )
-		# Stella_MAC_BLU=$(joydetect /dev/input/js$i | awk -F'[^:[a-zA-Z0-9]*' '{print $6}')
+		Stella_MAC_BLU=$(joydetect /dev/input/js$i | awk -F'[^:[a-zA-Z0-9]*' '{print $6}')
 
 	elif [ $n == "3" ]; then
 	        
@@ -520,7 +527,7 @@ function ps3_set_emulator_ids()
 	fi
 
 	echo -e "Controller ID/MAC Address applied to the Dolphin emulator Controller $n was:\n$dolphin_MAC_BLU"
-	#echo -e "\nController ID/MAC Address applied to the Stella emulator Controller $n was:\n$Stella_MAC_BLU"
+	echo -e "\nController ID/MAC Address applied to the Stella emulator Controller $n was:\n$Stella_MAC_BLU"
 
 	# Assign controller ID for Dolphin
 	## GC ##
@@ -531,7 +538,7 @@ function ps3_set_emulator_ids()
 	sed -i "s|MAC_TEMP_$n|$dolphin_MAC_BLU|g" "$config_home/.dolphin-emu/Wii/Config/WiimoteNew.ini"
 
 	# Assign controller ID for Stella
-	# sed -i "s|MAC_TEMP_$n|$Stella_MAC_BLU|g" "$config_home/.stella/stellarc"
+	sed -i "s|MAC_TEMP_$n|$Stella_MAC_BLU|g" "$config_home/.stella/stellarc"
 	
 	sleep 2
 
@@ -597,7 +604,7 @@ function gp_ps3_usb()
 	# Stella
 	# default path: /home/$USER/.retrorig/.config/mupen64plus
 	# Main config
-	#cp -v "$scriptdir/emu-cfgs/ps3_usb_controller/Stella/stellarc" "$config_home/.stella/"
+	cp -v "$scriptdir/emu-cfgs/ps3_usb_controller/Stella/stellarc" "$config_home/.stella/"
 
 	# PCSX2
 	# base config folder
@@ -619,8 +626,7 @@ function gp_ps3_usb()
 
 	# RetroArch
 	cp -v "$scriptdir/emu-cfgs/ps3_usb_controller/retroarch/retroarch.cfg" "$config_home/.config/retroarch/"
-	cp -v "$scriptdir/emu-cfgs/ps3_usb_controller/retroarch/desmume_libretro.cfg" "$config_home/.config/retroarch/"
-	cp -v "$scriptdir/emu-cfgs/ps3_usb_controller/retroarch/stella_libretro.cfg" "$config_home/.config/retroarch/"
+	cp -v "$scriptdir/emu-cfgs/ps3_usb_controller/retroarch/retroarch-desmume.cfg" "$config_home/.config/retroarch/"
 
 	# Alter Steam config.vdf with proper controls if controller exists
 	STEAM_GP_TYPE="ps3usb"
@@ -697,6 +703,12 @@ RetorRig loads to use the gamepad" 14 60
 
 	###############################################################################################
 	# Add emulator specifc control remaps here for AniMicro
+	###############################################################################################
+	# set vars for pre/post command for the PPSSPP emulator in RCB
+	# We need this unforuntely, since the SDL/sixad mapping are so screwy, we need ot use 
+	# keyboard.Esc instead of a button press (PS button is an axis in sixad anyway).
+	# It is very important that you preceed '&amp;' with a backslash to escape the '&' character
+	# so it is properly replaced. RCB requires '&amp' over the literal '&'.s
 	###############################################################################################
 
 	# copy in profiles for emulators (antimicro)
@@ -877,7 +889,7 @@ function gp_x360_wireless()
 	#Stella
 	#default path: /home/$USER/.config/mupen64plus
 	#Main config
-	#cp -v "$scriptdir/emu-cfgs/x360_wireless_controller/Stella/stellarc" "$config_home/.stella/"
+	cp -v "$scriptdir/emu-cfgs/x360_wireless_controller/Stella/stellarc" "$config_home/.stella/"
 
 	# PPSSPP
 	cp -v "$scriptdir/emu-cfgs/x360_wireless_controller/PPSSPP/ppsspp.ini" "$config_home/.config/ppsspp/PSP/SYSTEM/"
@@ -888,8 +900,7 @@ function gp_x360_wireless()
 
 	# RetroArch
 	cp -v "$scriptdir/emu-cfgs/x360_wireless_controller/retroarch/retroarch.cfg" "$config_home/.config/retroarch/"
-	cp -v "$scriptdir/emu-cfgs/x360_wireless_controller/retroarch/desmume_libretro.cfg" "$config_home/.config/retroarch/"
-	cp -v "$scriptdir/emu-cfgs/x360_wireless_controller/retroarch/stella_libretro.cfg" "$config_home/.config/retroarch/"
+	cp -v "$scriptdir/emu-cfgs/x360_wireless_controller/retroarch/retroarch-desmume.cfg" "$config_home/.config/retroarch/"
 
 	# Alter Steam config.vdf with proper controls if controller exists
 	STEAM_GP_TYPE="x360wireless"
@@ -1429,7 +1440,7 @@ function gp_generic_usb()
 	#Stella
 	#default path: /home/$USER/.config/mupen64plus
 	#Main config
-	#cp -v "$scriptdir/emu-cfgs/generic_usb_controller/Stella/stellarc" "$config_home/.stella/"
+	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/Stella/stellarc" "$config_home/.stella/"
 
 	# PPSSPP
 	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/PPSSPP/ppsspp.ini" "$config_home/.config/ppsspp/PSP/SYSTEM/"
@@ -1440,8 +1451,7 @@ function gp_generic_usb()
 
 	# RetroArch
 	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/retroarch/retroarch.cfg" "$config_home/.config/retroarch/"
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/retroarch/desmume_libretro.cfg" "$config_home/.config/retroarch/"
-	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/retroarch/stella_libretro.cfg" "$config_home/.config/retroarch/"
+	cp -v "$scriptdir/emu-cfgs/generic_usb_controller/retroarch/retroarch-desmume.cfg" "$config_home/.config/retroarch/"
 
 	# copy over default cfgs for ES:
 	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
@@ -1522,6 +1532,9 @@ RetorRig loads to use the gamepad" 14 62
 
 	###########################################################
 	# Add emulator specifc control remaps here for AniMicro
+	###########################################################
+	# Note: In due time, AntiMicro may replace qjoypad for all
+	# emulator control hotswaps for gamepads
 	###########################################################
 
 	# copy in profiles for emulators (antimicro)
@@ -1726,8 +1739,7 @@ function enable_rr_autostart()
 	
 	if [ "$rr_autostart" == "enabled" ]; then
 		# create autostart entry, remove prior if it exists
-		echo "removing autostart entry"
-		rm -f "$home/.config/autostart/RetroRig-ES.desktop"
+		rm -f "$home.config/autostart/RetroRig-ES.desktop"
 		cp -v "$scriptdir/es-cfgs/extra/RetroRig-ES.desktop" "$home/.config/autostart"
 		# fix permissions
 		chmod 755 "$home/.config/autostart/RetroRig-ES.desktop"
@@ -1821,3 +1833,87 @@ options=(1 "Real Wiimote"
 	done
 
 }
+
+gp_steam_control()
+{
+
+	# set Steam controls based on current controller type
+	# note: $STEAM_GP_TYPE is set in rrs_gamepad
+	# This function will also take care of if the user already has other
+	# Settings defined for Steam, such as login information etc.
+	# *Very early draft
+
+	########################################################################
+	##################### !!!!!!!!UNFINISHED!!!!!!!!!!!#####################
+	########################################################################
+
+	# Config.vdf file evaulation
+	if [ ! -d "$home/.local/share/Steam/config/config.vdf" ]; then
+		# copy existing user file to avoid reconfiguration
+		cp -v "$home/.local/share/Steam/config/config.vdf" "$config_home/.local/share/Steam/config"
+
+		# Now check if SDL Bindings are in place
+		if grep -q grep "\bSDL_GamepadBind\b" "$config_home/.local/share/Steam/config/config.vdf"
+			# ascertain current bindings to var
+			then STEAM_GP_ORIG=$(grep "\bSDL_GamepadBind\b" "$config_home/.local/share/Steam/config/config.vdf")
+		else
+			# Bindings do not exist, fall back to skeleton file
+			# Unfortunately, this means user must login again
+			cp -v "$scriptdir/es-cfgs/extra/Steam/config.vdf" "$config_home/.local/share/Steam/config"
+			# Set var to skeleton file place holder
+			STEAM_GP_ORIG="SDL_BIND_TEMP"
+		fi
+	else
+		# copy skeleton file instead
+		# Unfortunately, this means user must login again
+		cp -v "$scriptdir/es-cfgs/extra/Steam/config.vdf" "$config_home/.local/share/Steam/config"
+		# Set var to skeleton file place holder
+		STEAM_GP_ORIG="SDL_BIND_TEMP"
+	fi
+
+	# change controls
+	# User can always set controls manually, but if we can make it easier for them
+	# Let's make it happen :)
+	case $STEAM_GP_TYPE in
+
+
+		x360wireless)
+			# set keybinding value
+			STEAM_GP_NEW=$(<"$scriptdir/gamepad-cfgs/x360_wireless_controller/x360wireless_steam.txt")
+			# change controller bindings
+			sed -i "s|$STEAM_GP_ORIG|$STEAM_GP_NEW|g" "$config_home/.local/share/Steam/config/config.vdf"
+			;;
+
+		x360usb)
+			# set keybinding value
+			STEAM_GP_NEW=$(<"$scriptdir/gamepad-cfgs/x360_usb_controller/x360usb_steam.txt")
+			# change controller bindings
+			sed -i "s|$STEAM_GP_ORIG|$STEAM_GP_NEW|g" "$config_home/.local/share/Steam/config/config.vdf"
+			;;
+
+		ps3blu)
+			# set keybinding value
+			STEAM_GP_NEW=$(<"$scriptdir/gamepad-cfgs/ps3_blu_controller/ps3blu_steam.txt")
+			# change controller bindings
+			sed -i "s|$STEAM_GP_ORIG|$STEAM_GP_NEW|g" "$config_home/.local/share/Steam/config/config.vdf"
+			# replace MAC address in keybinding file
+			sed -i "s|steam_mac_tmp|$Steam_MAC_BLU|g" "$config_home/.local/share/Steam/config/config.vdf"
+			;;
+
+		ps3usb)
+			# set keybinding value
+			STEAM_GP_NEW=$(<"$scriptdir/gamepad-cfgs/ps3_usb_controller/ps3usb_steam.txt")
+			# change controller bindings
+			sed -i "s|$STEAM_GP_ORIG|$STEAM_GP_NEW|g" "$config_home/.local/share/Steam/config/config.vdf"
+			;;
+
+		generic_usb)
+			# set keybinding value
+			STEAM_GP_NEW=$(<"$scriptdir/gamepad-cfgs/ps3_usb_controller/generic_usb_steam.txt")
+			# change controller bindings
+			sed -i "s|$STEAM_GP_ORIG|$STEAM_GP_NEW|g" "$config_home/.local/share/Steam/config/config.vdf"
+			;;
+	esac		
+
+}
+
