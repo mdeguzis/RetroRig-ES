@@ -1831,11 +1831,13 @@ options=(1 "Real Wiimote"
 gp_steam_control()
 {
 
+	########################################################################
 	# set Steam controls based on current controller type
 	# note: $STEAM_GP_TYPE is set in rrs_gamepad
 	# This function will also take care of if the user already has other
 	# Settings defined for Steam, such as login information etc.
 	# *Very early draft
+	########################################################################
 
 	########################################################################
 	##################### !!!!!!!!UNFINISHED!!!!!!!!!!!#####################
