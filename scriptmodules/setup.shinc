@@ -188,14 +188,22 @@ function rrs_prepareFolders()
 	pathlist+=("$config_home/.emulationstation")
 	pathlist+=("$config_home/.emulationstation/themes")
 
-	#BIOS folder(s)
-	pathlist+=("$rootdir/BIOS/MESS")
-	pathlist+=("$rootdir/BIOS/MAME")
-	pathlist+=("$rootdir/BIOS/Gens")
-	# Note: PS1 BIOS path is set in mednafen under:
-	# filesys.path_firmware
-	pathlist+=("$rootdir/BIOS/Mednafen")
-	pathlist+=("$rootdir/BIOS/PCSX2")
+	#BIOS folder(s) - remove once the following new folders are tested...
+	#pathlist+=("$rootdir/BIOS/MESS")
+	#pathlist+=("$rootdir/BIOS/MAME")
+	#pathlist+=("$rootdir/BIOS/Gens")
+	#pathlist+=("$rootdir/BIOS/Mednafen")
+	#pathlist+=("$rootdir/BIOS/PCSX2")
+	#pathlist+=("$rootdir/BIOS/Retroarch")
+	
+	# Beta changes: Create BIOS folders by system, not emulator
+	pathlist+=("$rootdir/BIOS/Neo Geo AES")
+	pathlist+=("$rootdir/BIOS/Neo Geo CDZ")
+	pathlist+=("$rootdir/BIOS/Atari Lynx")
+	pathlist+=("$rootdir/BIOS/Playstation 1")
+	pathlist+=("$rootdir/BIOS/Playstation 2")
+	pathlist+=("$rootdir/BIOS/Sega CD")
+	pathlist+=("$rootdir/BIOS/Sega Saturn")
 
 	# folder for savestates 
 	# Moved if statements below to backup folders
