@@ -59,7 +59,7 @@ For all other features and future plans, please see the [wiki](https://github.co
 ## Wiki
 
 First, I must direct you to read the wiki on this github page, as it contains extra information outside this wiki. A large amount of tips, tricks, and how-to information is located on this, all for your benefit. This may be replicated to this repository, or stay on its own.
-https://github.com/ProfessorKaos64/RetroRig/wiki
+https://github.com/ProfessorKaos64/RetroRig-ES/wiki
 
 **Please also note**  
 You may add the `--help` flag to the script for a quick help file. Come on, do it, it has psychedelic colorrrrsss!
