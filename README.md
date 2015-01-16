@@ -35,7 +35,7 @@ wiki entries under "Installation," and "Advanced Configuration," or checkout the
 
 ## Some current features include
 
-For all other features and future plans, please see the [wiki](https://github.com/ProfessorKaos64/RetroRig/wiki/Development-and-Features)
+For all other features and future plans, please see the [wiki](https://github.com/ProfessorKaos64/RetroRig-ES/wiki/Development-and-Features)
 
 * Gamepad friendly support for at least 20 amazing consoles
 * Concentration on a console-like experience from bootup to shutdown
@@ -101,7 +101,7 @@ You can also download a zip file or by other means on the github page.
 
 ## Updating
 
-The retrorig-setup.sh script also currently contains mechanisms to upgrade the OS, update the
+The retrorig-setup-es.sh script also currently contains mechanisms to upgrade the OS, update the
 emulator binaries, and also a way to pull the latest files from github. 
 
 ## Please Note
