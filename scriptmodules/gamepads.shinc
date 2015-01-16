@@ -1169,6 +1169,10 @@ function gp_x360_usb()
 
 	# Gens GS (Sega CD/32X)
 	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/GensGS/gens.cfg" "$config_home/.gens/"
+	
+	# RetroArch
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/retroarch/retroarch.cfg" "$config_home/.config/retroarch/"
+	cp -v "$scriptdir/emu-cfgs/x360_usb_controller/retroarch/desmume_libretro.cfg" "$config_home/.config/retroarch/"
 
 	# copy over default cfgs for ES:
 	cp -v "$scriptdir/es-cfgs/es_systems.cfg" "$es_home"
@@ -1362,8 +1366,6 @@ received the wrong LED, unplug and plug the USB cable back in until you get the 
 
 function gp_generic_usb()
 {
-
-	# !!!!!!! SECTION NEEDS DONE !!!!!!!!!!!!!!
 
 	####################################################################
 	# Function Description:
