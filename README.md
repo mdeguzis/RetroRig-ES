@@ -75,6 +75,7 @@ You will need git, dialog to run the installer and for updating:
 RetroRig will try to install them automatically for you (for instance, if you download the zip archive), but if you
 experience any issues starting the script,enusre they exist with the CLI commands 'which dialog' 
 and 'which git" to ensure they report back. Please also ensure your graphics card or onboard graphics chipset supports OpenGL. 
+
 All install commands below are done on the command line. You can however doubleclick on the Debian package to install it.
 
 ##### Preferred method: package installation
@@ -95,7 +96,7 @@ cd RetroRig-ES
 sudo ./retrorig-es-setup.sh
 ````
 
-The main disitribution target is Ubuntu 14.04 LTS, but support for other platforms is being worked on. For a currernt list of supported platofrms and distributions, see [this](https://github.com/ProfessorKaos64/RetroRig/wiki/Installation#platforms) wiki entry. You can also perform a `git checkout Beta` to try our Beta branch, but please do so with caution and backup any file before hand!
+The main disitribution target is Ubuntu 14.04 LTS, but support for other platforms is being worked on. For a currernt list of supported platofrms and distributions, see [this](https://github.com/ProfessorKaos64/RetroRig/wiki/Installation#platforms) wiki entry. Support for Ubuntu 15.04 is being worked on. You can also perform a `git checkout Beta` to try our Beta branch, but please do so with caution and backup any file before hand!
 
 You can also download a zip file or by other means on the github page.
 
