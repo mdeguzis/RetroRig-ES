@@ -91,107 +91,47 @@ function em_install_deb_emulators()
 	ln -vs "$config_home/.config/pcsx2/" "$HOME/.config"
 
 	#####################################################################
-	# Dolphin (Nintendo Gamecube)
+	# Install emaulators
 	#####################################################################
 
-	# Installed via Glenric's PPA
-	echo "Installing Nintendo Gamecube emulator Dolphin"
-	# Note: Glenric's PPA uses dolphin-emu-master, not dolphin-emu for Trusty
-	# other wise install dolphin-emu
-
-	$cmd_install_pkg dolphin-emu-master
-
-
-	#####################################################################
-	# PPSSPP (PSP)
-	#####################################################################
-
-	echo "Installing Playstation Portable emulator ppsspp"
-
-        #install from RetroRig PPA
-	$cmd_install_pkg ppsspp
-
-	#####################################################################
-	# Stella (Atari 2600)
-	#####################################################################
-
-        # Install from hunter-kaller PPA
-	# Install stella core
-	# Use libretro* for all packages
-	$cmd_install_pkg retroarch libretro-stella
-
-	#####################################################################
-	# Mupen64plus (Sega Saturn)
-	#####################################################################
-	
 	# Installed via RetroRig PPA
-	echo "Installing mupen64plus emulator"
-	$cmd_install_pkg mupen64plus
-
-	#####################################################################
-	# MAME (multi-system)
-	#####################################################################
-
-	# Installed via core repos (kept up to date as of 20150107)
-	echo "Installing MAME emulator"
-	$cmd_install_pkg mame
-
-
-	#####################################################################
-	# Mednafen (multi-system)
-	#####################################################################
-
-	# Installed via core repos
-	echo "Installing Mednafen emulator"
-	$cmd_install_pkg mednafen
-
-	#####################################################################
-	# MESS (multi-system)
-	#####################################################################
-
-	# Installed via core repos (kept up to date as of 20150107)
-	echo "Installing MESS emulator"
-	$cmd_install_pkg mess
-
-	#####################################################################
-	# Gens (Genesis/Sega CD/Saturn)
-	#####################################################################
+	echo "Installing Atari Jaguar emulator VirtualJaguar"
+	$cmd_install_pkg libretro-virtualjaguar
 
 	# Installed via RetroRig PPA
 	echo "Installing Gens Sega Genesis/CD/32X emulator"
 	$cmd_install_pkg gens
 
+	# Installed via Glenric's PPA
+	# Note: Glenric's PPA uses dolphin-emu-master, not dolphin-emu for Trusty
+	# other wise install dolphin-emu
+	echo "Installing Nintendo Gamecube emulator Dolphin"
+	$cmd_install_pkg dolphin-emu-master
+
+	#install from original PPA
+	echo "Installing Playstation Portable emulator ppsspp"
+	$cmd_install_pkg ppsspp
+
+	# Installed via standart Ubuntu upstream
+	echo "Installing mupen64plus emulator"
+	$cmd_install_pkg mupen64plus
+
+	# Installed via core repos (kept up to date as of 20150107)
+	echo "Installing MAME emulator"
+	$cmd_install_pkg mame
+
+	# Installed via core repos
+	echo "Installing Mednafen emulator"
+	$cmd_install_pkg mednafen
+
+	# Installed via core repos (kept up to date as of 20150107)
+	echo "Installing MESS emulator"
+	$cmd_install_pkg mess
+	
+	# Install from hunter-kaller PPA
+	# Install stella core
+	# Use libretro* for all packages
+	echo "Installing Atari emulator stella"
+	$cmd_install_pkg retroarch libretro-stella
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
