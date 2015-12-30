@@ -494,7 +494,7 @@ function rrs_source_syscalls()
 
 			case $OS_RELEASE in
 
-				14.04|15.04|15.10)
+				14.04|15.04)
 					source "$scriptdir/scriptmodules/syscalls-debian.shinc"
 					platform_check="Yes"
 					pkg_manager="apt/aptitude"
@@ -707,7 +707,7 @@ function rrs_software()
 
 			case $OS_RELEASE in
 
-				14.04|15.04|15.10)
+				14.04|15.04)
 					# source install module
 					source "$scriptdir/scriptmodules/debian-install.shinc"
 					echo "Debian based install detected...installing packages"
