@@ -376,26 +376,27 @@ loader_type="ROM"
 while true; do
 cmd=(dialog --backtitle "LibreGeek.org RetroRig Installer" --menu "Load ROMs for which system?" 20 32 24)
 options=(1 "Atari 2600"
-	 2 "Atari Lynx" 
-	 3 "NES" 
-	 4 "SNES" 
-	 5 "Nintendo 64"
-	 6 "Nintendo DS"
-	 7 "MAME"
-	 8 "Sega Master System"
-	 9 "Sega Game Gear"
-	 10 "Sega Genesis"
-	 11 "Sega CD"
-	 12 "Sega 32X"
-	 13 "Nintendo GBA"
-	 14 "Nintendo GBC"
-	 15 "TurboGraphx 16"
-	 16 "Neo-Geo CDZ"
-	 17 "Neo-Geo AES"
-	 18 "Sony PSP"
-	 19 "Sony PSX/PS1"
-	 20 "Sony PS2"
-	 21 "Exit ROM Loader")
+	 2 "Atari Jaguar"
+	 3 "Atari Lynx" 
+	 4 "NES" 
+	 5 "SNES" 
+	 6 "Nintendo 64"
+	 7 "Nintendo DS"
+	 8 "MAME"
+	 9 "Sega Master System"
+	 10 "Sega Game Gear"
+	 11 "Sega Genesis"
+	 12 "Sega CD"
+	 13 "Sega 32X"
+	 14 "Nintendo GBA"
+	 15 "Nintendo GBC"
+	 16 "TurboGraphx 16"
+	 17 "Neo-Geo CDZ"
+	 18 "Neo-Geo AES"
+	 19 "Sony PSP"
+	 20 "Sony PSX/PS1"
+	 21 "Sony PS2"
+	 22 "Exit ROM Loader")
 
 	#make menu choice
 	choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
@@ -416,13 +417,22 @@ options=(1 "Atari 2600"
 		2)
 		#call file loader
 		h_file_loader
+		#copy Atari Jaguar ROMs
+		if [ -n "$folder" ]; then
+			cp -R "$folder"/* "$rootdir/ROMs/Atari Jaguar/"
+		fi
+		;;
+
+		3)
+		#call file loader
+		h_file_loader
 		#copy Atari Lynx ROMs
 		if [ -n "$folder" ]; then
 			cp -R "$folder"/* "$rootdir/ROMs/Atari Lynx/"
 		fi
 		;;
 
-		3)
+		4)
 		#call file loader  	
 		h_file_loader
 		#copy NES ROMs
@@ -431,7 +441,7 @@ options=(1 "Atari 2600"
 		fi
 		;;
 
-		4)
+		5)
 		#call file loader  	
 		h_file_loader
 		#copy SNES ROMs
@@ -440,7 +450,7 @@ options=(1 "Atari 2600"
 		fi
 		;;
 
-		5)
+		6)
 		#call file loader  	
 		h_file_loader
 		#copy N64 ROMs
@@ -449,7 +459,7 @@ options=(1 "Atari 2600"
 		fi
 		;;
 
-		6)
+		7)
 		#call file loader  	
 		h_file_loader
 		#copy DS ROMs
@@ -458,7 +468,7 @@ options=(1 "Atari 2600"
 		fi
 		;;
 
-		7)
+		8)
 		#call file loader  	
 		h_file_loader
 		#copy MAME ROMs
@@ -467,7 +477,7 @@ options=(1 "Atari 2600"
 		fi
 		;;
 
-		8)
+		9)
 		#call file loader  	
 		h_file_loader
 		#copy Sega Master System ROMs
@@ -476,7 +486,7 @@ options=(1 "Atari 2600"
 		fi
 		;;
 
-		9)
+		10)
 		#call file loader  	
 		h_file_loader
 		#copy Sega Game Gear ROMs
@@ -485,7 +495,7 @@ options=(1 "Atari 2600"
 		fi
 		;;
 
-		10)
+		11)
 		#call file loader  	
 		h_file-loader
 		#copy Sega Genesis ROMs
@@ -494,7 +504,7 @@ options=(1 "Atari 2600"
 		fi
 		;;
 
-		11)
+		12)
 		#call file loader  	
 		h_file_loader
 		#copy Sega CD ROMs
@@ -503,7 +513,7 @@ options=(1 "Atari 2600"
 		fi
 		;;
 
-		12)  
+		13)  
 		#call file loader  	
 		h_file_loader
 		#copy Sega 32X ROMs
@@ -512,7 +522,7 @@ options=(1 "Atari 2600"
 		fi
 		;;
 
-		13)  
+		14)  
 		#call file loader  	
 		h_file_loader
 		#copy GBC ROMs
@@ -521,7 +531,7 @@ options=(1 "Atari 2600"
 		fi
 		;;
 
-		14)  
+		15)  
 		#call file loader  	
 		h_file_loader
 		#copy GBC ROMs
@@ -530,7 +540,7 @@ options=(1 "Atari 2600"
 		fi
 		;;
 
-		15)  
+		16)  
 		#call file loader  	
 		h_file_loader
 		#copy Turbographx 16 ROMs
@@ -539,7 +549,7 @@ options=(1 "Atari 2600"
 		fi
 		;;
 
-		16)  
+		17)  
 		#call file loader  	
 		h_file_loader
 		#copy Neo Geo CDZ ROMs
@@ -548,7 +558,7 @@ options=(1 "Atari 2600"
 		fi
 		;;
 
-		17)  
+		18)  
 		#call file loader  	
 		h_file_loader
 		#copy Neo Geo AES ROMs
@@ -557,7 +567,7 @@ options=(1 "Atari 2600"
 		fi
 		;;
 
-		18)  
+		19)  
 		#call file loader  	
 		h_file_loader
 		#copy PSP ROMs
@@ -566,7 +576,7 @@ options=(1 "Atari 2600"
 		fi
 		;;
 
-		19)  
+		20)  
 		#call file loader  	
 		h_file_loader
 		#copy PS1/PSX ROMs
@@ -575,7 +585,7 @@ options=(1 "Atari 2600"
 		fi
 		;;
 
-		20)  
+		21)  
 		#call file loader  	
 		h_file_loader
 		#copy PS2 ROMs
@@ -584,7 +594,7 @@ options=(1 "Atari 2600"
 		fi
 		;;
 
-		21)  
+		22)  
 		return
 		;;
 
