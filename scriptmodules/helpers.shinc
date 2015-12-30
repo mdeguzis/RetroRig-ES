@@ -377,6 +377,7 @@ while true; do
 cmd=(dialog --backtitle "LibreGeek.org RetroRig Installer" --menu "Load ROMs for which system?" 20 32 24)
 options=(1 "Atari 2600"
 	 2 "Atari Lynx" 
+	 22 "Atari Jaguar"
 	 3 "NES" 
 	 4 "SNES" 
 	 5 "Nintendo 64"
@@ -419,6 +420,15 @@ options=(1 "Atari 2600"
 		#copy Atari Lynx ROMs
 		if [ -n "$folder" ]; then
 			cp -R "$folder"/* "$rootdir/ROMs/Atari Lynx/"
+		fi
+		;;
+
+		22)
+		#call file loader
+		h_file_loader
+		#copy Atari Jaguar ROMs
+		if [ -n "$folder" ]; then
+			cp -R "$folder"/* "$rootdir/ROMs/Atari Jaguar/"
 		fi
 		;;
 
