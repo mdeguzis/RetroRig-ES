@@ -86,6 +86,7 @@ function rrs_prepareFolders()
                 echo "Creating blank folder set"
                 #setup skelton folders for ROMs
 		pathlist+=("$rootdir/ROMs/Atari 2600")
+		pathlist+=("$rootdir/Artwork/Atari Jaguar")
 		pathlist+=("$rootdir/ROMs/Atari Lynx")
 		pathlist+=("$rootdir/ROMs/Gamecube")
 		pathlist+=("$rootdir/ROMs/MAME")
@@ -147,6 +148,7 @@ function rrs_prepareFolders()
 
 	#Saves (if any)
 	pathlist+=("$rootdir/Saves/Atari 2600")
+	pathlist+=("$rootdir/Saves/Atari Jaguar")
 	pathlist+=("$rootdir/Saves/Atari Lynx")
 	pathlist+=("$rootdir/Saves/MAME")
 	pathlist+=("$rootdir/Saves/dolphin-emu/GC")
@@ -480,7 +482,10 @@ function rrs_source_syscalls()
 	# Source the correct syscalls for platform
 	# This largely alludes to the default package manager
 	echo "Setting syscalls based on default package manager..."
-
+	
+	# Release references:
+	# Ubuntu: https://wiki.ubuntu.com/Releases
+	
 	# set default var strings
 	exit_unsupported="no"
 	
@@ -489,21 +494,11 @@ function rrs_source_syscalls()
 
 			case $OS_RELEASE in
 
-				14.04)
+				14.04|15.04|15.10)
 					source "$scriptdir/scriptmodules/syscalls-debian.shinc"
 					platform_check="Yes"
 					pkg_manager="apt/aptitude"
 					init_system="upstart"
-					;;
-
-				14.10)
-					source "$scriptdir/scriptmodules/syscalls-debian.shinc"
-					platform_check="Pending Utopic packages"
-					pkg_manager="apt/aptitude"
-					init_system="upstart"
-
-					# disabling support until install is fixed. 20141228, PK
-					exit_unsupported="yes"
 					;;
 
 				*)
@@ -606,13 +601,16 @@ function rrs_add_standard_repos()
 	# install package repositories and missing libraries
 	########################################################
 
+	# output running OS release
+	echo "Currently running: ${OS_TYPE} ${OS_RELEASE}\n"
+
 	case $OS_TYPE in
 		"Ubuntu")
 			#find version of operating system
 
 
 			###############################################################
-			# Add our standport Debian repositories for various pkgs
+			# Add our standard PPA repositories for various pkgs
 			###############################################################
 			# add respository for RetroRig backends (dolphin, mednafen,...)
 			# Using standard packages for now from system repos unless needed...
@@ -626,26 +624,7 @@ function rrs_add_standard_repos()
 			$cmd_add_repo ppa:emulationstation/ppa
 			# add emulator repostories
 			em_add_debian_repos
-
-			case $OS_RELEASE in
-
-				14.04)
-
-					echo "running Ubuntu 14.04 LTS"
-					;;
-
-				14.10)
-
-					echo "running Ubuntu 14.10"
-
-					# no repos for now unless needed. EmulationStation may handle X window position much better
-					# than XBMC
-
-					;;
-
-				*)
-					;;
-			esac
+			
 		;;
 
 		LinuxMint)
@@ -677,6 +656,7 @@ function rrs_add_standard_repos()
 					;;
 			esac
 		;;
+
 		Deepin)
 
 			###############################################################
@@ -695,14 +675,6 @@ function rrs_add_standard_repos()
 			# add emulator repostories
 			em_add_debian_repos
 
-			case $OS_RELEASE in
-				"2014")
-					echo "running Deepin 2014"
-					;;
-
-				*)
-					;;
-			esac
 		;;
 
 		*)
@@ -735,19 +707,9 @@ function rrs_software()
 
 			case $OS_RELEASE in
 
-				14.04)
+				14.04|15.04|15.10)
 					# source install module
 					source "$scriptdir/scriptmodules/debian-install.shinc"
-					echo "Debian based install detected...installing packages"
-					deb_install_core_pkgs
-					rrs_sysv_openrc_init
-					deb_debug_routine
-					;;
-
-				14.10)
-					# source install module
-					source "$scriptdir/scriptmodules/debian-install.shinc"
-					# Commence software install routine
 					echo "Debian based install detected...installing packages"
 					deb_install_core_pkgs
 					rrs_sysv_openrc_init
