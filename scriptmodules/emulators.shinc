@@ -9,6 +9,10 @@
 
 function em_add_debian_repos()
 {
+	#########################
+	# RetroRig-ES PPA
+	#########################
+	
 	# Note: system update for repos occurs in rrs_software
 	# The ppa:mdeguzis/retrorig PPA is added in rrs_add_standard_repos
 	# We want to maintain as little as possible to decrease overhead
@@ -31,17 +35,15 @@ function em_add_debian_repos()
 	#########################
 	# PPSSPP
 	#########################
-	# The ppsspp/stable PPA is 20 wks old as of 20150104
-	# $cmd_add_repo ppa:ppsspp/stable
-
-	# Use retorigs PPA version, maintained by us (contains SDL2)
-	# This will need maintained with our build script in /supplemental
+	# Use testing for now, testing seems fine for basic game tests
+	$cmd_add_repo ppa:ppsspp/testing
 
 	#########################
 	# Retroarch / Libretro
 	#########################
 	# Official Libretro team
 	$cmd_add_repo ppa:libretro/stable
+	
 	# Alternative (limited pkgs)
 	# $cmd_add_repo ppa:hunter-kaller/ppa
 
